@@ -205,6 +205,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146441609-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-146441609-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -411,29 +449,86 @@
         
 
         
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Coding</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
             
+              <a class="dropdown-item" href="/python/" data-target="python/"><span>Python</span></a>
+            
+              <a class="dropdown-item" href="/java/" data-target="java/"><span>Java</span></a>
+            
+              <a class="dropdown-item" href="/go/" data-target="go/"><span>Go</span></a>
+            
+              <a class="dropdown-item" href="/javascript/" data-target="javascript/"><span>JavaScript</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
           
-          
+        
+
+        
+        
+        
+        
+        
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#projects" data-target="#projects"><span>Projects</span></a>
+          <a class="nav-link " href="/linux/"><span>Linux</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/devops/"><span>DevOps</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/networking/"><span>Networking</span></a>
         </li>
 
         
@@ -1080,252 +1175,6 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
     </div>
   </section>
 
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-
-  <section id="gallery" class="home-section wg-blank   "  >
-    <div class="container">
-      
-
-
-<div class="row">
-  
-    <div class="col-12 col-lg-4 section-heading">
-      <h1>Gallery</h1>
-      
-    </div>
-    <div class="col-12 col-lg-8">
-      
-
-
-
-
-
-
-
-  
-  
-
-
-<div class="gallery">
-
-  
-  
-  
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-1950s.png" >
-  <img data-src="/home/gallery/gallery/theme-1950s_huaf5482f8cea0c5a703a328640e3b7509_21614_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-apogee.png" >
-  <img data-src="/home/gallery/gallery/theme-apogee_hu4b45d99db97150df01464c393bfd17d4_24119_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-coffee-playfair.png" >
-  <img data-src="/home/gallery/gallery/theme-coffee-playfair_hu446a8f670cc5622adcc77b97ba95f6c5_22462_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-dark.png" >
-  <img data-src="/home/gallery/gallery/theme-dark_hu1e8601ecc47f58eada7743fdcd709d3d_21456_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-default.png" >
-  <img data-src="/home/gallery/gallery/theme-default_huba6228b7bdf30e2f03f12ea91b2cba0d_21751_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-forest.png" >
-  <img data-src="/home/gallery/gallery/theme-forest_hu4f093a1c683134431456584193ea41ee_21797_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-ocean.png" >
-  <img data-src="/home/gallery/gallery/theme-ocean_hu14831ccafc2219f30a7a096fa7617e01_21760_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-    
-    
-    
-    
-    
-  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/theme-strawberry.png" >
-  <img data-src="/home/gallery/gallery/theme-strawberry_hu36b0b347fcca08bd39e2df22dcedbdfb_39532_0x190_resize_lanczos_2.png" class="lazyload" alt="" width="124" height="190">
-  </a>
-  
-
-  
-</div>
-
-    </div>
-  
-</div>
-
-    </div>
-  </section>
-
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-
-  <section id="tags" class="home-section wg-tag-cloud   "  >
-    <div class="container">
-      
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-<div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>Popular Topics</h1>
-    
-  </div>
-  <div class="col-12 col-lg-8">
-    
-
-    
-
-      
-      
-      
-      
-      
-      
-
-      <div class="tag-cloud">
-        
-          
-          
-          
-          <a href="/tag/academic/" style="font-size:0.7rem">Academic</a>
-        
-          
-          
-          
-          <a href="/tag/deep-learning/" style="font-size:0.7rem">Deep Learning</a>
-        
-          
-          
-          
-          <a href="/tag/demo/" style="font-size:0.7rem">Demo</a>
-        
-          
-          
-          
-          <a href="/tag/source-themes/" style="font-size:1.7302256254687514rem">Source Themes</a>
-        
-          
-          
-          
-          <a href="/tag/%E5%BC%80%E6%BA%90/" style="font-size:0.7rem">开源</a>
-        
-      </div>
-    
-
-  </div>
-</div>
-
-    </div>
-  </section>
-
 
 
       
@@ -1461,7 +1310,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
   
 
   <p class="powered-by">
-    ©2020 Flycoolman (Hongwei Li)
+    ©2020 flycoolman (Hongwei Li)
   </p>
 
   
