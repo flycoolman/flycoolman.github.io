@@ -33,7 +33,7 @@
   </url>
   
   <url>
-    <loc>/python/</loc>
+    <loc>/coding/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -43,12 +43,32 @@
   </url>
   
   <url>
+    <loc>/coding/python/</loc>
+    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/writing-technical-content/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/python/writing-technical-content/</loc>
+    <loc>/coding/python/writing-technical-content-python-3rd-copy/</loc>
+    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/writing-technical-content-python-another-copy/</loc>
+    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/writing-technical-content-python-copy/</loc>
+    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/writing-technical-content-python/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -103,7 +123,27 @@
   </url>
   
   <url>
-    <loc>/python/jupyter/</loc>
+    <loc>/coding/python/jupyter-python-3rd-copy/</loc>
+    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/jupyter-python-4th-copy/</loc>
+    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/jupyter-python-another-copy/</loc>
+    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/jupyter-python-copy/</loc>
+    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/jupyter-python/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -153,7 +193,37 @@
   </url>
   
   <url>
-    <loc>/python/getting-started/</loc>
+    <loc>/post/getting-started-3rd-copy/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/getting-started-another-copy/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/getting-started-python3rd-copy/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/getting-started-pythonanother-copy/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/getting-started-copy/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/getting-started-python/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/getting-started-python-copy/</loc>
     <lastmod>2019-04-17T00:00:00+00:00</lastmod>
   </url>
   
