@@ -277,4 +277,28 @@
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
+  <url>
+    <loc>/devops/</loc>
+  </url>
+  
+  <url>
+    <loc>/coding/go/</loc>
+  </url>
+  
+  <url>
+    <loc>/coding/java/</loc>
+  </url>
+  
+  <url>
+    <loc>/coding/javascript/</loc>
+  </url>
+  
+  <url>
+    <loc>/linux/</loc>
+  </url>
+  
+  <url>
+    <loc>/networking/</loc>
+  </url>
+  
 </urlset>
