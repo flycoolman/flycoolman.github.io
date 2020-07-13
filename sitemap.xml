@@ -168,39 +168,7 @@
   </url>
   
   <url>
-    <loc>/coding/</loc>
-  </url>
-  
-  <url>
     <loc>/courses/</loc>
-  </url>
-  
-  <url>
-    <loc>/devops/</loc>
-  </url>
-  
-  <url>
-    <loc>/coding/go/</loc>
-  </url>
-  
-  <url>
-    <loc>/coding/java/</loc>
-  </url>
-  
-  <url>
-    <loc>/coding/javascript/</loc>
-  </url>
-  
-  <url>
-    <loc>/linux/</loc>
-  </url>
-  
-  <url>
-    <loc>/networking/</loc>
-  </url>
-  
-  <url>
-    <loc>/coding/python/</loc>
   </url>
   
 </urlset>
