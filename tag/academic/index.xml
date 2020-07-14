@@ -5,7 +5,7 @@
     <link>/tag/academic/</link>
       <atom:link href="/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com</copyright><lastBuildDate>Sat, 11 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Tue, 14 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Academic</title>
@@ -13,13 +13,33 @@
     </image>
     
     <item>
-      <title>Build A Free Website In Minutes - 1</title>
-      <link>/post/build-a-free-website-in-minutes-1/</link>
+      <title>Build A Free Website In Minutes - Part 2</title>
+      <link>/post/build-a-free-website-in-minutes-part-2/</link>
+      <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/build-a-free-website-in-minutes-part-2/</guid>
+      <description>&lt;p&gt;To learn more about prerequisites and tools, please check out the 
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;hugo-theme&#34;&gt;Hugo Theme&lt;/h2&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;hugo-uninstall&#34;&gt;Hugo Uninstall&lt;/h2&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;academic&#34;&gt;Academic&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;This part has not been finished. Please stay tuned!&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build A Free Website In Minutes - Part 1</title>
+      <link>/post/build-a-free-website-in-minutes-part-1/</link>
       <pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-1/</guid>
+      <guid>/post/build-a-free-website-in-minutes-part-1/</guid>
       <description>&lt;p&gt;When I create this website, I find that there are no documents to walk me through each step from &amp;lsquo;Hello World&amp;rsquo; to deployment till customization. This makes me have the idea to create one and help others to understand the whole process. In this tutorial, we will use the tools &lt;strong&gt;GitHub Pages&lt;/strong&gt;, &lt;strong&gt;Hugo&lt;/strong&gt; and &lt;strong&gt;Academic&lt;/strong&gt;.&lt;br&gt;
 This is the 
-&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
+&lt;br&gt;
 &lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
 &lt;p&gt;Before contiduing this tutorial, you should have the basic knowledge of the following items:&lt;/p&gt;
 &lt;ul&gt;
@@ -29,6 +49,7 @@ This is the
 &lt;li&gt;HTTPS&lt;/li&gt;
 &lt;li&gt;DNS&lt;/li&gt;
 &lt;/ul&gt;
+&lt;br&gt;
 &lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
 &lt;h3 id=&#34;github-pages&#34;&gt;GitHub Pages&lt;/h3&gt;
 &lt;p&gt;
@@ -38,11 +59,88 @@ This is the
 &lt;a href=&#34;https://gohugo.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo&lt;/a&gt; is a fast and modern static site generator written in Go.&lt;/p&gt;
 &lt;h3 id=&#34;academic&#34;&gt;Academic&lt;/h3&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://themes.gohugo.io/academic/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Academic&lt;/a&gt; The website builder for Hugo. Build &lt;em&gt;anything&lt;/em&gt; with widgets and deploy with one click! Fully personalize your site with themes, plugins, and language packs.&lt;/p&gt;
+&lt;a href=&#34;https://themes.gohugo.io/academic/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Academic&lt;/a&gt; is a website builder for Hugo. Build &lt;em&gt;anything&lt;/em&gt; with widgets and personalize your site with themes, plugins, and language packs.&lt;/p&gt;
+&lt;br&gt;
 &lt;h2 id=&#34;how-to-use-the-tools&#34;&gt;How to Use the Tools&lt;/h2&gt;
-&lt;p&gt;From the brief introduction above, you have alrady known what the tools are and might already figure out how to use them. Basically we will use&lt;br&gt;
-&lt;strong&gt;To Be Continued&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h3&gt;
+&lt;p&gt;From the brief introduction above, you have known what the tools are. Basically we will use Hugo to generate the website, personalize it with Academic, and deploy it to GitHub Pages. Now let&amp;rsquo;s put hands on it. We will start from &amp;lsquo;Hello World&amp;rsquo;.&lt;/p&gt;
+&lt;h3 id=&#34;hello-world-of-github-pages&#34;&gt;Hello World of GitHub Pages&lt;/h3&gt;
+&lt;p&gt;Please follow the 
+&lt;a href=&#34;https://pages.github.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Pages Hello World Guide&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;hello-world-of-hugo&#34;&gt;Hello World of Hugo&lt;/h3&gt;
+&lt;p&gt;Hugo official site has 
+&lt;a href=&#34;https://gohugo.io/getting-started/quick-start/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;a quick start on macOS&lt;/a&gt;. But it may not install the latest version of Hugo, like on Ubuntu 18.04, the Hugo version is quite old if installing by &lt;strong&gt;apt&lt;/strong&gt;. I will introduce the steps on Ubuntu 18.04 here.&lt;/p&gt;
+&lt;h4 id=&#34;step-1---install&#34;&gt;Step 1 - Install&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p temp
+cd temp/
+wget https://github.com/gohugoio/hugo/releases/download/v0.73.0/hugo_0.73.0_Linux-64bit.deb
+sudo dpkg -i hugo_0.73.0_Linux-64bit.deb
+hugo version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output like below&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Hugo Static Site Generator v0.73.0-428907CC linux/amd64 BuildDate: 2020-06-23T16:30:43Z&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;step-2---new-site&#34;&gt;Step 2 - New Site&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;sudo rm hugo_0.73.0_Linux-64bit.deb 
+mkdir hugo-sites
+cd hugo-sites/
+hugo new site hello-world
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output like below&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Congratulations! Your new Hugo site is created in /home/hongwei/temp/hugo-sites/hello-world.&lt;/p&gt;
+&lt;p&gt;Just a few more steps and you&amp;rsquo;re ready to go:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Download a theme into the same-named folder.
+Choose a theme from https://themes.gohugo.io/ or
+create your own with the &amp;ldquo;hugo new theme &lt;THEMENAME&gt;&amp;rdquo; command.&lt;/li&gt;
+&lt;li&gt;Perhaps you want to add some content. You can add single files
+with &amp;ldquo;hugo new &lt;SECTIONNAME&gt;/&lt;FILENAME&gt;.&lt;FORMAT&gt;&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Start the built-in live server via &amp;ldquo;hugo server&amp;rdquo;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Visit https://gohugo.io/ for quickstart guide and full documentation.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let&amp;rsquo;s see the structure of the directory&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd hello-world
+tree
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output like below&lt;br&gt;
+&lt;img src=&#34;./folder_structure.png&#34; alt=&#34;folder structure&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s check the result&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now go to http://127.0.0.1:1313, you get a blank page.&lt;/p&gt;
+&lt;h4 id=&#34;step-3---hello-world&#34;&gt;Step 3 - Hello World&lt;/h4&gt;
+&lt;p&gt;To ask the website to say &amp;lsquo;Hello World&amp;rsquo;, we need to add content and template.&lt;br&gt;
+Add a file named &lt;strong&gt;_index.md&lt;/strong&gt; in the fold of &lt;strong&gt;content&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd content/
+vi _index.md
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The file content&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;---&lt;br&gt;
+title: Hello, World!&lt;br&gt;
+description: |&lt;br&gt;
+    My personal site.&lt;br&gt;
+---&lt;/p&gt;
+&lt;p&gt;Welcome to my personal site.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Add a html template file named &lt;strong&gt;index.html&lt;/strong&gt; in the fold of &lt;strong&gt;layouts&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ..
+cd layouts/
+vi index.html
+cd ..  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To check the result&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hugo server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you get the &amp;lsquo;Hello World&amp;rsquo; page.
+&lt;img src=&#34;./hugo-hello-world.png&#34; alt=&#34;hugo-hello-world&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;To customize the website, we will discuss Hugo theme and Academic in 
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-2&lt;/a&gt;.&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
     </item>
     
