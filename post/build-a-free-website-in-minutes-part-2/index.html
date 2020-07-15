@@ -667,7 +667,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    2 min read
   </span>
   
 
@@ -719,12 +719,86 @@
     <div class="article-style">
       <p>To learn more about prerequisites and tools, please check out the 
 <a href="https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/" target="_blank" rel="noopener">Part-1</a> of this series.</p>
-<br>
 <h2 id="hugo-theme">Hugo Theme</h2>
+<h3 id="step-1---create-a-new-site">Step 1 - Create a new site</h3>
+<pre><code>hugo new site hello-theme
+</code></pre>
+<h3 id="step-2---download-the-ananke-theme">Step 2 - Download the ananke theme</h3>
+<pre><code>wget https://github.com/budparr/gohugo-theme-ananke/archive/master.zip
+</code></pre>
+<h3 id="step-3---extract-that-zip-file-to-get-a-gohugo-theme-ananke-master-directory">Step 3 - Extract that .zip file to get a “gohugo-theme-ananke-master” directory</h3>
+<pre><code>unzip master.zip
+</code></pre>
+<h3 id="step-4---rename-that-directory-to-ananke-and-move-it-into-the-themes-directory">Step 4 - Rename that directory to “ananke”, and move it into the “themes/” directory</h3>
+<pre><code>mv gohugo-theme-ananke-master/ ananke/
+mv ananke/ themes/ananke
+</code></pre>
+<h3 id="step-5---add-the-theme-to-the-site-configuration">Step 5 - Add the theme to the site configuration</h3>
+<pre><code>echo 'theme = &quot;ananke&quot;' &gt;&gt; config.toml
+</code></pre>
+<h3 id="step-6---add-some-content-and-change-the-header-of-the-post-to-say-draft-false">Step 6 - Add some content and change the header of the post to say draft: false</h3>
+<pre><code>hugo new posts/hello-hugo-theme-post.md
+vi content/posts/hello-hugo-theme-post.md
+</code></pre>
+<h3 id="step-7---check-the-result">Step 7 - Check the result</h3>
+<pre><code>hugo server
+</code></pre>
+<p><img src="./hello-hugo-theme.png" alt="hello-hugo-theme"></p>
 <br>
 <h2 id="hugo-uninstall">Hugo Uninstall</h2>
+<p><strong>Use the below command to remove the package of Hugo</strong></p>
+<pre><code>sudo apt-get remove --auto-remove hugo
+</code></pre>
+<blockquote>
+<p>Reading package lists&hellip; Done<br>
+Building dependency tree<br>
+Reading state information&hellip; Done<br>
+The following packages will be REMOVED:<br>
+   hugo<br>
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.<br>
+After this operation, 44.5 MB disk space will be freed.<br>
+Do you want to continue? [Y/n] y<br>
+(Reading database &hellip; 252044 files and directories currently installed.)<br>
+Removing hugo (0.73.0) &hellip;<br>
+dpkg: warning: while removing hugo, directory &lsquo;/usr/local/bin&rsquo; not empty so not removed</p>
+</blockquote>
+<div class="alert alert-note">
+  <div>
+    As Academic requires Hugo extended version, that&rsquo;s the reason that the standard version is uninstalled.
+  </div>
+</div>
 <br>
-<h2 id="academic">Academic</h2>
+<h2 id="hello-academic">Hello Academic</h2>
+<div class="alert alert-note">
+  <div>
+    Academic is a site builder, it is a hugo site itself.
+  </div>
+</div>
+<h3 id="install-hugo-extended-version">Install Hugo Extended Version</h3>
+<pre><code>wget https://github.com/gohugoio/hugo/releases/download/v0.73.0/hugo_extended_0.73.0_Linux-64bit.deb
+sudo dpkg -i hugo_extended_0.73.0_Linux-64bit.deb 
+hugo version
+</code></pre>
+<p>The output below shows the information of Hugo extended version.</p>
+<blockquote>
+<p>Hugo Static Site Generator v0.73.0-428907CC/extended linux/amd64 BuildDate: 2020-06-23T16:40:09Z</p>
+</blockquote>
+<h3 id="heading"></h3>
+<p><a href="https://sourcethemes.com/academic/docs/install-locally/#install-with-zip">https://sourcethemes.com/academic/docs/install-locally/#install-with-zip</a></p>
+<p>Install:</p>
+<p>Download and extract Academic Kickstart</p>
+<p>wget <a href="https://github.com/sourcethemes/academic-kickstart/archive/master.zip">https://github.com/sourcethemes/academic-kickstart/archive/master.zip</a>
+unzip master.zip
+rm master.zip</p>
+<p>Download and extract the Academic theme files from the hugo-academic-master folder to the themes/academic/ folder in Academic Kickstart</p>
+<p>wget <a href="https://github.com/gcushen/hugo-academic/archive/master.zip">https://github.com/gcushen/hugo-academic/archive/master.zip</a>
+unzip master.zip
+rm master.zip
+cp -r hugo-academic-master/* academic-kickstart-master/themes/academic/</p>
+<p>cd academic-kickstart-master/
+hugo server</p>
+<p><img src="./hello-academic.png" alt="hello-academic"></p>
+<p>Now you’re ready to personalize and view your site.</p>
 <p><strong>This part has not been finished. Please stay tuned!</strong></p>
 <br>
 <h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
