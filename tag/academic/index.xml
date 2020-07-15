@@ -83,23 +83,29 @@ hugo version
 &lt;blockquote&gt;
 &lt;p&gt;Hugo Static Site Generator v0.73.0-428907CC/extended linux/amd64 BuildDate: 2020-06-23T16:40:09Z&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&#34;heading&#34;&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/#install-with-zip&#34;&gt;https://sourcethemes.com/academic/docs/install-locally/#install-with-zip&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Install:&lt;/p&gt;
-&lt;p&gt;Download and extract Academic Kickstart&lt;/p&gt;
-&lt;p&gt;wget &lt;a href=&#34;https://github.com/sourcethemes/academic-kickstart/archive/master.zip&#34;&gt;https://github.com/sourcethemes/academic-kickstart/archive/master.zip&lt;/a&gt;
-unzip master.zip
-rm master.zip&lt;/p&gt;
-&lt;p&gt;Download and extract the Academic theme files from the hugo-academic-master folder to the themes/academic/ folder in Academic Kickstart&lt;/p&gt;
-&lt;p&gt;wget &lt;a href=&#34;https://github.com/gcushen/hugo-academic/archive/master.zip&#34;&gt;https://github.com/gcushen/hugo-academic/archive/master.zip&lt;/a&gt;
+&lt;h3 id=&#34;install-academic&#34;&gt;Install Academic&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This linke&lt;/a&gt; provides the different ways to install Academic.
+In this part, the 
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/#install-with-zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Install with ZIP&lt;/a&gt; way is used.&lt;/p&gt;
+&lt;h4 id=&#34;step-1---download-and-extract-academic-kickstart&#34;&gt;Step 1 - Download and extract Academic Kickstart&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;wget https://github.com/sourcethemes/academic-kickstart/archive/master.zip
 unzip master.zip
 rm master.zip
-cp -r hugo-academic-master/* academic-kickstart-master/themes/academic/&lt;/p&gt;
-&lt;p&gt;cd academic-kickstart-master/
-hugo server&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;step-2---download-and-extract-the-academic-theme-files-from-the-hugo-academic-master-folder-to-the-themesacademic-folder-in-academic-kickstart&#34;&gt;Step 2 - Download and extract the Academic theme files from the hugo-academic-master folder to the themes/academic/ folder in Academic Kickstart&lt;/h4&gt;
+&lt;p&gt;wget &lt;a href=&#34;https://github.com/gcushen/hugo-academic/archive/master.zip&#34;&gt;https://github.com/gcushen/hugo-academic/archive/master.zip&lt;/a&gt;
+unzip master.zip
+rm master.zip&lt;/p&gt;
+&lt;h4 id=&#34;step-3---copy-the-hugo-academic-master-folder-to-the-themesacademic-folder-in-academic-kickstart&#34;&gt;Step 3 - Copy the hugo-academic-master folder to the themes/academic/ folder in Academic Kickstart&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cp -r hugo-academic-master/* academic-kickstart-master/themes/academic/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;step-4---check-the-result&#34;&gt;Step 4 - Check the result&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart-master/
+hugo server
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;./hello-academic.png&#34; alt=&#34;hello-academic&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Now you’re ready to personalize and view your site.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;This part has not been finished. Please stay tuned!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In next part, we will install everything in GitHub.&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
