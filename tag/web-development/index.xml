@@ -5,7 +5,7 @@
     <link>/tag/web-development/</link>
       <atom:link href="/tag/web-development/index.xml" rel="self" type="application/rss+xml" />
     <description>Web Development</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Tue, 14 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Wed, 15 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Web Development</title>
@@ -13,99 +13,110 @@
     </image>
     
     <item>
-      <title>Build A Free Website In Minutes - Part 2</title>
-      <link>/post/build-a-free-website-in-minutes-part-2/</link>
-      <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-2/</guid>
-      <description>&lt;p&gt;To learn more about prerequisites and tools, please check out the 
-&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
-&lt;h2 id=&#34;hugo-theme&#34;&gt;Hugo Theme&lt;/h2&gt;
-&lt;h3 id=&#34;step-1---create-a-new-site&#34;&gt;Step 1 - Create a new site&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;hugo new site hello-theme
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-2---download-the-ananke-theme&#34;&gt;Step 2 - Download the ananke theme&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;wget https://github.com/budparr/gohugo-theme-ananke/archive/master.zip
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-3---extract-that-zip-file-to-get-a-gohugo-theme-ananke-master-directory&#34;&gt;Step 3 - Extract that .zip file to get a “gohugo-theme-ananke-master” directory&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;unzip master.zip
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-4---rename-that-directory-to-ananke-and-move-it-into-the-themes-directory&#34;&gt;Step 4 - Rename that directory to “ananke”, and move it into the “themes/” directory&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;mv gohugo-theme-ananke-master/ ananke/
-mv ananke/ themes/ananke
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-5---add-the-theme-to-the-site-configuration&#34;&gt;Step 5 - Add the theme to the site configuration&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;echo &#39;theme = &amp;quot;ananke&amp;quot;&#39; &amp;gt;&amp;gt; config.toml
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-6---add-some-content-and-change-the-header-of-the-post-to-say-draft-false&#34;&gt;Step 6 - Add some content and change the header of the post to say draft: false&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;hugo new posts/hello-hugo-theme-post.md
-vi content/posts/hello-hugo-theme-post.md
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-7---check-the-result&#34;&gt;Step 7 - Check the result&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;hugo server
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./hello-hugo-theme.png&#34; alt=&#34;hello-hugo-theme&#34;&gt;&lt;/p&gt;
+      <title>Build A Free Website In Minutes - Part 3</title>
+      <link>/post/build-a-free-website-in-minutes-part-3/</link>
+      <pubDate>Wed, 15 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/build-a-free-website-in-minutes-part-3/</guid>
+      <description>&lt;p&gt;In 
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; and 
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-2&lt;/a&gt;
+we introduced the basic knowledges of the tools to help understand how they work. From this part, we will focus on building our real website.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-18-04-quickstart&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Download and install Git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Download and install Hugo Extended Version&lt;br&gt;
+Please follow the part of &amp;lsquo;Install Hugo Extended Version&amp;rsquo; in 
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-2&lt;/a&gt; of this tutorial.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;br&gt;
-&lt;h2 id=&#34;hugo-uninstall&#34;&gt;Hugo Uninstall&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Use the below command to remove the package of Hugo&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sudo apt-get remove --auto-remove hugo
-&lt;/code&gt;&lt;/pre&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Reading package lists&amp;hellip; Done&lt;br&gt;
-Building dependency tree&lt;br&gt;
-Reading state information&amp;hellip; Done&lt;br&gt;
-The following packages will be REMOVED:&lt;br&gt;
-   hugo&lt;br&gt;
-0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.&lt;br&gt;
-After this operation, 44.5 MB disk space will be freed.&lt;br&gt;
-Do you want to continue? [Y/n] y&lt;br&gt;
-(Reading database &amp;hellip; 252044 files and directories currently installed.)&lt;br&gt;
-Removing hugo (0.73.0) &amp;hellip;&lt;br&gt;
-dpkg: warning: while removing hugo, directory &amp;lsquo;/usr/local/bin&amp;rsquo; not empty so not removed&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    As Academic requires Hugo extended version, that&amp;rsquo;s the reason that the standard version is uninstalled.
-  &lt;/div&gt;
-&lt;/div&gt;
+&lt;h2 id=&#34;github-repositories&#34;&gt;GitHub Repositories&lt;/h2&gt;
+&lt;h3 id=&#34;github-pages-repository&#34;&gt;GitHub Pages Repository&lt;/h3&gt;
+&lt;p&gt;Please follow the guide on 
+&lt;a href=&#34;https://pages.github.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Pages&lt;/a&gt; to create the repository correctly.&lt;/p&gt;
+&lt;h3 id=&#34;academic-kickstart-repository&#34;&gt;Academic-kickstart Repository&lt;/h3&gt;
+&lt;p&gt;Go to the GitHub page of 
+&lt;a href=&#34;https://github.com/sourcethemes/academic-kickstart&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;academic-kickstart&lt;/a&gt; and fork the repository to your GitHub account. The pictures below show the source of academic-kickstart page and the forked repository in my account.&lt;/p&gt;
+&lt;p&gt;Academic-kickstart source page
+&lt;img src=&#34;./fork-academic-kickstart.png&#34; alt=&#34;before-forked&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The forked repository in my account
+&lt;img src=&#34;./forked-academic-kickstart.png&#34; alt=&#34;after-forked&#34;&gt;&lt;/p&gt;
 &lt;br&gt;
-&lt;h2 id=&#34;hello-academic&#34;&gt;Hello Academic&lt;/h2&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Academic is a site builder, it is a hugo site itself.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;install-hugo-extended-version&#34;&gt;Install Hugo Extended Version&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;wget https://github.com/gohugoio/hugo/releases/download/v0.73.0/hugo_extended_0.73.0_Linux-64bit.deb
-sudo dpkg -i hugo_extended_0.73.0_Linux-64bit.deb 
-hugo version
+&lt;h2 id=&#34;local-environment&#34;&gt;Local Environment&lt;/h2&gt;
+&lt;h3 id=&#34;step-1---git-clone-ltusernamegtgithubio-to-local&#34;&gt;Step 1 - git clone &amp;lt;username&amp;gt;.github.io to local&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/your-user-name/your-user-name.github.io.git
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The output below shows the information of Hugo extended version.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Hugo Static Site Generator v0.73.0-428907CC/extended linux/amd64 BuildDate: 2020-06-23T16:40:09Z&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;install-academic&#34;&gt;Install Academic&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This linke&lt;/a&gt; provides the different ways to install Academic.
-In this part, the 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/#install-with-zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Install with ZIP&lt;/a&gt; way is used.&lt;/p&gt;
-&lt;h4 id=&#34;step-1---download-and-extract-academic-kickstart&#34;&gt;Step 1 - Download and extract Academic Kickstart&lt;/h4&gt;
-&lt;pre&gt;&lt;code&gt;wget https://github.com/sourcethemes/academic-kickstart/archive/master.zip
-unzip master.zip
-rm master.zip
+&lt;h3 id=&#34;step-2---git-clone-academic-kickstart-to-local&#34;&gt;Step 2 - git clone academic-kickstart to local&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/your-user-name/academic-kickstart.git
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;step-2---download-and-extract-the-academic-theme-files-from-the-hugo-academic-master-folder-to-the-themesacademic-folder-in-academic-kickstart&#34;&gt;Step 2 - Download and extract the Academic theme files from the hugo-academic-master folder to the themes/academic/ folder in Academic Kickstart&lt;/h4&gt;
-&lt;p&gt;wget &lt;a href=&#34;https://github.com/gcushen/hugo-academic/archive/master.zip&#34;&gt;https://github.com/gcushen/hugo-academic/archive/master.zip&lt;/a&gt;
-unzip master.zip
-rm master.zip&lt;/p&gt;
-&lt;h4 id=&#34;step-3---copy-the-hugo-academic-master-folder-to-the-themesacademic-folder-in-academic-kickstart&#34;&gt;Step 3 - Copy the hugo-academic-master folder to the themes/academic/ folder in Academic Kickstart&lt;/h4&gt;
-&lt;pre&gt;&lt;code&gt;cp -r hugo-academic-master/* academic-kickstart-master/themes/academic/
+&lt;h3 id=&#34;step-3---initialize-the-theme&#34;&gt;Step 3 - Initialize the theme&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+git submodule update --init --recursive
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;step-4---check-the-result&#34;&gt;Step 4 - Check the result&lt;/h4&gt;
-&lt;pre&gt;&lt;code&gt;cd academic-kickstart-master/
-hugo server
+&lt;h3 id=&#34;step-4---set-base-url-in-configtoml&#34;&gt;Step 4 - Set base url in config.toml&lt;/h3&gt;
+&lt;p&gt;In your config.toml file, set baseurl = &amp;ldquo;https://&amp;lt;USERNAME&amp;gt;.github.io/&amp;rdquo;, where &amp;lt;USERNAME&amp;gt; is your Github username. Stop Hugo if it’s running and delete the public directory if it exists (by typing &lt;strong&gt;rm -r public/&lt;/strong&gt;).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vi config.toml
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The example for my site
+&lt;img src=&#34;./base-url-in-config-toml.png&#34; alt=&#34;after-forked&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-5---add-githubio-repository-into-academic-kickstart&#34;&gt;Step 5 - Add .github.io repository into Academic-kickstart&lt;/h3&gt;
+&lt;p&gt;Add .github.io repository as a submodule in a folder named &amp;lsquo;public&amp;rsquo;, replacing with your Github username.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+git submodule add -f -b master https://github.com/your-user-name/your-user-name.github.io.git public
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-6---remove-initial-index-file&#34;&gt;Step 6 - Remove initial index file&lt;/h3&gt;
+&lt;p&gt;Delete the &amp;lsquo;index.html&amp;rsquo; file in the folder of &amp;lsquo;public&amp;rsquo;, if there is one.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd public  
+rm index.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-7---build-your-website&#34;&gt;Step 7 - Build your website&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+hugo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-8---deploy-to-github&#34;&gt;Step 8 - Deploy to GitHub&lt;/h3&gt;
+&lt;p&gt;Add everything to your local git repository and push it up to your remote repository on GitHub.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+cd public
+git add .
+git comment -m &amp;quot;Initial commit&amp;quot;
+git push
+
+cd academic-kickstart/
+git add .
+git comment -m &amp;quot;Initial commit&amp;quot;
+git push    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Whilst running the above commands you may be prompted for your GitHub username and password.&lt;/p&gt;
+&lt;p&gt;Once uploading is finished, access https://&amp;lt;USERNAME&amp;gt;.github.io in your browser, substituting with your GitHub username.
+You will see a page like below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;./hello-academic.png&#34; alt=&#34;hello-academic&#34;&gt;&lt;/p&gt;
-&lt;p&gt;In next part, we will install everything in GitHub.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;build-academic-demo-like-site&#34;&gt;Build Academic Demo Like Site&lt;/h2&gt;
+&lt;p&gt;To initialise your site with the demo content, copy the contents of the themes/academic/exampleSite/ folder to your website root folder, overwriting existing files if necessary. The exampleSite folder contains an example config file and content to help you get started.&lt;/p&gt;
+&lt;h3 id=&#34;step-1---replace-the-content&#34;&gt;Step 1 - Replace the content&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+cp -av themes/academic/exampleSite/* .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-2---build-the-site&#34;&gt;Step 2 - Build the site&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+hugo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-3---deploy-to-github&#34;&gt;Step 3 - Deploy to GitHub&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+cd public
+git add .
+git comment -m &amp;quot;Initial commit&amp;quot;
+git push
+
+cd academic-kickstart/
+git add .
+git comment -m &amp;quot;Initial commit&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once uploading is finished, refresh the page in your browser, the page shows like below picture.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./academic-demo-site.png&#34; alt=&#34;academic-demo-site&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Up to now, we have an Academic demo-like website up and running. In next part, we will personalize the website.&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
@@ -113,9 +124,9 @@ hugo server
     
     <item>
       <title>Build A Free Website In Minutes - Part 2</title>
-      <link>/post/build-a-free-website-in-minutes-part-3/</link>
+      <link>/post/build-a-free-website-in-minutes-part-2/</link>
       <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-3/</guid>
+      <guid>/post/build-a-free-website-in-minutes-part-2/</guid>
       <description>&lt;p&gt;To learn more about prerequisites and tools, please check out the 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
 &lt;h2 id=&#34;hugo-theme&#34;&gt;Hugo Theme&lt;/h2&gt;
@@ -228,6 +239,11 @@ This is the
 &lt;li&gt;HTTPS&lt;/li&gt;
 &lt;li&gt;DNS&lt;/li&gt;
 &lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    If you are familiar with these and just want to build your website quickly, you can jump to &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-3/&#34;&gt;Part-3&lt;/a&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
 &lt;h3 id=&#34;github-pages&#34;&gt;GitHub Pages&lt;/h3&gt;
