@@ -5,12 +5,100 @@
     <link>/tag/academic/</link>
       <atom:link href="/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Wed, 15 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 16 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Academic</title>
       <link>/tag/academic/</link>
     </image>
+    
+    <item>
+      <title>Build A Free Website In Minutes - Part 4</title>
+      <link>/post/build-a-free-website-in-minutes-part-4/</link>
+      <pubDate>Thu, 16 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/post/build-a-free-website-in-minutes-part-4/</guid>
+      <description>&lt;p&gt;We have the website up and running in 
+&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-3/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-3&lt;/a&gt;. If you have not completed that part, please do so before continuing this part.&lt;/p&gt;
+&lt;h2 id=&#34;personalize-academic-website&#34;&gt;Personalize Academic website&lt;/h2&gt;
+&lt;p&gt;This part will include the following sections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose the right theme&lt;/li&gt;
+&lt;li&gt;Set the site title&lt;/li&gt;
+&lt;li&gt;Set the copyright&lt;/li&gt;
+&lt;li&gt;Set the site icon&lt;/li&gt;
+&lt;li&gt;Select the sections&lt;/li&gt;
+&lt;li&gt;Set Google Analytics&lt;/li&gt;
+&lt;li&gt;Configure the Menu&lt;/li&gt;
+&lt;li&gt;Add dropdown menu&lt;/li&gt;
+&lt;li&gt;Add your content&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;choose-the-right-theme&#34;&gt;Choose the right theme&lt;/h3&gt;
+&lt;p&gt;Check out the 
+&lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;available themes&lt;/a&gt; and choose a design you love.
+Set the configuration in file &amp;lsquo;site_root/config/_default/params.toml&amp;rsquo;. I leave the default as is.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;theme = &amp;quot;minimal&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Replace the &amp;lsquo;site_root&amp;rsquo; with your site root directory.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;set-the-site-title&#34;&gt;Set the site title&lt;/h3&gt;
+&lt;p&gt;Set the title in file &amp;lsquo;site_root/config/_default/config.toml&amp;rsquo;. In my case, the &amp;lsquo;flycoolman&amp;rsquo; is used.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;title = &amp;quot;flycoolman&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;set-the-copyright&#34;&gt;Set the copyright&lt;/h3&gt;
+&lt;p&gt;Set the copyright in file &amp;lsquo;site_root/config/_default/config.toml&amp;rsquo;, i.e.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;copyright = &amp;quot;&amp;amp;copy;{year}  flycoolman.com All Rights Reserved&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;set-the-site-icon&#34;&gt;Set the site icon&lt;/h3&gt;
+&lt;p&gt;Save your icon image named icon.png and place the image in your root assets/images/ folder, creating the assets and images folders if they don’t already exist.&lt;/p&gt;
+&lt;h3 id=&#34;select-the-sections&#34;&gt;Select the sections&lt;/h3&gt;
+&lt;p&gt;All the sections of the demo home page in the folder &amp;lsquo;site_root/content/home&amp;rsquo;. See the picture below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./home-sections.png&#34; alt=&#34;home-sections&#34;&gt;&lt;/p&gt;
+&lt;p&gt;There is a setting called &amp;lsquo;active&amp;rsquo; in each file/section, just set the value to &amp;lsquo;false&amp;rsquo;, if you don&amp;rsquo;t want it in your home page.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./section-active.png&#34; alt=&#34;section-active&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;set-google-analytics&#34;&gt;Set Google Analytics&lt;/h3&gt;
+&lt;p&gt;Set the Google Analytics in file &amp;lsquo;site_root/config/_default/params.toml&amp;rsquo; with your Google Analytics Tracking ID.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;google_analytics = &amp;quot;UA-123456789-6&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    There are many parameters in the file &amp;lsquo;params.toml&amp;rsquo;, set the ones that you want. They are self-explained
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;configure-the-menu&#34;&gt;Configure the Menu&lt;/h3&gt;
+&lt;p&gt;The Menu on Navigation bar can be configured by change the settings in file &amp;lsquo;site_root/config/_default/menus.toml&amp;rsquo;, i.e.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Remove current one  by deleting or commenting out the corresponding item&lt;/li&gt;
+&lt;li&gt;Rename current one by changing the value of &amp;lsquo;name&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Add new one by adding additional part of &amp;lsquo;[[main]]&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Rearrange the order by changing the value of &amp;lsquo;weight&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./configure-menu.png&#34; alt=&#34;configure-menu&#34;&gt;
+&lt;img src=&#34;./menu-after-config.png&#34; alt=&#34;menu-after-config&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;add-dropdown-menu&#34;&gt;Add dropdown menu&lt;/h3&gt;
+&lt;p&gt;To create a dropdown sub-menu, add identifier = &amp;ldquo;something&amp;rdquo; to the parent item and parent = &amp;ldquo;something&amp;rdquo; to the child item.
+The pictures below show how to add dropdown menu in file &amp;lsquo;site_root/config/_default/menus.toml&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./dropdown-menu-settings.png&#34; alt=&#34;dropdwon-menu-settings&#34;&gt;
+&lt;img src=&#34;./dropdown-menu-example.png&#34; alt=&#34;dropdwon-menu-example&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;add-your-content&#34;&gt;Add your content&lt;/h3&gt;
+&lt;p&gt;Go to the folder &amp;lsquo;site_root/content/post/&amp;rsquo;, select one post as template, write your own post. Refer to the links below for markdown syntax.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;We are all set! Enjoy writing!&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;h4 id=&#34;how-to-academic&#34;&gt;How-To Academic&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/get-started/&#34;&gt;https://sourcethemes.com/academic/docs/get-started/&lt;/a&gt;
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/page-builder/&#34;&gt;https://sourcethemes.com/academic/docs/page-builder/&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;how-to-markdown&#34;&gt;How-To Markdown&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.markdownguide.org/basic-syntax/&#34;&gt;https://www.markdownguide.org/basic-syntax/&lt;/a&gt;
+&lt;a href=&#34;https://simplpost.com/markdown.html&#34;&gt;https://simplpost.com/markdown.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mscipio.github.io/post/utterances-comment-engine/&#34;&gt;https://mscipio.github.io/post/utterances-comment-engine/&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>Build A Free Website In Minutes - Part 3</title>
@@ -117,94 +205,6 @@ git push
 &lt;p&gt;&lt;img src=&#34;./academic-demo-site.png&#34; alt=&#34;academic-demo-site&#34;&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Up to now, we have an Academic demo-like website up and running. In next part, we will personalize the website.&lt;/p&gt;
-&lt;br&gt;
-&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Build A Free Website In Minutes - Part 4</title>
-      <link>/post/build-a-free-website-in-minutes-part-4/</link>
-      <pubDate>Wed, 15 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-4/</guid>
-      <description>&lt;p&gt;We have the website up and running in 
-&lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-3/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-3&lt;/a&gt;. If you have not completed that part, please do so before continuing this part.&lt;/p&gt;
-&lt;h2 id=&#34;personalize-academic-website&#34;&gt;Personalize Academic website&lt;/h2&gt;
-&lt;p&gt;This part will include the following sections:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Choose the right theme&lt;/li&gt;
-&lt;li&gt;Set the site title&lt;/li&gt;
-&lt;li&gt;Set the copyright&lt;/li&gt;
-&lt;li&gt;Set the site icon&lt;/li&gt;
-&lt;li&gt;Select the sections&lt;/li&gt;
-&lt;li&gt;Set Google Analytics&lt;/li&gt;
-&lt;li&gt;Configure the Menu&lt;/li&gt;
-&lt;li&gt;Add dropdown menu&lt;/li&gt;
-&lt;li&gt;Add your content&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;choose-the-right-theme&#34;&gt;Choose the right theme&lt;/h3&gt;
-&lt;p&gt;Check out the 
-&lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;available themes&lt;/a&gt; and choose a design you love.
-Set the configuration in file &amp;lsquo;site_root/config/_default/params.toml&amp;rsquo;. I leave the default as is.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;theme = &amp;quot;minimal&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Replace the &amp;lsquo;site_root&amp;rsquo; with your site root directory.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;set-the-site-title&#34;&gt;Set the site title&lt;/h3&gt;
-&lt;p&gt;Set the title in file &amp;lsquo;site_root/config/_default/config.toml&amp;rsquo;. In my case, the &amp;lsquo;flycoolman&amp;rsquo; is used.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;title = &amp;quot;flycoolman&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;set-the-copyright&#34;&gt;Set the copyright&lt;/h3&gt;
-&lt;p&gt;Set the copyright in file &amp;lsquo;site_root/config/_default/config.toml&amp;rsquo;, i.e.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;copyright = &amp;quot;&amp;amp;copy;{year}  flycoolman.com All Rights Reserved&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;set-the-site-icon&#34;&gt;Set the site icon&lt;/h3&gt;
-&lt;p&gt;Save your icon image named icon.png and place the image in your root assets/images/ folder, creating the assets and images folders if they don’t already exist.&lt;/p&gt;
-&lt;h3 id=&#34;select-the-sections&#34;&gt;Select the sections&lt;/h3&gt;
-&lt;p&gt;All the sections of the demo home page in the folder &amp;lsquo;site_root/content/home&amp;rsquo;. See the picture below:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./home-sections.png&#34; alt=&#34;home-sections&#34;&gt;&lt;/p&gt;
-&lt;p&gt;There is a setting called &amp;lsquo;active&amp;rsquo; in each file/section, just set the value to &amp;lsquo;false&amp;rsquo;, if you don&amp;rsquo;t want it in your home page.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./section-active.png&#34; alt=&#34;section-active&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;set-google-analytics&#34;&gt;Set Google Analytics&lt;/h3&gt;
-&lt;p&gt;Set the Google Analytics in file &amp;lsquo;site_root/config/_default/params.toml&amp;rsquo; with your Google Analytics Tracking ID.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;google_analytics = &amp;quot;UA-123456789-6&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    There are many parameters in the file &amp;lsquo;params.toml&amp;rsquo;, set the ones that you want. They are self-explained
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;configure-the-menu&#34;&gt;Configure the Menu&lt;/h3&gt;
-&lt;p&gt;The Menu on Navigation bar can be configured by change the settings in file &amp;lsquo;site_root/config/_default/menus.toml&amp;rsquo;, i.e.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Remove current one  by deleting or commenting out the corresponding item&lt;/li&gt;
-&lt;li&gt;Rename current one by changing the value of &amp;lsquo;name&amp;rsquo;&lt;/li&gt;
-&lt;li&gt;Add new one by adding additional part of &amp;lsquo;[[main]]&amp;rsquo;&lt;/li&gt;
-&lt;li&gt;Rearrange the order by changing the value of &amp;lsquo;weight&amp;rsquo;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;./configure-menu.png&#34; alt=&#34;configure-menu&#34;&gt;
-&lt;img src=&#34;./menu-after-config.png&#34; alt=&#34;menu-after-config&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;add-dropdown-menu&#34;&gt;Add dropdown menu&lt;/h3&gt;
-&lt;p&gt;To create a dropdown sub-menu, add identifier = &amp;ldquo;something&amp;rdquo; to the parent item and parent = &amp;ldquo;something&amp;rdquo; to the child item.
-The pictures below show how to add dropdown menu in file &amp;lsquo;site_root/config/_default/menus.toml&amp;rsquo;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./dropdown-menu-settings.png&#34; alt=&#34;dropdwon-menu-settings&#34;&gt;
-&lt;img src=&#34;./dropdown-menu-example.png&#34; alt=&#34;dropdwon-menu-example&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;add-your-content&#34;&gt;Add your content&lt;/h3&gt;
-&lt;p&gt;Go to the folder &amp;lsquo;site_root/content/post/&amp;rsquo;, select one post as template, write your own post. Refer to the links below for markdown syntax.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;We are all set! Enjoy writing!&lt;/p&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
-&lt;h4 id=&#34;how-to-academic&#34;&gt;How-To Academic&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/get-started/&#34;&gt;https://sourcethemes.com/academic/docs/get-started/&lt;/a&gt;
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/page-builder/&#34;&gt;https://sourcethemes.com/academic/docs/page-builder/&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&#34;how-to-markdown&#34;&gt;How-To Markdown&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.markdownguide.org/basic-syntax/&#34;&gt;https://www.markdownguide.org/basic-syntax/&lt;/a&gt;
-&lt;a href=&#34;https://simplpost.com/markdown.html&#34;&gt;https://simplpost.com/markdown.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://mscipio.github.io/post/utterances-comment-engine/&#34;&gt;https://mscipio.github.io/post/utterances-comment-engine/&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
