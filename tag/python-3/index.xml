@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux | flycoolman</title>
-    <link>/linux/</link>
-      <atom:link href="/linux/index.xml" rel="self" type="application/rss+xml" />
-    <description>Linux</description>
+    <title>Python 3 | flycoolman</title>
+    <link>/tag/python-3/</link>
+      <atom:link href="/tag/python-3/index.xml" rel="self" type="application/rss+xml" />
+    <description>Python 3</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
-      <title>Linux</title>
-      <link>/linux/</link>
+      <title>Python 3</title>
+      <link>/tag/python-3/</link>
     </image>
     
     <item>

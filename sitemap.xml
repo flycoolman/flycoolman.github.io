@@ -18,12 +18,62 @@
   </url>
   
   <url>
-    <loc>/tag/academic/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
+    <loc>/authors/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/</loc>
+    <loc>/categories/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/author/hongwei-li/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/linux/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/linux/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/linux/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/python-3/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/system/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/linux/ubuntu-18.04-system-python-3-upgrade/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/update-alternatives/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/academic/</loc>
     <lastmod>2020-07-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,17 +88,7 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tag/github-pages/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/hongwei-li/</loc>
     <lastmod>2020-07-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -64,11 +104,6 @@
   
   <url>
     <loc>/tag/static-website/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-07-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -204,10 +239,6 @@
   
   <url>
     <loc>/coding/javascript/</loc>
-  </url>
-  
-  <url>
-    <loc>/linux/</loc>
   </url>
   
   <url>

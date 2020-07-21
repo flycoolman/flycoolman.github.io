@@ -85,7 +85,7 @@ The pictures below show how to add dropdown menu in file &amp;lsquo;site_root/co
 &lt;h3 id=&#34;add-your-content&#34;&gt;Add your content&lt;/h3&gt;
 &lt;p&gt;Go to the folder &amp;lsquo;site_root/content/post/&amp;rsquo;, select one post as template, write your own post. Refer to the links below for markdown syntax.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;We are all set! Enjoy writing!&lt;/p&gt;
+&lt;p&gt;All set! Enjoy writing!&lt;/p&gt;
 &lt;br&gt;
 &lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
 &lt;h4 id=&#34;how-to-academic&#34;&gt;How-To Academic&lt;/h4&gt;
@@ -95,6 +95,8 @@ The pictures below show how to add dropdown menu in file &amp;lsquo;site_root/co
 &lt;p&gt;&lt;a href=&#34;https://guides.github.com/features/mastering-markdown/&#34;&gt;https://guides.github.com/features/mastering-markdown/&lt;/a&gt;
 &lt;a href=&#34;https://www.markdownguide.org/basic-syntax/&#34;&gt;https://www.markdownguide.org/basic-syntax/&lt;/a&gt;
 &lt;a href=&#34;https://simplpost.com/markdown.html&#34;&gt;https://simplpost.com/markdown.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;add-utterances-comment-engine&#34;&gt;Add Utterances Comment Engine&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://mscipio.github.io/post/utterances-comment-engine/&#34;&gt;https://mscipio.github.io/post/utterances-comment-engine/&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>

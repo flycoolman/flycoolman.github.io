@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Software, Networking">
+  <meta name="description" content="Change to update-alternatives broke Ubuntu system.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/tags/">
+  <link rel="alternate" hreflang="en-us" href="/linux/ubuntu-18.04-system-python-3-upgrade/">
 
   
 
@@ -250,14 +250,12 @@
   
 
   
-  <link rel="alternate" href="/tags/index.xml" type="application/rss+xml" title="flycoolman">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/tags/">
+  <link rel="canonical" href="/linux/ubuntu-18.04-system-python-3-upgrade/">
 
   
   
@@ -267,38 +265,42 @@
   
   
     
-    
   
   
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
   
   <meta property="twitter:site" content="@flycoolman">
   <meta property="twitter:creator" content="@flycoolman">
   
   <meta property="og:site_name" content="flycoolman">
-  <meta property="og:url" content="/tags/">
-  <meta property="og:title" content="Tags | flycoolman">
-  <meta property="og:description" content="Software, Networking"><meta property="og:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png">
-  <meta property="twitter:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/linux/ubuntu-18.04-system-python-3-upgrade/">
+  <meta property="og:title" content="Ubuntu 18.04 System Python 3 Upgrade | flycoolman">
+  <meta property="og:description" content="Change to update-alternatives broke Ubuntu system."><meta property="og:image" content="/linux/ubuntu-18.04-system-python-3-upgrade/featured.jpeg">
+  <meta property="twitter:image" content="/linux/ubuntu-18.04-system-python-3-upgrade/featured.jpeg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-07-20T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2020-07-20T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-07-21T00:00:00&#43;00:00">
   
-
-  
-
-
-
-
-  
-
 
   
 
 
 
+  
 
 
-  <title>Tags | flycoolman</title>
+  
+
+
+  
+
+
+
+
+
+  <title>Ubuntu 18.04 System Python 3 Upgrade | flycoolman</title>
 
 </head>
 
@@ -439,7 +441,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/linux/"><span>Linux</span></a>
+          <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
         </li>
 
         
@@ -551,154 +553,357 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Ubuntu 18.04 System Python 3 Upgrade</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
   
   
   
+  
+  <div>
     
+
   
-<div class="universal-wrapper pt-3">
-  <h1>Tags</h1>
+  <span ><a href="/author/hongwei-li/">Hongwei Li</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Jul 21, 2020
+  </span>
+  
 
   
 
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/linux/">Linux</a>, <a href="/category/system/">System</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1024px; max-height: 473px;">
+  <div style="position: relative">
+    <img src="/linux/ubuntu-18.04-system-python-3-upgrade/featured.jpeg" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h3 id="symptom">Symptom</h3>
+<p>After the upgrade from Python 3.6 to Python 3.8:</p>
+<ul>
+<li>Ubuntu Software Center not working</li>
+<li>Can&rsquo;t start terminal by Ctl+Alt+t</li>
+<li>Can&rsquo;t start terminal or software</li>
+<li>Error Message - A problem occured when checking for the updates</li>
+</ul>
+<h3 id="root-cause">Root cause</h3>
+<p>After the Python 3 upgrade, I changed the Update-alternatives configuration. Fortunately I remembered it!</p>
+<h3 id="solution">Solution</h3>
+<p>Start terminal in right click menu and change back to the original configuration of update-alternatives, as below:</p>
+<p><img src="./update-alternatives-config.png" alt="update-alternatives-config"></p>
+<br>
+<h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">Linux</a>
+  
+  <a class="badge badge-light" href="/tag/update-alternatives/">Update-alternatives</a>
+  
+  <a class="badge badge-light" href="/tag/python-3/">Python 3</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/tag/linux/" >Linux</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/linux/ubuntu-18.04-system-python-3-upgrade/&amp;text=Ubuntu%2018.04%20System%20Python%203%20Upgrade" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/python-3/" >Python 3</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/linux/ubuntu-18.04-system-python-3-upgrade/&amp;t=Ubuntu%2018.04%20System%20Python%203%20Upgrade" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/update-alternatives/" >Update-alternatives</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Ubuntu%2018.04%20System%20Python%203%20Upgrade&amp;body=/linux/ubuntu-18.04-system-python-3-upgrade/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/academic/" >Academic</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/linux/ubuntu-18.04-system-python-3-upgrade/&amp;title=Ubuntu%2018.04%20System%20Python%203%20Upgrade" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/github-pages/" >Github Pages</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Ubuntu%2018.04%20System%20Python%203%20Upgrade%20/linux/ubuntu-18.04-system-python-3-upgrade/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/hugo/" >Hugo</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/static-website/" >Static Website</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/web-development/" >Web Development</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/source-themes/" >Source Themes</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/deep-learning/" >Deep Learning</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-
-  
-<nav>
-  <ul class="pagination justify-content-center">
-    
-    
-    <li class="page-item"><a class="page-link" href="/tags/page/2/">&raquo;</a></li>
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/linux/ubuntu-18.04-system-python-3-upgrade/&amp;title=Ubuntu%2018.04%20System%20Python%203%20Upgrade" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
     
   </ul>
-</nav>
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/hongwei-li/avatar_hu33d8f2710ea4928d295bd08cdc05f6eb_17524_270x270_fill_q90_lanczos_center.jpg" alt="Hongwei Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Hongwei Li</a></h5>
+        <h6 class="card-subtitle">Software, Networking</h6>
+        <p class="card-text">Always on the way - Coding, DevOps, Networking.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:flycoolman@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="flycoolman/flycoolman.github.io"
+        issue-term="title"
+        label="Comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 
