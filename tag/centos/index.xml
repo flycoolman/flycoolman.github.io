@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>System | flycoolman</title>
-    <link>/category/system/</link>
-      <atom:link href="/category/system/index.xml" rel="self" type="application/rss+xml" />
-    <description>System</description>
+    <title>CentOS | flycoolman</title>
+    <link>/tag/centos/</link>
+      <atom:link href="/tag/centos/index.xml" rel="self" type="application/rss+xml" />
+    <description>CentOS</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 23 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
-      <title>System</title>
-      <link>/category/system/</link>
+      <title>CentOS</title>
+      <link>/tag/centos/</link>
     </image>
     
     <item>
@@ -141,29 +141,6 @@ vagrant plugin install vagrant-libvirt&lt;/p&gt;
 
 &lt;a href=&#34;https://computingforgeeks.com/run-centos-8-vm-using-vagrant-on-kvm-virtualbox-vmware-parallels/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Run CentOS 8 VM using Vagrant on KVM / VirtualBox / VMWare / Parallels&lt;/a&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
-&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu 18.04 System Python 3 Upgrade</title>
-      <link>/linux/ubuntu-18.04-system-python-3-upgrade/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/linux/ubuntu-18.04-system-python-3-upgrade/</guid>
-      <description>&lt;h3 id=&#34;symptom&#34;&gt;Symptom&lt;/h3&gt;
-&lt;p&gt;After the upgrade from Python 3.6 to Python 3.8:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Ubuntu Software Center not working&lt;/li&gt;
-&lt;li&gt;Can&amp;rsquo;t start terminal by Ctl+Alt+t&lt;/li&gt;
-&lt;li&gt;Can&amp;rsquo;t start terminal or software&lt;/li&gt;
-&lt;li&gt;Error Message - A problem occured when checking for the updates&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;root-cause&#34;&gt;Root cause&lt;/h3&gt;
-&lt;p&gt;After the Python 3 upgrade, I changed the Update-alternatives configuration. Fortunately I remembered it!&lt;/p&gt;
-&lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
-&lt;p&gt;Start terminal in right click menu and change back to the original configuration of update-alternatives, as below:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./update-alternatives-config.png&#34; alt=&#34;update-alternatives-config&#34;&gt;&lt;/p&gt;
-&lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
     </item>
