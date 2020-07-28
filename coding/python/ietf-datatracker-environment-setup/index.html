@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Software, Networking">
+  <meta name="description" content="This guide describes the steps of setting up codesprints development environment for IETF Datatracker.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/category/linux/">
+  <link rel="alternate" hreflang="en-us" href="/coding/python/ietf-datatracker-environment-setup/">
 
   
 
@@ -250,14 +250,12 @@
   
 
   
-  <link rel="alternate" href="/category/linux/index.xml" type="application/rss+xml" title="flycoolman">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/category/linux/">
+  <link rel="canonical" href="/coding/python/ietf-datatracker-environment-setup/">
 
   
   
@@ -267,38 +265,42 @@
   
   
     
-    
   
   
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
   
   <meta property="twitter:site" content="@flycoolman">
   <meta property="twitter:creator" content="@flycoolman">
   
   <meta property="og:site_name" content="flycoolman">
-  <meta property="og:url" content="/category/linux/">
-  <meta property="og:title" content="Linux | flycoolman">
-  <meta property="og:description" content="Software, Networking"><meta property="og:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png">
-  <meta property="twitter:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/coding/python/ietf-datatracker-environment-setup/">
+  <meta property="og:title" content="IETF Datatracker Environment Setup | flycoolman">
+  <meta property="og:description" content="This guide describes the steps of setting up codesprints development environment for IETF Datatracker."><meta property="og:image" content="/coding/python/ietf-datatracker-environment-setup/featured.png">
+  <meta property="twitter:image" content="/coding/python/ietf-datatracker-environment-setup/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-07-27T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2020-07-27T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-07-27T00:00:00&#43;00:00">
   
-
-  
-
-
-
-
-  
-
 
   
 
 
 
+  
 
 
-  <title>Linux | flycoolman</title>
+  
+
+
+  
+
+
+
+
+
+  <title>IETF Datatracker Environment Setup | flycoolman</title>
 
 </head>
 
@@ -439,7 +441,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          <a class="nav-link " href="/linux/"><span>Linux</span></a>
         </li>
 
         
@@ -551,81 +553,505 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>IETF Datatracker Environment Setup</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
   
   
   
+  
+  <div>
     
+
   
-<div class="universal-wrapper pt-3">
-  <h1>Linux</h1>
+  <span ><a href="/author/hongwei-li/">Hongwei Li</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jul 27, 2020
+  </span>
+  
 
   
 
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/python/">Python</a>, <a href="/category/linux/">Linux</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1015px; max-height: 767px;">
+  <div style="position: relative">
+    <img src="/coding/python/ietf-datatracker-environment-setup/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Linux host machine (i.e. Ubuntu 18.04)</li>
+<li>Vagrant (i.e. 2.9.9)</li>
+<li>VirtualBox (i.e. 6.1.12)</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    The version numbers are just for my environment.<br>
+The original log is attached at the end of this document.
+  </div>
+</div>
+<h3 id="overview">Overview</h3>
+<p>The steps are:</p>
+<ul>
+<li>Use Vagrant to boot up a VM</li>
+<li>Install GUI on the VM</li>
+<li>Install Docker on the VM</li>
+<li>Install SVN</li>
+<li>Check out the branch</li>
+<li>Set up database</li>
+<li>Set up virtual environment</li>
+<li>Run the tests</li>
+<li>Start the Development Server</li>
+<li>Mailserver and Rsync Data</li>
+</ul>
+<h3 id="step-1-use-vagrant-to-boot-up-a-vm">Step 1: Use Vagrant to boot up a VM</h3>
+<p>Put the below Vagrantfile into working directory and execute &lsquo;Vagrant up&rsquo;.
+
+<a href="./Vagrantfile">Vagrantfile</a></p>
+<h3 id="step-2-install-gui-on-the-vm">Step 2: Install GUI on the VM</h3>
+<p>Ssh to the VM,</p>
+<pre><code>vagrant ssh
+</code></pre>
+<p>then use the below commands to intall GUI on the VM.</p>
+<pre><code>sudo yum -y groupinstall &quot;GNOME Desktop&quot;
+echo &quot;exec gnome-session&quot; &gt;&gt; ~/.xinitrc
+systemctl set-default graphical.target
+</code></pre>
+<p>Use command</p>
+<pre><code>startx
+</code></pre>
+<p>in VirtualBox console to start the GUI.</p>
+<h3 id="step-3-install-docker-on-the-vm">Step 3: Install Docker on the VM</h3>
+<p>Install docker and start the service.</p>
+<pre><code>sudo yum -y install docker
+sudo systemctl status docker
+sudo systemctl start docker
+sudo systemctl enable docker
+</code></pre>
+<p>Create user group &lsquo;docker&rsquo; and add you into the group.</p>
+<pre><code>sudo groupadd docker
+sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker vagrant
+</code></pre>
+<p>Reevaluate the group and restart the docker service.</p>
+<pre><code>logout
+sudo systemctl restart docker
+</code></pre>
+<p>Check if you can run docker commands without sudo.</p>
+<pre><code>docker info
+</code></pre>
+<h3 id="step-4-install-svn">Step 4: Install SVN</h3>
+<p>Add the repository and install SVN.</p>
+<pre><code>sudo vim /etc/yum.repos.d/wandisco-svn.repo
+</code></pre>
+<blockquote>
+<p>[WandiscoSVN]
+name=Wandisco SVN Repo
+baseurl=http://opensource.wandisco.com/centos/$releasever/svn-1.8/RPMS/$basearch/
+enabled=1
+gpgcheck=0</p>
+</blockquote>
+<pre><code>sudo yum remove subversion*
+sudo yum clean all
+sudo yum install subversion
+
+svn --version
+</code></pre>
+<h3 id="step-5-check-out-the-branch">Step 5: Check out the branch</h3>
+<p>UTF-8 settings:</p>
+<pre><code>export LC_ALL=C
+sudo vi .bashrc
+</code></pre>
+<p>Add below to the file ~/.bashrc</p>
+<blockquote>
+<p>LANG=en_US.UTF-8
+export LANG</p>
+</blockquote>
+<p>Change SELinux settings, so that docker image can access your home directory.</p>
+<pre><code>chcon -Rt svirt_sandbox_file_t /home/vagrant/
+</code></pre>
+<p>Checkout the branch</p>
+<pre><code>mkdir -p ietf
+cd ietf
+svn co https://svn.tools.ietf.org/svn/tools/ietfdb/personal/flycoolman/7.10.1.dev0
+</code></pre>
+<h3 id="step-6-set-up-database">Step 6: Set up database</h3>
+<pre><code>cd 7.10.1.dev0/
+./docker/setupdb
+</code></pre>
+<h3 id="step-7-set-up-virtual-environment">Step 7: Set up virtual environment</h3>
+<pre><code>./docker/run
+</code></pre>
+<div class="alert alert-note">
+  <div>
+    rsyslog error can be ignored!<br>
+[FAIL] rsyslogd is not running &hellip; failed!
+  </div>
+</div>
+<p><strong>In virtual environment of the container</strong></p>
+<pre><code>pip install --upgrade -r requirements.txt
+
+./ietf/manage.py migrate
+</code></pre>
+<div class="alert alert-note">
+  <div>
+    <p>The below operation might be needed if the migration fails.</p>
+<pre><code>sudo cp docker/settings_local.py ietf/  
+</code></pre>
+<p>Then run the migrate command again.</p>
+  </div>
+</div>
+<h3 id="step-8-run-the-tests">Step 8: Run the tests</h3>
+<p>In the virtual environment to run the tests:</p>
+<p>./ietf/manage.py test &ndash;settings=settings_sqlitetest</p>
+<div class="alert alert-note">
+  <div>
+    Make sure that one of the following commands runs to completion without errors.
+  </div>
+</div>
+<h3 id="step-9-start-the-development-server">Step 9: Start the Development Server</h3>
+<pre><code>./ietf/manage.py runserver 0.0.0.0:8000 &amp;
+</code></pre>
+<p>Test the access to datatracker.</p>
+<p><img src="./featured.png" alt="ietf-datatracker"></p>
+<h3 id="step-10-mailserver-and-rsync-data">Step 10: Mailserver and Rsync Data</h3>
+<p>Go to 
+<a href="https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup" target="_blank" rel="noopener">the original page</a> for details about:</p>
+<ul>
+<li>
+<a href="https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup" target="_blank" rel="noopener">(Optional) Run the mailserver</a></li>
+<li>
+<a href="https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup" target="_blank" rel="noopener">Manually Edit or rsync Datatracker Data Directories</a></li>
+</ul>
+<h3 id="setup-complete">Setup Complete</h3>
+<p>For other workflow things, please refer to 
+<a href="https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup" target="_blank" rel="noopener">the original setup guide.</a></p>
+<h3 id="links">Links</h3>
+<p>
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-centos-7" target="_blank" rel="noopener">How To Install and Use Docker on CentOS 7</a>
+
+<a href="https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket" target="_blank" rel="noopener">How to fix docker: Got permission denied while trying to connect to the Docker daemon socket</a>
+
+<a href="https://tecadmin.net/install-subversion-1-8-on-centos-rhel/" target="_blank" rel="noopener">How to Install Subversion (SVN) 1.8.19 on CentOS/RHEL 7/6/5</a>
+
+<a href="https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup" target="_blank" rel="noopener">Sprint Coder Setup</a><br>
+
+<a href="https://www.techrepublic.com/article/how-to-install-a-gui-on-top-of-centos-7/" target="_blank" rel="noopener">How to install a GUI on top of CentOS 7</a><br>
+
+<a href="https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetupTroubleshooting" target="_blank" rel="noopener">SprintCoderSetupTroubleshooting</a><br>
+
+<a href="https://flycoolman.com/linux/ubuntu-18.04-upgrade-virtualbox-vagrant/" target="_blank" rel="noopener">Upgrade to VirtualBox 6.1 and Vagrant 2.9.9 on Ubuntu 18.04</a><br>
+<br></p>
+<h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/python/">Python</a>
+  
+  <a class="badge badge-light" href="/tag/django/">Django</a>
+  
+  <a class="badge badge-light" href="/tag/ietf/">IETF</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/coding/python/ietf-datatracker-environment-setup/" >IETF Datatracker Environment Setup</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          This guide describes the steps of setting up codesprints development environment for IETF Datatracker.
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/coding/python/ietf-datatracker-environment-setup/&amp;text=IETF%20Datatracker%20Environment%20Setup" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/coding/python/ietf-datatracker-environment-setup/&amp;t=IETF%20Datatracker%20Environment%20Setup" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/linux/ubuntu-18.04-upgrade-virtualbox-vagrant/" >Upgrade to VirtualBox 6.1 and Vagrant 2.9.9 on Ubuntu 18.04</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          This guide covers how to install VirtualBox 6.1 and Vagrant 2.9.9.
-        
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=IETF%20Datatracker%20Environment%20Setup&amp;body=/coding/python/ietf-datatracker-environment-setup/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/linux/ubuntu-18.04-system-python-3-upgrade/" >Ubuntu 18.04 System Python 3 Upgrade</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-          Change to update-alternatives broke Ubuntu system.
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/coding/python/ietf-datatracker-environment-setup/&amp;title=IETF%20Datatracker%20Environment%20Setup" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
         
-      </div>
-    </div>
-  
-
-  
-
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=IETF%20Datatracker%20Environment%20Setup%20/coding/python/ietf-datatracker-environment-setup/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/coding/python/ietf-datatracker-environment-setup/&amp;title=IETF%20Datatracker%20Environment%20Setup" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/hongwei-li/avatar_hu33d8f2710ea4928d295bd08cdc05f6eb_17524_270x270_fill_q90_lanczos_center.jpg" alt="Hongwei Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Hongwei Li</a></h5>
+        <h6 class="card-subtitle">Software, Networking</h6>
+        <p class="card-text">Always on the way - Coding, DevOps, Networking.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:flycoolman@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="flycoolman/flycoolman.github.io"
+        issue-term="title"
+        label="Comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 

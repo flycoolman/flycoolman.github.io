@@ -5,12 +5,185 @@
     <link>/author/hongwei-li/</link>
       <atom:link href="/author/hongwei-li/index.xml" rel="self" type="application/rss+xml" />
     <description>Hongwei Li</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 23 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Hongwei Li</title>
       <link>/author/hongwei-li/</link>
     </image>
+    
+    <item>
+      <title>IETF Datatracker Environment Setup</title>
+      <link>/coding/python/ietf-datatracker-environment-setup/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/python/ietf-datatracker-environment-setup/</guid>
+      <description>&lt;h3 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux host machine (i.e. Ubuntu 18.04)&lt;/li&gt;
+&lt;li&gt;Vagrant (i.e. 2.9.9)&lt;/li&gt;
+&lt;li&gt;VirtualBox (i.e. 6.1.12)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The version numbers are just for my environment.&lt;br&gt;
+The original log is attached at the end of this document.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+&lt;p&gt;The steps are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use Vagrant to boot up a VM&lt;/li&gt;
+&lt;li&gt;Install GUI on the VM&lt;/li&gt;
+&lt;li&gt;Install Docker on the VM&lt;/li&gt;
+&lt;li&gt;Install SVN&lt;/li&gt;
+&lt;li&gt;Check out the branch&lt;/li&gt;
+&lt;li&gt;Set up database&lt;/li&gt;
+&lt;li&gt;Set up virtual environment&lt;/li&gt;
+&lt;li&gt;Run the tests&lt;/li&gt;
+&lt;li&gt;Start the Development Server&lt;/li&gt;
+&lt;li&gt;Mailserver and Rsync Data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-1-use-vagrant-to-boot-up-a-vm&#34;&gt;Step 1: Use Vagrant to boot up a VM&lt;/h3&gt;
+&lt;p&gt;Put the below Vagrantfile into working directory and execute &amp;lsquo;Vagrant up&amp;rsquo;.
+
+&lt;a href=&#34;./Vagrantfile&#34;&gt;Vagrantfile&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-2-install-gui-on-the-vm&#34;&gt;Step 2: Install GUI on the VM&lt;/h3&gt;
+&lt;p&gt;Ssh to the VM,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant ssh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then use the below commands to intall GUI on the VM.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum -y groupinstall &amp;quot;GNOME Desktop&amp;quot;
+echo &amp;quot;exec gnome-session&amp;quot; &amp;gt;&amp;gt; ~/.xinitrc
+systemctl set-default graphical.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;startx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;in VirtualBox console to start the GUI.&lt;/p&gt;
+&lt;h3 id=&#34;step-3-install-docker-on-the-vm&#34;&gt;Step 3: Install Docker on the VM&lt;/h3&gt;
+&lt;p&gt;Install docker and start the service.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum -y install docker
+sudo systemctl status docker
+sudo systemctl start docker
+sudo systemctl enable docker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create user group &amp;lsquo;docker&amp;rsquo; and add you into the group.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo groupadd docker
+sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker vagrant
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Reevaluate the group and restart the docker service.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;logout
+sudo systemctl restart docker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check if you can run docker commands without sudo.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker info
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-4-install-svn&#34;&gt;Step 4: Install SVN&lt;/h3&gt;
+&lt;p&gt;Add the repository and install SVN.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/yum.repos.d/wandisco-svn.repo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[WandiscoSVN]
+name=Wandisco SVN Repo
+baseurl=http://opensource.wandisco.com/centos/$releasever/svn-1.8/RPMS/$basearch/
+enabled=1
+gpgcheck=0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum remove subversion*
+sudo yum clean all
+sudo yum install subversion
+
+svn --version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5-check-out-the-branch&#34;&gt;Step 5: Check out the branch&lt;/h3&gt;
+&lt;p&gt;UTF-8 settings:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export LC_ALL=C
+sudo vi .bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add below to the file ~/.bashrc&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LANG=en_US.UTF-8
+export LANG&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Change SELinux settings, so that docker image can access your home directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chcon -Rt svirt_sandbox_file_t /home/vagrant/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Checkout the branch&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ietf
+cd ietf
+svn co https://svn.tools.ietf.org/svn/tools/ietfdb/personal/flycoolman/7.10.1.dev0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-6-set-up-database&#34;&gt;Step 6: Set up database&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd 7.10.1.dev0/
+./docker/setupdb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-7-set-up-virtual-environment&#34;&gt;Step 7: Set up virtual environment&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;./docker/run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    rsyslog error can be ignored!&lt;br&gt;
+[FAIL] rsyslogd is not running &amp;hellip; failed!
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;In virtual environment of the container&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install --upgrade -r requirements.txt
+
+./ietf/manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;p&gt;The below operation might be needed if the migration fails.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo cp docker/settings_local.py ietf/  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then run the migrate command again.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;step-8-run-the-tests&#34;&gt;Step 8: Run the tests&lt;/h3&gt;
+&lt;p&gt;In the virtual environment to run the tests:&lt;/p&gt;
+&lt;p&gt;./ietf/manage.py test &amp;ndash;settings=settings_sqlitetest&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Make sure that one of the following commands runs to completion without errors.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;step-9-start-the-development-server&#34;&gt;Step 9: Start the Development Server&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;./ietf/manage.py runserver 0.0.0.0:8000 &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Test the access to datatracker.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.png&#34; alt=&#34;ietf-datatracker&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-10-mailserver-and-rsync-data&#34;&gt;Step 10: Mailserver and Rsync Data&lt;/h3&gt;
+&lt;p&gt;Go to 
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the original page&lt;/a&gt; for details about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(Optional) Run the mailserver&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manually Edit or rsync Datatracker Data Directories&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;setup-complete&#34;&gt;Setup Complete&lt;/h3&gt;
+&lt;p&gt;For other workflow things, please refer to 
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the original setup guide.&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-centos-7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Install and Use Docker on CentOS 7&lt;/a&gt;
+
+&lt;a href=&#34;https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to fix docker: Got permission denied while trying to connect to the Docker daemon socket&lt;/a&gt;
+
+&lt;a href=&#34;https://tecadmin.net/install-subversion-1-8-on-centos-rhel/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to Install Subversion (SVN) 1.8.19 on CentOS/RHEL 7/6/5&lt;/a&gt;
+
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sprint Coder Setup&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.techrepublic.com/article/how-to-install-a-gui-on-top-of-centos-7/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to install a GUI on top of CentOS 7&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetupTroubleshooting&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SprintCoderSetupTroubleshooting&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/linux/ubuntu-18.04-upgrade-virtualbox-vagrant/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Upgrade to VirtualBox 6.1 and Vagrant 2.9.9 on Ubuntu 18.04&lt;/a&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>Upgrade to VirtualBox 6.1 and Vagrant 2.9.9 on Ubuntu 18.04</title>
