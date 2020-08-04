@@ -18,12 +18,67 @@
   </url>
   
   <url>
+    <loc>/tag/academic/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/authors/</loc>
     <lastmod>2020-08-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+    <loc>/category/basic/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/build-a-free-website-in-minutes-part-5/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/github-pages/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/author/hongwei-li/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/hugo/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/static-website/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/web-development/</loc>
+    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/web-development/</loc>
     <lastmod>2020-08-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -35,11 +90,6 @@
   <url>
     <loc>/tag/django/</loc>
     <lastmod>2020-07-27T22:40:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/hongwei-li/</loc>
-    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -70,11 +120,6 @@
   <url>
     <loc>/coding/python/</loc>
     <lastmod>2020-07-27T22:40:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -128,47 +173,7 @@
   </url>
   
   <url>
-    <loc>/tag/academic/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/basic/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/build-a-free-website-in-minutes-part-4/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/github-pages/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/hugo/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/static-website/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/web-development/</loc>
-    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/web-development/</loc>
     <lastmod>2020-07-16T00:00:00+00:00</lastmod>
   </url>
   
