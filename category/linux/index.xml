@@ -195,7 +195,7 @@ set up the environment in a VM. Instead of downloading Linux image, install it o
 for development environment. I was thinking to get some new exeperience. Then CentOS 8 came up, as I have been using CentOS 7, but no
 CentOS 8 experience. And also I wanted the environment with GUI, so that I dould test my code on the VM directly.&lt;/p&gt;
 &lt;h3 id=&#34;why-to-upgrade-virtualbox-and-vagrant&#34;&gt;Why to upgrade VirtualBox and Vagrant&lt;/h3&gt;
-&lt;p&gt;I had VirtualBox and Vagrant on my machine(Ubuntu 18.04). So it was straight forward to boot up CentOS 8 by changing the Vagrant file.&lt;/p&gt;
+&lt;p&gt;I had VirtualBox and Vagrant on my machine(Ubuntu 18.04). So it was straight forward to boot up CentOS 8 by changing the Vagrantfile.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;# -*- mode: ruby -*-&lt;br&gt;
 # vi: set ft=ruby :&lt;/p&gt;
@@ -211,6 +211,11 @@ CentOS 8 experience. And also I wanted the environment with GUI, so that I dould
      end&lt;br&gt;
 end&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;a href=&#34;./Vagrantfile&#34;&gt;Vagrantfile&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 &lt;p&gt;After&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Vagrant up&lt;/p&gt;
