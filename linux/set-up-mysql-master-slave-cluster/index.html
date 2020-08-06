@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Software, Networking">
+  <meta name="description" content="This guide covers how to set up MySQL cluster by VirtualBox and Vagrant. This can be helpful for development and test.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/authors/">
+  <link rel="alternate" hreflang="en-us" href="/linux/set-up-mysql-master-slave-cluster/">
 
   
 
@@ -250,14 +250,12 @@
   
 
   
-  <link rel="alternate" href="/authors/index.xml" type="application/rss+xml" title="flycoolman">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/authors/">
+  <link rel="canonical" href="/linux/set-up-mysql-master-slave-cluster/">
 
   
   
@@ -267,38 +265,42 @@
   
   
     
-    
   
   
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
   
   <meta property="twitter:site" content="@flycoolman">
   <meta property="twitter:creator" content="@flycoolman">
   
   <meta property="og:site_name" content="flycoolman">
-  <meta property="og:url" content="/authors/">
-  <meta property="og:title" content="Authors | flycoolman">
-  <meta property="og:description" content="Software, Networking"><meta property="og:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png">
-  <meta property="twitter:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/linux/set-up-mysql-master-slave-cluster/">
+  <meta property="og:title" content="Set Up MySQL Cluster | flycoolman">
+  <meta property="og:description" content="This guide covers how to set up MySQL cluster by VirtualBox and Vagrant. This can be helpful for development and test."><meta property="og:image" content="/linux/set-up-mysql-master-slave-cluster/featured.png">
+  <meta property="twitter:image" content="/linux/set-up-mysql-master-slave-cluster/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-08-05T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2020-08-05T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-08-06T00:00:00&#43;00:00">
   
-
-  
-
-
-
-
-  
-
 
   
 
 
 
+  
 
 
-  <title>Authors | flycoolman</title>
+  
+
+
+  
+
+
+
+
+
+  <title>Set Up MySQL Cluster | flycoolman</title>
 
 </head>
 
@@ -439,7 +441,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/linux/"><span>Linux</span></a>
+          <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
         </li>
 
         
@@ -551,55 +553,522 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Set Up MySQL Cluster</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
   
   
   
+  
+  <div>
     
+
   
-<div class="universal-wrapper pt-3">
-  <h1>Authors</h1>
+  <span ><a href="/author/hongwei-li/">Hongwei Li</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Aug 6, 2020
+  </span>
+  
 
   
 
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/linux/">Linux</a>, <a href="/category/system/">System</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 348px; max-height: 145px;">
+  <div style="position: relative">
+    <img src="/linux/set-up-mysql-master-slave-cluster/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>This document preassumes that you are familiar with VirtualBox, Vagrant on Linux.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>VirtualBox</li>
+<li>Vagrant</li>
+</ul>
+<h2 id="what-to-build">What to Build</h2>
+<ul>
+<li>3 Virtual Machines</li>
+<li>3 MySQL instances running on the 3 VMs</li>
+<li>Employees Sample Database</li>
+<li>Data replication</li>
+</ul>
+<h2 id="ip-settings">IP Settings</h2>
+<ul>
+<li>Master  - 192.168.0.201</li>
+<li>Slave-1 - 192.168.0.202</li>
+<li>Slave-2 - 192.168.0.203</li>
+</ul>
+<h2 id="vagrantfiles">Vagrantfiles</h2>
+<ul>
+<li>
+<a href="./Vagrantfile-master">Vagrantfile-Master</a></li>
+<li>
+<a href="./Vagrantfile-slave-1">Vagrantfile-Slave-1</a></li>
+<li>
+<a href="./Vagrantfile-slave-2">Vagrantfile-Slave-2</a></li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="boot-up-virtual-machines">Boot up Virtual Machines</h3>
+<ul>
+<li>Use &lsquo;vagrant up&rsquo; to boot up 3 virtual machines.</li>
+<li>Use &lsquo;vagrant halt&rsquo; to power off the VMs</li>
+<li>Open VirtualBox GUI and change the MAC addresses of the 3 VMs<br>
+Make sure the 3 VMs have different MAC addresses</li>
+</ul>
+<h3 id="install-mysql-server">Install MySQL Server</h3>
+<p>Install MySQL server on the 3 VMs separately.<br>
+The guide 
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-8" target="_blank" rel="noopener">How To Install MySQL on CentOS 8</a> can be referenced.</p>
+<pre><code>sudo dnf install mysql-server
+sudo systemctl start mysqld.service
+sudo systemctl status mysqld
+sudo systemctl enable mysqld
+sudo mysql_secure_installation
+mysqladmin -u root -p version
+mysql -u root -p
+</code></pre>
+<h3 id="configure-mysql-server-on-master-vm">Configure MySQL Server on Master VM</h3>
+<ul>
+<li>Edit MySQL configuration file &lsquo;/etc/my.cnf&rsquo;. Add the below configuration.</li>
+</ul>
+<blockquote>
+<p>[mysqld]<br>
+log-bin=mysql-bin # Optinal<br>
+server-id=1　　　　# Must</p>
+<p>bind-address = 0.0.0.0 # Must</p>
+</blockquote>
+<p><img src="./config-master.png" alt="config-master"></p>
+<ul>
+<li>Restart MySQL server service</li>
+</ul>
+<p>System command:</p>
+<pre><code>sudo systemctl restart mysqld
+</code></pre>
+<ul>
+<li>Create user for syncing data</li>
+</ul>
+<p>MySQL commands:</p>
+<pre><code>CREATE USER 'repl'@'192.168.0.%' IDENTIFIED BY '123456';  
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'192.168.0.%';  
+FLUSH PRIVILEGES;  
+</code></pre>
+<ul>
+<li>Check master status</li>
+</ul>
+<p><img src="./master-status.png" alt="master-status"></p>
+<h3 id="configure-mysql-server-on-slave-vm">Configure MySQL Server on Slave VM</h3>
+<ul>
+<li>Edit MySQL configuration file &lsquo;/etc/my.cnf&rsquo;. Add the below configuration.</li>
+</ul>
+<blockquote>
+<p>[mysqld]<br>
+server-id=2</p>
+</blockquote>
+<p><img src="./config-slave-1.png" alt="config-slave-1"></p>
+<ul>
+<li>Restart MySQL server service</li>
+</ul>
+<p>System command:</p>
+<pre><code>sudo systemctl restart mysqld
+</code></pre>
+<ul>
+<li>Configure syncronization</li>
+</ul>
+<p>MySQL command:</p>
+<pre><code>change master to master_host='192.168.0.201', master_user='repl', master_password='123456', master_log_file='mysql-bin.000001', master_log_pos=155;
+
+start slave;
+</code></pre>
+<p><img src="./sync-config-slave-1.png" alt="sync-config-slave-1"></p>
+<ul>
+<li>Check slave status</li>
+</ul>
+<p>Both <strong>Slave_IO_Running</strong> and <strong>Slave_SQL_Running</strong> should be &lsquo;<strong>Yes</strong>&rsquo;.</p>
+<p><img src="./slave-1-status.png" alt="slave-1-status"></p>
+<div class="alert alert-note">
+  <div>
+    Same configuration and steps on Slave-2 VM, except the <strong>server-id=3</strong>.
+  </div>
+</div>
+<h3 id="import-the-employees-sample-database">Import the &lsquo;Employees Sample Database&rsquo;</h3>
+<ul>
+<li>Sync folder</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    Note that when you vagrant ssh into your machine, you&rsquo;re in /home/vagrant. /home/vagrant is a different directory from the synced /vagrant directory.
+  </div>
+</div>
+<p><img src="./sync-folder.png" alt="sync-folder"></p>
+<div class="alert alert-note">
+  <div>
+    By default, Vagrant only syncs the folders on <strong>vagrant up</strong> or <strong>vagrant reload</strong>.<br>
+The tool <strong>rsync</strong> can be used for data syncronization.
+  </div>
+</div>
+<ul>
+<li>Download the &lsquo;Employees Sample Database&rsquo;</li>
+</ul>
+<p>Download the zip file from 
+<a href="https://github.com/datacharmer/test_db" target="_blank" rel="noopener">Employees DB on GitHub</a>, unzip the file and put the unzipped folder into the master VM folder of the host machine.</p>
+<p><img src="./database-folder.png" alt="database-folder"></p>
+<ul>
+<li>Reload the master VM</li>
+</ul>
+<p>Here we use the simple way, just reload the master VM.</p>
+<ul>
+<li>Import the database</li>
+</ul>
+<p>On master VM:</p>
+<pre><code>cd test_db-master/
+mysql -u root -p -t &lt; employees.sql
+</code></pre>
+<p><img src="./import-result.png" alt="import-result"></p>
+<ul>
+<li>Validating the Employee Data</li>
+</ul>
+<p>time mysql -u root -p -t &lt; test_employees_sha.sql</p>
+<p><img src="./validating-result.png" alt="validating-result"></p>
+<ul>
+<li>Check data on slaves</li>
+</ul>
+<p>Now you can see all the data has been replicated on the slave servers.</p>
+<p><img src="./data-synced-1.png" alt="data-synced-1">
+<img src="./data-synced-2.png" alt="data-synced-2"></p>
+<h3 id="errors">Errors</h3>
+<h4 id="slave_io_running-no">Slave_IO_Running: No</h4>
+<p><img src="./Slave_IO_Running-error.png" alt="Slave_IO_Running-error"></p>
+<p>Possible reasons:</p>
+<ul>
+<li>Forget to restart mysqld service</li>
+<li>Forget to bind address.</li>
+</ul>
+<p>Solution:</p>
+<ul>
+<li>Restart mysqld service</li>
+<li>Use netstat to check the status, i.e.</li>
+</ul>
+<p><img src="./Slave_IO_Running-solution.png" alt="Slave_IO_Running-solution"></p>
+<h3 id="links">Links</h3>
+<p>
+<a href="https://www.vagrantup.com/intro/getting-started/synced_folders" target="_blank" rel="noopener">Synced Folders</a><br>
+
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-8" target="_blank" rel="noopener">How To Install MySQL on CentOS 8</a><br>
+
+<a href="https://dev.mysql.com/doc/employee/en/" target="_blank" rel="noopener">Employees Sample Database</a><br>
+
+<a href="https://www.cnblogs.com/cjsblog/p/9706370.html" target="_blank" rel="noopener">MySQL Cluster COnfiguration</a><br>
+
+<a href="https://stackoverflow.com/questions/17666249/how-do-i-import-an-sql-file-using-the-command-line-in-mysql" target="_blank" rel="noopener">How To Import SQL File</a>
+<br></p>
+<h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/mysql/">MySQL</a>
+  
+  <a class="badge badge-light" href="/tag/linux/">Linux</a>
+  
+  <a class="badge badge-light" href="/tag/virtualbox/">VirtualBox</a>
+  
+  <a class="badge badge-light" href="/tag/vagrant/">Vagrant</a>
+  
+  <a class="badge badge-light" href="/tag/centos/">CentOS</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  <ul>
-    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
       
-      <li><a href="/author/hongwei-li/">Hongwei Li</a></li>
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/linux/set-up-mysql-master-slave-cluster/&amp;text=Set%20Up%20MySQL%20Cluster" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
     
       
-      <li><a href="/author/robert-ford/">Robert Ford</a></li>
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/linux/set-up-mysql-master-slave-cluster/&amp;t=Set%20Up%20MySQL%20Cluster" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Set%20Up%20MySQL%20Cluster&amp;body=/linux/set-up-mysql-master-slave-cluster/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/linux/set-up-mysql-master-slave-cluster/&amp;title=Set%20Up%20MySQL%20Cluster" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Set%20Up%20MySQL%20Cluster%20/linux/set-up-mysql-master-slave-cluster/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/linux/set-up-mysql-master-slave-cluster/&amp;title=Set%20Up%20MySQL%20Cluster" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
     
   </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/hongwei-li/avatar_hu33d8f2710ea4928d295bd08cdc05f6eb_17524_270x270_fill_q90_lanczos_center.jpg" alt="Hongwei Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Hongwei Li</a></h5>
+        <h6 class="card-subtitle">Software, Networking</h6>
+        <p class="card-text">Always on the way - Coding, DevOps, Networking.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:flycoolman@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
 
   
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
 
       
 

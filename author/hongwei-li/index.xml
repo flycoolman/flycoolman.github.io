@@ -5,12 +5,203 @@
     <link>/author/hongwei-li/</link>
       <atom:link href="/author/hongwei-li/index.xml" rel="self" type="application/rss+xml" />
     <description>Hongwei Li</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Tue, 04 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Hongwei Li</title>
       <link>/author/hongwei-li/</link>
     </image>
+    
+    <item>
+      <title>Set Up MySQL Cluster</title>
+      <link>/linux/set-up-mysql-master-slave-cluster/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/linux/set-up-mysql-master-slave-cluster/</guid>
+      <description>&lt;p&gt;This document preassumes that you are familiar with VirtualBox, Vagrant on Linux.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;VirtualBox&lt;/li&gt;
+&lt;li&gt;Vagrant&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;what-to-build&#34;&gt;What to Build&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;3 Virtual Machines&lt;/li&gt;
+&lt;li&gt;3 MySQL instances running on the 3 VMs&lt;/li&gt;
+&lt;li&gt;Employees Sample Database&lt;/li&gt;
+&lt;li&gt;Data replication&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ip-settings&#34;&gt;IP Settings&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Master  - 192.168.0.201&lt;/li&gt;
+&lt;li&gt;Slave-1 - 192.168.0.202&lt;/li&gt;
+&lt;li&gt;Slave-2 - 192.168.0.203&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;vagrantfiles&#34;&gt;Vagrantfiles&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;./Vagrantfile-master&#34;&gt;Vagrantfile-Master&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;./Vagrantfile-slave-1&#34;&gt;Vagrantfile-Slave-1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;./Vagrantfile-slave-2&#34;&gt;Vagrantfile-Slave-2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;steps&#34;&gt;Steps&lt;/h2&gt;
+&lt;h3 id=&#34;boot-up-virtual-machines&#34;&gt;Boot up Virtual Machines&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &amp;lsquo;vagrant up&amp;rsquo; to boot up 3 virtual machines.&lt;/li&gt;
+&lt;li&gt;Use &amp;lsquo;vagrant halt&amp;rsquo; to power off the VMs&lt;/li&gt;
+&lt;li&gt;Open VirtualBox GUI and change the MAC addresses of the 3 VMs&lt;br&gt;
+Make sure the 3 VMs have different MAC addresses&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;install-mysql-server&#34;&gt;Install MySQL Server&lt;/h3&gt;
+&lt;p&gt;Install MySQL server on the 3 VMs separately.&lt;br&gt;
+The guide 
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Install MySQL on CentOS 8&lt;/a&gt; can be referenced.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo dnf install mysql-server
+sudo systemctl start mysqld.service
+sudo systemctl status mysqld
+sudo systemctl enable mysqld
+sudo mysql_secure_installation
+mysqladmin -u root -p version
+mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;configure-mysql-server-on-master-vm&#34;&gt;Configure MySQL Server on Master VM&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit MySQL configuration file &amp;lsquo;/etc/my.cnf&amp;rsquo;. Add the below configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[mysqld]&lt;br&gt;
+log-bin=mysql-bin # Optinal&lt;br&gt;
+server-id=1　　　　# Must&lt;/p&gt;
+&lt;p&gt;bind-address = 0.0.0.0 # Must&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;./config-master.png&#34; alt=&#34;config-master&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Restart MySQL server service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;System command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl restart mysqld
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Create user for syncing data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MySQL commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CREATE USER &#39;repl&#39;@&#39;192.168.0.%&#39; IDENTIFIED BY &#39;123456&#39;;  
+GRANT REPLICATION SLAVE ON *.* TO &#39;repl&#39;@&#39;192.168.0.%&#39;;  
+FLUSH PRIVILEGES;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Check master status&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./master-status.png&#34; alt=&#34;master-status&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;configure-mysql-server-on-slave-vm&#34;&gt;Configure MySQL Server on Slave VM&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit MySQL configuration file &amp;lsquo;/etc/my.cnf&amp;rsquo;. Add the below configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[mysqld]&lt;br&gt;
+server-id=2&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;./config-slave-1.png&#34; alt=&#34;config-slave-1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Restart MySQL server service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;System command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl restart mysqld
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Configure syncronization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MySQL command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;change master to master_host=&#39;192.168.0.201&#39;, master_user=&#39;repl&#39;, master_password=&#39;123456&#39;, master_log_file=&#39;mysql-bin.000001&#39;, master_log_pos=155;
+
+start slave;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./sync-config-slave-1.png&#34; alt=&#34;sync-config-slave-1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check slave status&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both &lt;strong&gt;Slave_IO_Running&lt;/strong&gt; and &lt;strong&gt;Slave_SQL_Running&lt;/strong&gt; should be &amp;lsquo;&lt;strong&gt;Yes&lt;/strong&gt;&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./slave-1-status.png&#34; alt=&#34;slave-1-status&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Same configuration and steps on Slave-2 VM, except the &lt;strong&gt;server-id=3&lt;/strong&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;import-the-employees-sample-database&#34;&gt;Import the &amp;lsquo;Employees Sample Database&amp;rsquo;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Sync folder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Note that when you vagrant ssh into your machine, you&amp;rsquo;re in /home/vagrant. /home/vagrant is a different directory from the synced /vagrant directory.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&#34;./sync-folder.png&#34; alt=&#34;sync-folder&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    By default, Vagrant only syncs the folders on &lt;strong&gt;vagrant up&lt;/strong&gt; or &lt;strong&gt;vagrant reload&lt;/strong&gt;.&lt;br&gt;
+The tool &lt;strong&gt;rsync&lt;/strong&gt; can be used for data syncronization.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Download the &amp;lsquo;Employees Sample Database&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Download the zip file from 
+&lt;a href=&#34;https://github.com/datacharmer/test_db&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Employees DB on GitHub&lt;/a&gt;, unzip the file and put the unzipped folder into the master VM folder of the host machine.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./database-folder.png&#34; alt=&#34;database-folder&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reload the master VM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here we use the simple way, just reload the master VM.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Import the database&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On master VM:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd test_db-master/
+mysql -u root -p -t &amp;lt; employees.sql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./import-result.png&#34; alt=&#34;import-result&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Validating the Employee Data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;time mysql -u root -p -t &amp;lt; test_employees_sha.sql&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./validating-result.png&#34; alt=&#34;validating-result&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check data on slaves&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now you can see all the data has been replicated on the slave servers.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./data-synced-1.png&#34; alt=&#34;data-synced-1&#34;&gt;
+&lt;img src=&#34;./data-synced-2.png&#34; alt=&#34;data-synced-2&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;errors&#34;&gt;Errors&lt;/h3&gt;
+&lt;h4 id=&#34;slave_io_running-no&#34;&gt;Slave_IO_Running: No&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;./Slave_IO_Running-error.png&#34; alt=&#34;Slave_IO_Running-error&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Possible reasons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Forget to restart mysqld service&lt;/li&gt;
+&lt;li&gt;Forget to bind address.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solution:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Restart mysqld service&lt;/li&gt;
+&lt;li&gt;Use netstat to check the status, i.e.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./Slave_IO_Running-solution.png&#34; alt=&#34;Slave_IO_Running-solution&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.vagrantup.com/intro/getting-started/synced_folders&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Synced Folders&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Install MySQL on CentOS 8&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://dev.mysql.com/doc/employee/en/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Employees Sample Database&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/cjsblog/p/9706370.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL Cluster COnfiguration&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://stackoverflow.com/questions/17666249/how-do-i-import-an-sql-file-using-the-command-line-in-mysql&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Import SQL File&lt;/a&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>Build A Free Website In Minutes - Part 5</title>
