@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java | flycoolman</title>
-    <link>/coding/java/</link>
-      <atom:link href="/coding/java/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tag/java/</link>
+      <atom:link href="/tag/java/index.xml" rel="self" type="application/rss+xml" />
     <description>Java</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Java</title>
-      <link>/coding/java/</link>
+      <link>/tag/java/</link>
     </image>
     
     <item>
