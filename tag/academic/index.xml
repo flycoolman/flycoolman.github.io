@@ -50,7 +50,11 @@ git checkout master
 &lt;h3 id=&#34;step-6-work-on-the-document&#34;&gt;Step 6: Work on the document&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;blahblahblah...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;step-7-add-commit-and-push-as-before&#34;&gt;Step 7: Add, Commit and Push as before&lt;/h3&gt;
+&lt;h3 id=&#34;step-7-build-the-website&#34;&gt;Step 7: Build the website&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd academic-kickstart/
+hugo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-8-add-commit-and-push-as-before&#34;&gt;Step 8: Add, Commit and Push as before&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;cd public
 git add .
 git commit -m &amp;quot;blahblah...&amp;quot;
