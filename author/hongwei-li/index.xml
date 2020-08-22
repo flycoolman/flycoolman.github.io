@@ -528,7 +528,7 @@ svn co https://svn.tools.ietf.org/svn/tools/ietfdb/personal/flycoolman/7.10.1.de
 &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;A bean is a Java class with method names that follow the JavaBeans guidelines. A bean builder tool uses introspection to examine the bean class. Based on this inspection, the bean builder tool can figure out the bean&amp;rsquo;s properties, methods, and events.
+&lt;p&gt;A bean is a Java class with method names that follow the JavaBeans guidelines. A bean builder tool uses introspection to examine the bean class. Based on this inspection, the bean builder tool can figure out the bean&amp;rsquo;s properties, methods, and events.&lt;br&gt;
 Almost any code can be packaged as a bean.&lt;br&gt;
 The power of JavaBeans is that you can use software components without having to write them or understand their implementation.&lt;/p&gt;
 &lt;h3 id=&#34;java-beans-example&#34;&gt;Java Beans Example&lt;/h3&gt;
@@ -565,11 +565,11 @@ public class Car implements Serializable {
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;Indexed Properties
+&lt;li&gt;Indexed Properties&lt;br&gt;
 an array instead of a single value&lt;/li&gt;
-&lt;li&gt;Bound Properties
+&lt;li&gt;Bound Properties&lt;br&gt;
 PropertyChangeListeners&lt;/li&gt;
-&lt;li&gt;Constrained Properties
+&lt;li&gt;Constrained Properties&lt;br&gt;
 VetoableChangeListeners&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;bean-methods&#34;&gt;Bean Methods&lt;/h3&gt;
@@ -616,21 +616,13 @@ Examples:&lt;/p&gt;
 &lt;p&gt;Long-term persistence is a model that enables beans to be saved in XML format.&lt;/p&gt;
 &lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://en.wikipedia.org/wiki/JavaBeans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans&lt;/a&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/JavaBeans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;http://download.oracle.com/javase/tutorial/javabeans/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Oracle&amp;rsquo;s JavaBeans tutorials&lt;/a&gt;
+&lt;a href=&#34;http://download.oracle.com/javase/tutorial/javabeans/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Oracle&amp;rsquo;s JavaBeans tutorials&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans specification&lt;/a&gt;
+&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans specification&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;https://juejin.im/post/6844903618567471112&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（一）&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://juejin.im/post/6844903619834150919&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（二）&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://stackoverflow.com/questions/17193365/what-in-the-world-are-spring-beans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;What in the world are Spring beans?&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://juejin.im/post/6844903813753602056&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring注入Bean的几种方式&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://howtodoinjava.com/spring-core/spring-ioc-vs-di/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring – Inversion of Control vs Dependency Injection&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://juejin.im/post/6844903618567471112&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（一）&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
