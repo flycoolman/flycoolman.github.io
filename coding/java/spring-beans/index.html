@@ -968,12 +968,26 @@ In object-oriented programming languages without function-valued arguments, such
 </code></pre>
 <h3 id="spring-bean-instantiation">Spring Bean Instantiation</h3>
 <ul>
-<li>Instantiation with a constructor</li>
-<li>Instantiation with a static factory method</li>
-<li>Instantiation using an instance factory method</li>
+<li>
+<p>Instantiation with a constructor</p>
+<pre><code>  &lt;bean id=&quot;exampleBean&quot;/&gt;
+</code></pre>
+</li>
+<li>
+<p>Instantiation with a static factory method</p>
+<pre><code>  &lt;bean id=&quot;exampleBean&quot; factory-method=&quot;createInstance&quot;/&gt;
+</code></pre>
+</li>
+<li>
+<p>Instantiation using an instance factory method</p>
+<pre><code>  &lt;bean id=&quot;myFactoryBean&quot;  class=&quot;...&quot;&gt;
+     
+  &lt;bean id=&quot;exampleBean&quot;  factory-bean=&quot;myFactoryBean&quot; factory-method=&quot;createInstance&quot;&gt;&lt;/bean&gt;
+</code></pre>
+</li>
 </ul>
-<p>See 
-<a href="https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-factory-class" target="_blank" rel="noopener">Instantiating beans</a></p>
+<p>For more details, go to the link 
+<a href="https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-factory-class" target="_blank" rel="noopener">Instantiating beans</a>.</p>
 <h3 id="spring-bean-configurationcontainer-configuration">Spring Bean Configuration/Container Configuration</h3>
 <h4 id="xml-based">XML-based</h4>
 <p>XML-based configuration metadata shows these beans configured as <bean/> elements inside a top-level <beans/> element.</p>

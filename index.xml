@@ -843,12 +843,26 @@ In object-oriented programming languages without function-valued arguments, such
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;spring-bean-instantiation&#34;&gt;Spring Bean Instantiation&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Instantiation with a constructor&lt;/li&gt;
-&lt;li&gt;Instantiation with a static factory method&lt;/li&gt;
-&lt;li&gt;Instantiation using an instance factory method&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Instantiation with a constructor&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;bean id=&amp;quot;exampleBean&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Instantiation with a static factory method&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;bean id=&amp;quot;exampleBean&amp;quot; factory-method=&amp;quot;createInstance&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Instantiation using an instance factory method&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;bean id=&amp;quot;myFactoryBean&amp;quot;  class=&amp;quot;...&amp;quot;&amp;gt;
+     
+  &amp;lt;bean id=&amp;quot;exampleBean&amp;quot;  factory-bean=&amp;quot;myFactoryBean&amp;quot; factory-method=&amp;quot;createInstance&amp;quot;&amp;gt;&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;See 
-&lt;a href=&#34;https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-factory-class&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Instantiating beans&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For more details, go to the link 
+&lt;a href=&#34;https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-factory-class&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Instantiating beans&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;spring-bean-configurationcontainer-configuration&#34;&gt;Spring Bean Configuration/Container Configuration&lt;/h3&gt;
 &lt;h4 id=&#34;xml-based&#34;&gt;XML-based&lt;/h4&gt;
 &lt;p&gt;XML-based configuration metadata shows these beans configured as &lt;bean/&gt; elements inside a top-level &lt;beans/&gt; element.&lt;/p&gt;
