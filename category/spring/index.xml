@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java | flycoolman</title>
-    <link>/tag/java/</link>
-      <atom:link href="/tag/java/index.xml" rel="self" type="application/rss+xml" />
-    <description>Java</description>
+    <title>Spring | flycoolman</title>
+    <link>/category/spring/</link>
+      <atom:link href="/category/spring/index.xml" rel="self" type="application/rss+xml" />
+    <description>Spring</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
-      <title>Java</title>
-      <link>/tag/java/</link>
+      <title>Spring</title>
+      <link>/category/spring/</link>
     </image>
     
     <item>
@@ -505,124 +505,6 @@ This means that, if you put &lt;a href=&#34;context:annotation-config/&#34;&gt;c
 &lt;a href=&#34;https://howtodoinjava.com/spring-core/spring-bean-life-cycle/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring – Bean Life Cycle&lt;/a&gt;&lt;br&gt;
 
 &lt;a href=&#34;https://dzone.com/articles/spring-bean-lifecycle&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring Bean Lifecycle&lt;/a&gt;&lt;/p&gt;
-&lt;br&gt;
-&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Java Beans</title>
-      <link>/coding/java/javabeans/</link>
-      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/coding/java/javabeans/</guid>
-      <description>&lt;h2 id=&#34;java-beans&#34;&gt;Java Beans&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Software Components&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;JavaBeans are classes that encapsulate many objects into a single object. They are serializable, have a zero-argument constructor, and allow access to properties using getter and setter methods.&lt;/p&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    &lt;ul&gt;
-&lt;li&gt;a Java classs&lt;/li&gt;
-&lt;li&gt;serializable&lt;/li&gt;
-&lt;li&gt;zero-argument constructor&lt;/li&gt;
-&lt;li&gt;getter and setter&lt;/li&gt;
-&lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;A bean is a Java class with method names that follow the JavaBeans guidelines. A bean builder tool uses introspection to examine the bean class. Based on this inspection, the bean builder tool can figure out the bean&amp;rsquo;s properties, methods, and events.&lt;br&gt;
-Almost any code can be packaged as a bean.&lt;br&gt;
-The power of JavaBeans is that you can use software components without having to write them or understand their implementation.&lt;/p&gt;
-&lt;h3 id=&#34;java-beans-example&#34;&gt;Java Beans Example&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;import java.io.Serializable;
-
-public class Car implements Serializable {
-    //Private Properties
-    private String color;
-    private Boolean isCar;
-
-    //Zero-argument Constructor
-    public Car(){}
-
-    //Getter and Setter
-    public void setColor(String color) { this.color = color; }
-    
-    public String getColor() { return color; }
-    
-    public void setCar(Boolean car) { isCar = car; }
-
-    //&#39;is&#39; for Boolean getter
-    public Boolean isCar() { return isCar; }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;bean-properties&#34;&gt;Bean Properties&lt;/h3&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    &lt;ul&gt;
-&lt;li&gt;Read and write property has getter and setter&lt;/li&gt;
-&lt;li&gt;A read-only property has a getter method but no setter&lt;/li&gt;
-&lt;li&gt;A write-only property has a setter method only&lt;/li&gt;
-&lt;li&gt;Boolean property using is instead of get&lt;/li&gt;
-&lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;Indexed Properties&lt;br&gt;
-an array instead of a single value&lt;/li&gt;
-&lt;li&gt;Bound Properties&lt;br&gt;
-PropertyChangeListeners&lt;/li&gt;
-&lt;li&gt;Constrained Properties&lt;br&gt;
-VetoableChangeListeners&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;bean-methods&#34;&gt;Bean Methods&lt;/h3&gt;
-&lt;p&gt;Any public method that is not part of a property definition is a bean method.&lt;/p&gt;
-&lt;h3 id=&#34;bean-events&#34;&gt;Bean Events&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;A bean class can fire off any type of event&lt;/li&gt;
-&lt;li&gt;Method names with a specific pattern&lt;/li&gt;
-&lt;li&gt;Can be used in wiring components together&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;beaninfo&#34;&gt;BeanInfo&lt;/h3&gt;
-&lt;p&gt;A BeanInfo is a class that changes how your bean appears in a builder tool.&lt;/p&gt;
-&lt;h3 id=&#34;bean-persistence&#34;&gt;Bean Persistence&lt;/h3&gt;
-&lt;h4 id=&#34;serialization&#34;&gt;Serialization&lt;/h4&gt;
-&lt;p&gt;A bean has the property of persistence when its properties, fields, and state information are saved to and retrieved from storage.&lt;br&gt;
-All beans must persist. To persist, must implement either of below:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;java.io.Serializable&lt;/li&gt;
-&lt;li&gt;java.io.Externalizable&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Any class is serializable as long as that class or a parent class implements the java.io.Serializable interface.&lt;br&gt;
-Examples:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Component&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Date&lt;/li&gt;
-&lt;li&gt;Vector&lt;/li&gt;
-&lt;li&gt;Hashtable&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Not serializable:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Image&lt;/li&gt;
-&lt;li&gt;Thread&lt;/li&gt;
-&lt;li&gt;Socket&lt;/li&gt;
-&lt;li&gt;InputStream&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Controlling Serialization:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatic serialization&lt;/li&gt;
-&lt;li&gt;Customized serialization&lt;/li&gt;
-&lt;li&gt;Customized file format&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;long-term-persistence&#34;&gt;Long Term Persistence&lt;/h4&gt;
-&lt;p&gt;Long-term persistence is a model that enables beans to be saved in XML format.&lt;/p&gt;
-&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://en.wikipedia.org/wiki/JavaBeans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;http://download.oracle.com/javase/tutorial/javabeans/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Oracle&amp;rsquo;s JavaBeans tutorials&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans specification&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://juejin.im/post/6844903618567471112&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（一）&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>

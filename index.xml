@@ -533,118 +533,498 @@ svn co https://svn.tools.ietf.org/svn/tools/ietfdb/personal/flycoolman/7.10.1.de
     </item>
     
     <item>
-      <title>Java Beans</title>
-      <link>/coding/java/javabeans/</link>
+      <title>Spring Beans</title>
+      <link>/coding/java/spring-beans/</link>
       <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/coding/java/javabeans/</guid>
-      <description>&lt;h2 id=&#34;java-beans&#34;&gt;Java Beans&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Software Components&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;JavaBeans are classes that encapsulate many objects into a single object. They are serializable, have a zero-argument constructor, and allow access to properties using getter and setter methods.&lt;/p&gt;
+      <guid>/coding/java/spring-beans/</guid>
+      <description>&lt;h3 id=&#34;spring-beans&#34;&gt;Spring Beans&lt;/h3&gt;
+&lt;br&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;The objects that are managed by Spring IoC container&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;p&gt;The objects that form the backbone of your application and that are managed by the &lt;strong&gt;Spring IoC container&lt;/strong&gt; are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. These beans are created with the &lt;strong&gt;configuration metadata&lt;/strong&gt; that you supply to the container, for example, in the form of XML &lt;bean/&gt; definitions.&lt;/p&gt;
+&lt;p&gt;In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application. Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.&lt;/p&gt;
+&lt;p&gt;Spring Bean is nothing special, any object in the Spring framework that we initialize through Spring container is called Spring Bean. Any normal Java POJO class can be a Spring Bean if it’s configured to be initialized via container by providing configuration metadata information.&lt;/p&gt;
+&lt;h3 id=&#34;spring-ioc-container&#34;&gt;Spring IoC Container&lt;/h3&gt;
+&lt;br&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     &lt;ul&gt;
-&lt;li&gt;a Java classs&lt;/li&gt;
-&lt;li&gt;serializable&lt;/li&gt;
-&lt;li&gt;zero-argument constructor&lt;/li&gt;
-&lt;li&gt;getter and setter&lt;/li&gt;
+&lt;li&gt;Representation - org.springframework.context.ApplicationContext&lt;/li&gt;
+&lt;li&gt;Responsibilities - instantiating, configuring, and assembling Beans&lt;/li&gt;
+&lt;li&gt;Tool: configuration metadata&lt;/li&gt;
 &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;A bean is a Java class with method names that follow the JavaBeans guidelines. A bean builder tool uses introspection to examine the bean class. Based on this inspection, the bean builder tool can figure out the bean&amp;rsquo;s properties, methods, and events.&lt;br&gt;
-Almost any code can be packaged as a bean.&lt;br&gt;
-The power of JavaBeans is that you can use software components without having to write them or understand their implementation.&lt;/p&gt;
-&lt;h3 id=&#34;java-beans-example&#34;&gt;Java Beans Example&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;import java.io.Serializable;
+&lt;br&gt;
+&lt;p&gt;The interface org.springframework.context.ApplicationContext represents the Spring IoC container and is responsible for instantiating, configuring, and assembling the aforementioned beans. The container gets its instructions on what objects to instantiate, configure, and assemble by reading configuration metadata.&lt;/p&gt;
+&lt;h3 id=&#34;configuration-metadata&#34;&gt;Configuration Metadata&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;This configuration metadata represents how you as an application developer tell the Spring container to instantiate, configure, and assemble the objects in your application.&lt;/li&gt;
+&lt;li&gt;The configuration metadata is represented in &lt;strong&gt;XML&lt;/strong&gt;, &lt;strong&gt;Java annotations&lt;/strong&gt;, or &lt;strong&gt;Java code&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;It allows you to express the objects that compose your application and the rich interdependencies between such objects.&lt;/li&gt;
+&lt;li&gt;Spring configuration consists of at least one and typically more than one bean definition that the container must manage.&lt;/li&gt;
+&lt;li&gt;Consumed by Spring IoC container&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;spring-bean-scopes&#34;&gt;Spring Bean Scopes&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;7 scopes (Spring 4.2.x) are supported out of the box. You can also create a custom scope.&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Singleton&lt;/strong&gt; – Only one instance of the bean will be created for each container. This is the default scope for the spring beans. While using this scope, make sure bean doesn’t have shared instance variables otherwise it might lead to data inconsistency issues.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Prototype&lt;/strong&gt; – A new instance will be created every time the bean is requested.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Request&lt;/strong&gt; – This is same as prototype scope, however it’s meant to be used for web applications. A new instance of the bean will be created for each HTTP request.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Session&lt;/strong&gt; – A new bean will be created for each HTTP session by the container.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Global-session&lt;/strong&gt; – This is used to create global session beans for Portlet applications.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application&lt;/strong&gt; - Scopes a single bean definition to the lifecycle of a ServletContext. Only valid in the context of a web-aware Spring ApplicationContext.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Websocket&lt;/strong&gt; - Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    As of Spring 3.0, a thread scope is available, but is not registered by default.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+&lt;li&gt;As a rule, use the prototype scope for all stateful beans and the singleton scope for stateless beans.&lt;/li&gt;
+&lt;li&gt;The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding.&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;5 of the above are available only if you use a &lt;strong&gt;web-aware ApplicationContext&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;request&lt;/li&gt;
+&lt;li&gt;session&lt;/li&gt;
+&lt;li&gt;globalSession&lt;/li&gt;
+&lt;li&gt;application&lt;/li&gt;
+&lt;li&gt;websocket&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;spring-singleton-vs-singleton-pattern&#34;&gt;Spring Singleton vs Singleton Pattern&lt;/h4&gt;
+&lt;p&gt;Spring’s concept of a singleton bean differs from the &lt;strong&gt;Singleton pattern&lt;/strong&gt; as defined in the Gang of Four (GoF) patterns book. The GoF Singleton hard-codes the scope of an object such that one and only one instance of a particular class is created per ClassLoader.&lt;/p&gt;
+&lt;p&gt;The scope of the &lt;strong&gt;Spring singleton&lt;/strong&gt; is best described as per container and per bean. This means that if you define one bean for a particular class in a single Spring container, then the Spring container creates one and only one instance of the class defined by that bean definition.&lt;/p&gt;
+&lt;h3 id=&#34;spring-bean-lifecycle&#34;&gt;Spring Bean Lifecycle&lt;/h3&gt;
+&lt;h4 id=&#34;lifecycle-overview&#34;&gt;Lifecycle Overview&lt;/h4&gt;
+&lt;p&gt;The lifecycle of any object means when &amp;amp; how it is born, how it behaves throughout its life, and when &amp;amp; how it dies.
+The lifecycle of Spring Beans is not different from normal beans or objects. The below picture shows the overview of the lifecycle of objects, or Spring Beans.&lt;br&gt;
+&lt;img src=&#34;./lifecycle-overview.png&#34; alt=&#34;lifecycle-overview&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As the Spring Beans are managed by Spring IoC containers. This makes the application developers not able to control the full lifecycle of Spring Beans. But Spring provides ways to add customizations into the lifecycle of Spring Beans, such as aware interfaces and callback methods, which are added in the below picture to show the lifecycle.
+&lt;img src=&#34;./lifecycle-detailed-1.png&#34; alt=&#34;lifecycle-detailed-1&#34;&gt;
+&lt;img src=&#34;./lifecycle-detailed-2.png&#34; alt=&#34;lifecycle-detailed-2&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;aware-interfaces&#34;&gt;Aware Interfaces&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;BeanNameAware&lt;br&gt;
+The BeanNameAware interface is implemented by beans that need access to its name defined in the Spring container.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  import org.springframework.beans.factory.BeanNameAware;
 
-public class Car implements Serializable {
-    //Private Properties
-    private String color;
-    private Boolean isCar;
+  public class BeanNameAwareImpl implements BeanNameAware {
+      @Override
+      public void setBeanName(String s) {
+          System.out.println(&amp;quot;Bean Name: &amp;quot; + s);
+      }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;BeanFactoryAware&lt;br&gt;
+Beans might need access to the bean factory that created it, say to call any service from the bean factory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  import org.springframework.beans.BeansException;
+  import org.springframework.beans.factory.BeanFactory;
+  import org.springframework.beans.factory.BeanFactoryAware;
 
-    //Zero-argument Constructor
-    public Car(){}
+  public class BeanFactoryAwareImpl implements BeanFactoryAware {
 
-    //Getter and Setter
-    public void setColor(String color) { this.color = color; }
-    
-    public String getColor() { return color; }
-    
-    public void setCar(Boolean car) { isCar = car; }
+      @Override
+      public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+          System.out.println(beanFactory.getBean(&amp;quot;fooBean&amp;quot;));
+      }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ApplicationContextAware&lt;br&gt;
+In Spring beans, you might require access to the ApplicationContext. For example, if your bean needs to look up some other beans. Similarly, if your bean needs access to some application file resource in your bean or even publish some application events, you need access to the ApplicationContext.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  import org.springframework.beans.BeansException;
+  import org.springframework.context.ApplicationContext;
+  import org.springframework.context.ApplicationContextAware;
 
-    //&#39;is&#39; for Boolean getter
-    public Boolean isCar() { return isCar; }
+  public class ApplicationContextAwareImpl implements ApplicationContextAware {
+
+      @Override
+      public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+          FooBean userBean = (FooBean) applicationContext.getBean(&amp;quot;fooBean&amp;quot;);
+          System.out.println(&amp;quot;User Id: &amp;quot; + fooBean.getFooBeanId() + &amp;quot;  Bean Name :&amp;quot; + fooBean.getName());
+      }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For more aware interfaces and details, go to the link  
+&lt;a href=&#34;https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/Aware.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Interface Aware&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;lifecycle-callbacks&#34;&gt;Lifecycle Callbacks&lt;/h4&gt;
+&lt;h5 id=&#34;callback-methods&#34;&gt;Callback Methods&lt;/h5&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;InitializingBean&lt;/strong&gt; and &lt;strong&gt;DisposableBean&lt;/strong&gt; callback interfaces are not recommended.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Initialization callbacks&lt;/strong&gt;&lt;br&gt;
+3 options:
+&lt;ul&gt;
+&lt;li&gt;Annotation-based&lt;br&gt;
+&lt;strong&gt;@PostConstruct&lt;/strong&gt; annotation or specify a POJO initialization method&lt;/li&gt;
+&lt;li&gt;XML-based&lt;br&gt;
+&lt;strong&gt;init-method&lt;/strong&gt; attribute to specify the name of the method that has a void no-argument signature&lt;/li&gt;
+&lt;li&gt;Java Config&lt;br&gt;
+initMethod attribute of &lt;strong&gt;@Bean&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Destruction callbacks&lt;/strong&gt;&lt;br&gt;
+3 options:
+&lt;ul&gt;
+&lt;li&gt;Annotation-based&lt;br&gt;
+&lt;strong&gt;@PreDestroy&lt;/strong&gt; annotation or specify a generic method that is supported by bean definitions&lt;/li&gt;
+&lt;li&gt;XML-Based&lt;br&gt;
+&lt;strong&gt;destroy-method&lt;/strong&gt; attribute on the &lt;strong&gt;&amp;lt;bean/&amp;gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Java Config&lt;br&gt;
+&lt;strong&gt;destroyMethod&lt;/strong&gt; attribute of &lt;strong&gt;@Bean&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Startup and shutdown callbacks&lt;/strong&gt;&lt;br&gt;
+The Lifecycle interface defines the essential methods for any object that has its own lifecycle requirements (e.g. starts and stops some background process)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;callback-examples&#34;&gt;Callback Examples&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;XML-based: Custom init() and destroy() methods&lt;br&gt;
+The default init and destroy methods in bean configuration file can be defined in two ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Bean local definition&lt;/strong&gt; applicable to a single bean&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Global definition&lt;/strong&gt; applicable to all beans defined in beans context&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;beans.xml&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Local definition&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;beans&amp;gt;
+     
+      &amp;lt;bean id=&amp;quot;demoBean&amp;quot; class=&amp;quot;com.flycoolman.callbackdemo.DemoBean&amp;quot;
+                      init-method=&amp;quot;customInit&amp;quot;
+                      destroy-method=&amp;quot;customDestroy&amp;quot;&amp;gt;&amp;lt;/bean&amp;gt;
+     
+  &amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Global definition&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;beans default-init-method=&amp;quot;customInit&amp;quot; default-destroy-method=&amp;quot;customDestroy&amp;quot;&amp;gt;   
+     
+          &amp;lt;bean id=&amp;quot;demoBean&amp;quot; class=&amp;quot;com.flycoolman.callbackdemo.DemoBean&amp;quot;&amp;gt;&amp;lt;/bean&amp;gt;
+     
+  &amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;DemoBean.java&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  package com.flycoolman.callbackdemo;
+     
+  public class DemoBean 
+  {
+      public void customInit() 
+      {
+          System.out.println(&amp;quot;Method customInit() invoked...&amp;quot;);
+      }
+     
+      public void customDestroy() 
+      {
+          System.out.println(&amp;quot;Method customDestroy() invoked...&amp;quot;);
+      }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Annotation-based: @PostConstruct and @PreDestroy&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;@PostConstruct annotated method will be invoked after the bean has been constructed using default constructor and just before it’s instance is returned to requesting object.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;@PreDestroy annotated method is called just before the bean is about be destroyed inside bean container.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  package com.flycoolman.callbackdemo;  
+         
+  import javax.annotation.PostConstruct;  
+  import javax.annotation.PreDestroy;  
+         
+  public class DemoBean  
+  {
+      @PostConstruct
+      public void customInit() 
+      {
+          System.out.println(&amp;quot;Method customInit() invoked...&amp;quot;);
+      }
+             
+      @PreDestroy
+      public void customDestroy() 
+      {
+          System.out.println(&amp;quot;Method customDestroy() invoked...&amp;quot;);
+      }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java Config&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  public class Foo {
+      public void init() {
+          // initialization logic
+      }
+      public void cleanup() {
+              // destruction logic
+          }
+  }
+
+  @Configuration
+  public class AppConfig {
+      @Bean(initMethod = &amp;quot;init&amp;quot;, destroyMethod = &amp;quot;cleanup&amp;quot;)
+      public Foo foo() {
+          return new Foo();
+      }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;multiple-lifecycle-mechanismsexecution-orders&#34;&gt;Multiple Lifecycle Mechanisms/Execution Orders&lt;/h4&gt;
+&lt;p&gt;Multiple lifecycle mechanisms configured for the same bean, with different initialization methods, are called as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Methods annotated with @PostConstruct&lt;/li&gt;
+&lt;li&gt;afterPropertiesSet() as defined by the InitializingBean callback interface&lt;/li&gt;
+&lt;li&gt;A custom configured init() method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;Destroy methods are called in the same order:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Methods annotated with &lt;strong&gt;@PreDestroy&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;destroy()&lt;/strong&gt; as defined by the DisposableBean callback interface&lt;/li&gt;
+&lt;li&gt;A custom configured &lt;strong&gt;destroy()&lt;/strong&gt; method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;what-is-callback&#34;&gt;What is Callback&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;From Wikipedia&lt;/strong&gt;&lt;br&gt;
+In computer programming, a &lt;strong&gt;callback&lt;/strong&gt;, also known as a &amp;ldquo;&lt;strong&gt;call-after&lt;/strong&gt;&amp;rdquo; function, is &lt;strong&gt;any executable code that is passed as an argument to other code&lt;/strong&gt;; that other code is expected to call back (execute) the argument at a given time. This execution may be immediate as in a &lt;strong&gt;synchronous callback&lt;/strong&gt;, or it might happen at a later time as in an &lt;strong&gt;asynchronous callback&lt;/strong&gt;. Programming languages support callbacks in different ways, often implementing them with&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;subroutines,&lt;/li&gt;
+&lt;li&gt;lambda expressions,&lt;/li&gt;
+&lt;li&gt;blocks,&lt;/li&gt;
+&lt;li&gt;or function pointers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;For Java&lt;/strong&gt;&lt;br&gt;
+In object-oriented programming languages without function-valued arguments, such as in Java before its 1.7 version, callbacks can be simulated by passing an instance of an abstract class or interface, of which the receiver will call one or more methods, while the calling end provides a concrete implementation. Something like below (from Stackoverflow)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class Test {
+    public static void main(String[] args) throws  Exception {
+        new Test().doWork(new Callback() { // implementing class            
+            @Override
+            public void call() {
+                System.out.println(&amp;quot;callback called&amp;quot;);
+            }
+        });
+    }
+
+    public void doWork(Callback callback) {
+        System.out.println(&amp;quot;doing work&amp;quot;);
+        callback.call();
+    }
+
+    public interface Callback {
+        void call();
+    }
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;bean-properties&#34;&gt;Bean Properties&lt;/h3&gt;
+&lt;h3 id=&#34;spring-bean-instantiation&#34;&gt;Spring Bean Instantiation&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Instantiation with a constructor&lt;/li&gt;
+&lt;li&gt;Instantiation with a static factory method&lt;/li&gt;
+&lt;li&gt;Instantiation using an instance factory method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See 
+&lt;a href=&#34;https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-factory-class&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Instantiating beans&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;spring-bean-configurationcontainer-configuration&#34;&gt;Spring Bean Configuration/Container Configuration&lt;/h3&gt;
+&lt;h4 id=&#34;xml-based&#34;&gt;XML-based&lt;/h4&gt;
+&lt;p&gt;XML-based configuration metadata shows these beans configured as &lt;bean/&gt; elements inside a top-level &lt;beans/&gt; element.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Bean Configuration with Property&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  &amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+      xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+      xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd&amp;quot;&amp;gt;
+
+      &amp;lt;!-- services --&amp;gt;
+
+      &amp;lt;bean id=&amp;quot;petStore&amp;quot; class=&amp;quot;org.springframework.samples.jpetstore.services.PetStoreServiceImpl&amp;quot;&amp;gt;
+          &amp;lt;property name=&amp;quot;accountDao&amp;quot; ref=&amp;quot;accountDao&amp;quot;/&amp;gt;
+          &amp;lt;property name=&amp;quot;itemDao&amp;quot; ref=&amp;quot;itemDao&amp;quot;/&amp;gt;
+          &amp;lt;!-- additional collaborators and configuration for this bean go here --&amp;gt;
+      &amp;lt;/bean&amp;gt;
+
+      &amp;lt;!-- more bean definitions for services go here --&amp;gt;
+
+  &amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Multiple Bean Configuration&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  &amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+      xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+      xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd&amp;quot;&amp;gt;
+
+      &amp;lt;bean id=&amp;quot;accountDao&amp;quot;
+          class=&amp;quot;org.springframework.samples.jpetstore.dao.jpa.JpaAccountDao&amp;quot;&amp;gt;
+          &amp;lt;!-- additional collaborators and configuration for this bean go here --&amp;gt;
+      &amp;lt;/bean&amp;gt;
+
+      &amp;lt;bean id=&amp;quot;itemDao&amp;quot; class=&amp;quot;org.springframework.samples.jpetstore.dao.jpa.JpaItemDao&amp;quot;&amp;gt;
+          &amp;lt;!-- additional collaborators and configuration for this bean go here --&amp;gt;
+      &amp;lt;/bean&amp;gt;
+
+      &amp;lt;!-- more bean definitions for data access objects go here --&amp;gt;
+
+  &amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Multiple XML Files&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;beans&amp;gt;
+      &amp;lt;import resource=&amp;quot;services.xml&amp;quot;/&amp;gt;
+      &amp;lt;import resource=&amp;quot;resources/messageSource.xml&amp;quot;/&amp;gt;
+      &amp;lt;import resource=&amp;quot;/resources/themeSource.xml&amp;quot;/&amp;gt;
+
+      &amp;lt;bean id=&amp;quot;bean1&amp;quot; class=&amp;quot;...&amp;quot;/&amp;gt;
+      &amp;lt;bean id=&amp;quot;bean2&amp;quot; class=&amp;quot;...&amp;quot;/&amp;gt;
+  &amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;annotation-based&#34;&gt;Annotation-based&lt;/h4&gt;
+&lt;p&gt;Spring 2.5 introduced support for annotation-based configuration metadata.&lt;/p&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    &lt;ul&gt;
-&lt;li&gt;Read and write property has getter and setter&lt;/li&gt;
-&lt;li&gt;A read-only property has a getter method but no setter&lt;/li&gt;
-&lt;li&gt;A write-only property has a setter method only&lt;/li&gt;
-&lt;li&gt;Boolean property using is instead of get&lt;/li&gt;
-&lt;/ul&gt;
+    Annotation injection is performed before XML injection, thus the latter configuration will override the former for properties wired through both approaches.
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;Indexed Properties&lt;br&gt;
-an array instead of a single value&lt;/li&gt;
-&lt;li&gt;Bound Properties&lt;br&gt;
-PropertyChangeListeners&lt;/li&gt;
-&lt;li&gt;Constrained Properties&lt;br&gt;
-VetoableChangeListeners&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Implicit Registeration&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+  &amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+      xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+      xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;
+      xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd&amp;quot;&amp;gt;
+
+      &amp;lt;context:annotation-config/&amp;gt;
+
+  &amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;bean-methods&#34;&gt;Bean Methods&lt;/h3&gt;
-&lt;p&gt;Any public method that is not part of a property definition is a bean method.&lt;/p&gt;
-&lt;h3 id=&#34;bean-events&#34;&gt;Bean Events&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;a href=&#34;context:annotation-config/&#34;&gt;context:annotation-config/&lt;/a&gt; only looks for annotations on beans in the same application context in which it is defined.&lt;br&gt;
+This means that, if you put &lt;a href=&#34;context:annotation-config/&#34;&gt;context:annotation-config/&lt;/a&gt; in a WebApplicationContext for a DispatcherServlet, it only checks for @Autowired beans in your controllers, and not your services.
+  &lt;/div&gt;
+&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;A bean class can fire off any type of event&lt;/li&gt;
-&lt;li&gt;Method names with a specific pattern&lt;/li&gt;
-&lt;li&gt;Can be used in wiring components together&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Annotate the Method&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  public class SimpleMovieLister {
+
+      private MovieFinder movieFinder;
+
+      @Autowired
+      public void setMovieFinder(MovieFinder movieFinder) {
+          this.movieFinder = movieFinder;
+      }
+
+      // ...
+
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;beaninfo&#34;&gt;BeanInfo&lt;/h3&gt;
-&lt;p&gt;A BeanInfo is a class that changes how your bean appears in a builder tool.&lt;/p&gt;
-&lt;h3 id=&#34;bean-persistence&#34;&gt;Bean Persistence&lt;/h3&gt;
-&lt;h4 id=&#34;serialization&#34;&gt;Serialization&lt;/h4&gt;
-&lt;p&gt;A bean has the property of persistence when its properties, fields, and state information are saved to and retrieved from storage.&lt;br&gt;
-All beans must persist. To persist, must implement either of below:&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    @Autowired annotation can be applied to setter methods, constructors, methods with arbitrary names and/or multiple arguments, fields, etc.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;For more details, go to the link
+
+&lt;a href=&#34;https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-annotation-config&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Annotation-based container configuration&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;java-based-javaconfig&#34;&gt;Java-based (JavaConfig)&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;java.io.Serializable&lt;/li&gt;
-&lt;li&gt;java.io.Externalizable&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JavaConfig Overview&lt;/p&gt;
+&lt;p&gt;Starting with Spring 3.0, many features provided by the Spring JavaConfig project became part of the core Spring Framework. Thus you can define beans external to your application  classes by using Java rather than XML files. To use these new features, see the @Configuration, @Bean, @Import and @DependsOn annotations.&lt;/p&gt;
+&lt;p&gt;Java configuration typically uses @Bean annotated methods within a @Configuration class.&lt;/p&gt;
+&lt;p&gt;Spring JavaConfig is a product of the Spring community that provides a pure-Java approach to configuring the Spring IoC Container. While JavaConfig aims to be a feature-complete     option for configuration, it can be (and often is) used in conjunction with the more well-known XML-based configuration approach.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;@Bean Annotation&lt;/p&gt;
+&lt;p&gt;The @Bean annotation is used to indicate that a method instantiates, configures and initializes a new object to be managed by the Spring IoC container. For those familiar with Spring’s &lt;beans/&gt; XML configuration the @Bean annotation plays the same role as the &lt;bean/&gt; element. You can use @Bean annotated methods with any Spring @Component, however, they are most often used with @Configuration beans.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;@Configuration Annotation&lt;/p&gt;
+&lt;p&gt;Annotating a class with @Configuration indicates that its primary purpose is as a source of bean definitions. Furthermore, @Configuration classes allow inter-bean dependencies to be defined by simply calling other @Bean methods in the same class. The simplest possible @Configuration class would read as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  @Configuration
+  public class AppConfig {
+
+      @Bean
+      public MyService myService() {
+          return new MyServiceImpl();
+      }
+
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Any class is serializable as long as that class or a parent class implements the java.io.Serializable interface.&lt;br&gt;
-Examples:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Component&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Date&lt;/li&gt;
-&lt;li&gt;Vector&lt;/li&gt;
-&lt;li&gt;Hashtable&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Not serializable:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Image&lt;/li&gt;
-&lt;li&gt;Thread&lt;/li&gt;
-&lt;li&gt;Socket&lt;/li&gt;
-&lt;li&gt;InputStream&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Controlling Serialization:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatic serialization&lt;/li&gt;
-&lt;li&gt;Customized serialization&lt;/li&gt;
-&lt;li&gt;Customized file format&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;long-term-persistence&#34;&gt;Long Term Persistence&lt;/h4&gt;
-&lt;p&gt;Long-term persistence is a model that enables beans to be saved in XML format.&lt;/p&gt;
+&lt;p&gt;For more details, go to the link
+
+&lt;a href=&#34;https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java-based container configuration&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://en.wikipedia.org/wiki/JavaBeans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-definition&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring Core Technologies - beans definition&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;http://download.oracle.com/javase/tutorial/javabeans/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Oracle&amp;rsquo;s JavaBeans tutorials&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://juejin.im/post/6844903618567471112&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（一）&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans specification&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://juejin.im/post/6844903619834150919&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（二）&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;https://juejin.im/post/6844903618567471112&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（一）&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/17193365/what-in-the-world-are-spring-beans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;What in the world are Spring beans?&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://juejin.im/post/6844903813753602056&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring注入Bean的几种方式&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://docs.huihoo.com/spring/zh-cn/beans.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Beans, BeanFactory和ApplicationContext&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.journaldev.com/2461/spring-ioc-bean-example-tutorial&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring IoC and Bean&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://stackoverflow.com/questions/21163355/spring-context-and-bean-lifecycle-callbacks-practical-examples-of-usage&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring Context and Bean Lifecycle callbacks: practical examples of usage&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://stackoverflow.com/questions/25469369/what-do-you-mean-by-callbacks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;what do you mean by callbacks?&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://dzone.com/articles/spring-bean-lifecycle-using-spring-aware-interface&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring Bean Lifecycle: Using Spring Aware Interfaces&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.geeksforgeeks.org/bean-life-cycle-in-java-spring/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bean life cycle in Java Spring&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Callback_%28computer_programming%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Callback (computer programming)&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://howtodoinjava.com/spring-core/spring-bean-life-cycle/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring – Bean Life Cycle&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://dzone.com/articles/spring-bean-lifecycle&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spring Bean Lifecycle&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
@@ -806,6 +1186,124 @@ vagrant plugin install vagrant-libvirt&lt;/p&gt;
 &lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
 &lt;p&gt;Start terminal in right click menu and change back to the original configuration of update-alternatives, as below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;./update-alternatives-config.png&#34; alt=&#34;update-alternatives-config&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Java Beans</title>
+      <link>/coding/java/javabeans/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/java/javabeans/</guid>
+      <description>&lt;h2 id=&#34;java-beans&#34;&gt;Java Beans&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Software Components&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;JavaBeans are classes that encapsulate many objects into a single object. They are serializable, have a zero-argument constructor, and allow access to properties using getter and setter methods.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+&lt;li&gt;a Java classs&lt;/li&gt;
+&lt;li&gt;serializable&lt;/li&gt;
+&lt;li&gt;zero-argument constructor&lt;/li&gt;
+&lt;li&gt;getter and setter&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;A bean is a Java class with method names that follow the JavaBeans guidelines. A bean builder tool uses introspection to examine the bean class. Based on this inspection, the bean builder tool can figure out the bean&amp;rsquo;s properties, methods, and events.&lt;br&gt;
+Almost any code can be packaged as a bean.&lt;br&gt;
+The power of JavaBeans is that you can use software components without having to write them or understand their implementation.&lt;/p&gt;
+&lt;h3 id=&#34;java-beans-example&#34;&gt;Java Beans Example&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;import java.io.Serializable;
+
+public class Car implements Serializable {
+    //Private Properties
+    private String color;
+    private Boolean isCar;
+
+    //Zero-argument Constructor
+    public Car(){}
+
+    //Getter and Setter
+    public void setColor(String color) { this.color = color; }
+    
+    public String getColor() { return color; }
+    
+    public void setCar(Boolean car) { isCar = car; }
+
+    //&#39;is&#39; for Boolean getter
+    public Boolean isCar() { return isCar; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;bean-properties&#34;&gt;Bean Properties&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+&lt;li&gt;Read and write property has getter and setter&lt;/li&gt;
+&lt;li&gt;A read-only property has a getter method but no setter&lt;/li&gt;
+&lt;li&gt;A write-only property has a setter method only&lt;/li&gt;
+&lt;li&gt;Boolean property using is instead of get&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Indexed Properties&lt;br&gt;
+an array instead of a single value&lt;/li&gt;
+&lt;li&gt;Bound Properties&lt;br&gt;
+PropertyChangeListeners&lt;/li&gt;
+&lt;li&gt;Constrained Properties&lt;br&gt;
+VetoableChangeListeners&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bean-methods&#34;&gt;Bean Methods&lt;/h3&gt;
+&lt;p&gt;Any public method that is not part of a property definition is a bean method.&lt;/p&gt;
+&lt;h3 id=&#34;bean-events&#34;&gt;Bean Events&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A bean class can fire off any type of event&lt;/li&gt;
+&lt;li&gt;Method names with a specific pattern&lt;/li&gt;
+&lt;li&gt;Can be used in wiring components together&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;beaninfo&#34;&gt;BeanInfo&lt;/h3&gt;
+&lt;p&gt;A BeanInfo is a class that changes how your bean appears in a builder tool.&lt;/p&gt;
+&lt;h3 id=&#34;bean-persistence&#34;&gt;Bean Persistence&lt;/h3&gt;
+&lt;h4 id=&#34;serialization&#34;&gt;Serialization&lt;/h4&gt;
+&lt;p&gt;A bean has the property of persistence when its properties, fields, and state information are saved to and retrieved from storage.&lt;br&gt;
+All beans must persist. To persist, must implement either of below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;java.io.Serializable&lt;/li&gt;
+&lt;li&gt;java.io.Externalizable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any class is serializable as long as that class or a parent class implements the java.io.Serializable interface.&lt;br&gt;
+Examples:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Component&lt;/li&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Date&lt;/li&gt;
+&lt;li&gt;Vector&lt;/li&gt;
+&lt;li&gt;Hashtable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Not serializable:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Image&lt;/li&gt;
+&lt;li&gt;Thread&lt;/li&gt;
+&lt;li&gt;Socket&lt;/li&gt;
+&lt;li&gt;InputStream&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Controlling Serialization:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Automatic serialization&lt;/li&gt;
+&lt;li&gt;Customized serialization&lt;/li&gt;
+&lt;li&gt;Customized file format&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;long-term-persistence&#34;&gt;Long Term Persistence&lt;/h4&gt;
+&lt;p&gt;Long-term persistence is a model that enables beans to be saved in XML format.&lt;/p&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/JavaBeans&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;http://download.oracle.com/javase/tutorial/javabeans/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Oracle&amp;rsquo;s JavaBeans tutorials&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JavaBeans specification&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://juejin.im/post/6844903618567471112&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;初识Spring —— Bean的装配（一）&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
