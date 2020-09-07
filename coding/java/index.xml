@@ -5,12 +5,182 @@
     <link>/coding/java/</link>
       <atom:link href="/coding/java/index.xml" rel="self" type="application/rss+xml" />
     <description>Java</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Sun, 02 Aug 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Java</title>
       <link>/coding/java/</link>
     </image>
+    
+    <item>
+      <title>Set Up Shardingsphere Development Environment</title>
+      <link>/coding/java/shardingsphere-dev-env-setup/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/java/shardingsphere-dev-env-setup/</guid>
+      <description>&lt;h2 id=&#34;set-up-shardingsphere-development-environment&#34;&gt;Set Up Shardingsphere Development Environment&lt;/h2&gt;
+&lt;p&gt;This document used the official release version to set up and verify development environment.
+This way could help to rule out any unstable issues of source code and to focus the issues on environment.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux (Ubuntu 18.04)&lt;/li&gt;
+&lt;li&gt;Source code 
+&lt;a href=&#34;https://www.apache.org/dyn/closer.cgi/shardingsphere/4.1.1/apache-shardingsphere-4.1.1-src.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;4.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Eclipse&lt;/li&gt;
+&lt;li&gt;IntelliJ IDEA&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Choose the proper IDE (Eclipse or IntelliJ IDEA), even No IDE
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;java-development-environment-no-ide&#34;&gt;Java Development Environment (No IDE)&lt;/h3&gt;
+&lt;h4 id=&#34;install-jdk-8&#34;&gt;Install JDK 8&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install openjdk-8-jdk
+
+$ java -version
+openjdk version &amp;quot;1.8.0_252&amp;quot;
+OpenJDK Runtime Environment (build 1.8.0_252-8u252-b09-1~18.04-b09)
+OpenJDK 64-Bit Server VM (build 25.252-b09, mixed mode)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;install-maven-optional&#34;&gt;Install Maven (Optional)&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install maven
+
+$ mvn -version
+Apache Maven 3.6.0
+Maven home: /usr/share/maven
+Java version: 1.8.0_252, vendor: Private Build, runtime: /usr/lib/jvm/java-8-openjdk-amd64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: &amp;quot;linux&amp;quot;, version: &amp;quot;5.4.0-42-generic&amp;quot;, arch: &amp;quot;amd64&amp;quot;, family: &amp;quot;unix&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;unzip-source-code&#34;&gt;Unzip Source Code&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Download 
+&lt;a href=&#34;https://www.apache.org/dyn/closer.cgi/shardingsphere/4.1.1/apache-shardingsphere-4.1.1-src.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Source Code&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unzip the source code&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  unzip apache-shardingsphere-4.1.1-src.zip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change file permissions&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  chmod -R 755 apache-shardingsphere-4.1.1-src-release/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;build-and-test&#34;&gt;Build and Test&lt;/h4&gt;
+&lt;p&gt;Based the Github page 
+&lt;a href=&#34;https://github.com/apache/shardingsphere&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Build Apache ShardingSphere&lt;/a&gt;, there is a script to do the build&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./mvnw clean install -Prelease
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Make sure all the tests pass
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h4 id=&#34;issues-and-tricks&#34;&gt;Issues and Tricks&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Lombok in the project not support Java 11&lt;br&gt;
+If Java 11 is set as default, this may cause the error below for Lombok does not support Java 11.
+&lt;img src=&#34;./java-11-not-support-error.png&#34; alt=&#34;java.lang.ExceptionInInitializerError&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br&gt;
+Use Java 8.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Multiple Java version installed&lt;br&gt;
+If multiple versions of Java are installed on the system, such as Java 11 and Java 8, in the mean time, Java 11 is set as default, the above error will cause the build failure.
+Even the default JDK is changed to Java 8 by &lt;strong&gt;update-alternatives &amp;ndash;config java&lt;/strong&gt;, the above issue may still be there.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br&gt;
+Uninstall all the JDKs by the command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get remove openjdk* 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and reinstall JDK 8.&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;eclipse&#34;&gt;Eclipse&lt;/h3&gt;
+&lt;h4 id=&#34;import-the-project&#34;&gt;Import the Project&lt;/h4&gt;
+&lt;p&gt;Follow the steps below to import the project.&lt;/p&gt;
+&lt;p&gt;Import projects&amp;hellip; or File &amp;mdash;&amp;gt; Import&amp;hellip;
+&lt;img src=&#34;./import-projects.png&#34; alt=&#34;import-projects&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./existing-maven-projects.png&#34; alt=&#34;existing-maven-projects&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./select-all-pom-files.png&#34; alt=&#34;select-all-pom-files&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The import is done by m2e plugin.&lt;br&gt;
+The &lt;strong&gt;warning&lt;/strong&gt; shown below can be ignored.&lt;br&gt;
+maven-remote-resources-plugin (goal &amp;ldquo;process&amp;rdquo;) is ignored by m2e.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h4 id=&#34;build-and-test-1&#34;&gt;Build and Test&lt;/h4&gt;
+&lt;p&gt;Build and test as separate steps, i.e.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run As &amp;mdash;&amp;gt; Maven clean&lt;/li&gt;
+&lt;li&gt;Run As &amp;mdash;&amp;gt; Maven build&lt;/li&gt;
+&lt;li&gt;Run As &amp;mdash;&amp;gt; Maven test&lt;/li&gt;
+&lt;li&gt;Run As &amp;mdash;&amp;gt; Maven install&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./maven-run-as-options.png&#34; alt=&#34;maven-run-as-options&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Or define the goals at one time, i.e.
+Run As &amp;mdash;&amp;gt; Maven build&amp;hellip;  &amp;mdash;&amp;gt; Goals: (clean install)
+&lt;img src=&#34;./maven-custom-build.png&#34; alt=&#34;maven-custom-build&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Specific module can be chosen and do the same build.&lt;br&gt;
+Maven will build the dependencies automatically.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h4 id=&#34;issues-and-tricks-1&#34;&gt;Issues and Tricks&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Too many files with unapproved license&lt;br&gt;
+When doing &amp;lsquo;install&amp;rsquo;, the below error occurs. No issue with &amp;lsquo;build&amp;rsquo; and &amp;lsquo;test&amp;rsquo;, but with &amp;lsquo;install&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[INFO] BUILD FAILURE
+Too many files with unapproved license&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br&gt;
+Use or check out clean source code, then do &amp;lsquo;install&amp;rsquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Build failed with 8 threads&lt;br&gt;
+When setting 8 threads for build, the build failed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;&lt;br&gt;
+Set build threads as 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./1-thread.png&#34; alt=&#34;1-thread&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;intellij-idea&#34;&gt;IntelliJ IDEA&lt;/h3&gt;
+&lt;h4 id=&#34;import-the-project-1&#34;&gt;Import the Project&lt;/h4&gt;
+&lt;p&gt;Follow the steps below to import the project.&lt;/p&gt;
+&lt;p&gt;On the Welcome window, select &lt;strong&gt;Import Project&lt;/strong&gt;, then select the project POM file in the next window.
+&lt;img src=&#34;./intellij-idea-import.png&#34; alt=&#34;intellij-idea-import&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./select-project-pom-file.png&#34; alt=&#34;select-project-pom-file&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The &lt;strong&gt;errors&lt;/strong&gt; and &lt;strong&gt;warnings&lt;/strong&gt; of the POM file analysis can be ignored.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h4 id=&#34;build-and-test-2&#34;&gt;Build and Test&lt;/h4&gt;
+&lt;p&gt;As there are errors in the POM file, the tool window of Maven lifecyle may not show up automatically.&lt;br&gt;
+To add Maven support, right click on the project name in the project view, then select &lt;strong&gt;Add Framework Support&amp;hellip;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In the &lt;strong&gt;Maven&lt;/strong&gt; window, different phase of lifecyle of project or module can be chosen to build.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./intellij-idea-maven-build.png&#34; alt=&#34;intellij-idea-maven-build&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Specific module can be chosen and do the build.&lt;br&gt;
+Maven will build the dependencies automatically.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.tutorialspoint.com/maven/maven_build_life_cycle.htm#:~:text=When%20Maven%20starts%20building%20a,are%20registered%20with%20each%20phase.&amp;amp;text=A%20goal%20represents%20a%20specific,and%20managing%20of%20a%20project.&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Maven - Build Life Cycle&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Introduction to the Build Lifecycle&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>Inversion of Control and Dependency Injection</title>
