@@ -1016,5 +1016,128 @@ Examples:&lt;/p&gt;
 </description>
     </item>
     
+    <item>
+      <title>Java Notes</title>
+      <link>/coding/java/java-notes/</link>
+      <pubDate>Tue, 31 Dec 2019 23:59:59 +0000</pubDate>
+      <guid>/coding/java/java-notes/</guid>
+      <description>&lt;h2 id=&#34;java-notes&#34;&gt;Java Notes&lt;/h2&gt;
+&lt;p&gt;A free style notes of Java.&lt;/p&gt;
+&lt;h3 id=&#34;differentiate-jvm-jre-jdk-jit&#34;&gt;Differentiate JVM JRE JDK JIT&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Java Virtual Machine (JVM) is an abstract computing machine.&lt;/li&gt;
+&lt;li&gt;Java Runtime Environment (JRE) is an implementation of the JVM.&lt;/li&gt;
+&lt;li&gt;Java Development Kit (JDK) contains JRE along with various development tools like Java libraries, Java source compilers, Java debuggers, bundling and deployment tools.&lt;/li&gt;
+&lt;li&gt;Just In Time compiler (JIT) is runs after the program has started executing, on the fly. It has access to runtime information and makes optimizations of the code for better performance.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://javapapers.com/core-java/differentiate-jvm-jre-jdk-jit/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Differentiate JVM JRE JDK JIT&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pass-by-value-and-pass-by-reference-and-pass-reference-by-value&#34;&gt;Pass By Value and Pass By Reference and Pass Reference by Value&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Java uses pass by value. There is no pass by reference in Java.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Pass By Value and Pass By Reference and Pass Reference by Value
+
+&lt;a href=&#34;https://javapapers.com/core-java/java-pass-by-value-and-pass-by-reference/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Pass By Value and Pass By Reference&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Java always passes parameter variables by value.&lt;/li&gt;
+&lt;li&gt;Object variables in Java always point to the real object in the memory heap.&lt;/li&gt;
+&lt;li&gt;A mutable object’s value can be changed when it is passed to a method.&lt;/li&gt;
+&lt;li&gt;An immutable object’s value cannot be changed, even if it is passed a new value.&lt;/li&gt;
+&lt;li&gt;“Passing by value” refers to passing a copy of the value.&lt;/li&gt;
+&lt;li&gt;“Passing by reference” refers to passing the real reference of the variable in memory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.infoworld.com/article/3512039/does-java-pass-by-reference-or-pass-by-value.html#:~:text=Java%20always%20passes%20parameter%20variables,is%20passed%20to%20a%20method.&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Does Java pass by reference or pass by value?&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;java-jvm-memory-types&#34;&gt;Java (JVM) Memory Types&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Shared/Common Area&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Heap Memory&lt;br&gt;
+Class instances and arrays are stored in heap memory. Heap memory is also called as shared memory. As this is the place where multiple threads will share the same data.&lt;br&gt;
+Heap data area is created at VM startup. Claiming the memory back is done automatically by the garbage collector (GC).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Non-heap Memory&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Method area
+Method area is created at JVM startup and shared among all the threads.
+&lt;ol&gt;
+&lt;li&gt;per-class structures (runtime constants and static fields)&lt;/li&gt;
+&lt;li&gt;code for methods&lt;/li&gt;
+&lt;li&gt;constructors&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Run-time Constant Pool&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Per-Thread Area&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Program Counter (PC) Register
+PC keeps a pointer to the current statement that is being executed in its thread. If the current executing method is ‘native’, then the value of program counter register will be undefined.&lt;/li&gt;
+&lt;li&gt;JVM Stacks or Frames
+Java JVM frames are created when a method is invoked, it performs the dynamic linking. JVM stacks are created and managed for each thread.&lt;/li&gt;
+&lt;li&gt;Native Method Stacks
+It is used for native methods, and created per thread.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Memory Generations&lt;/strong&gt;
+HotSpot VM’s garbage collector uses generational garbage collection. It separates the JVM’s memory into and they are called young generation and old generation.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Young Generation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Eden space&lt;/li&gt;
+&lt;li&gt;Survivor space&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Old Generation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Tenured Generation
+GC moves live objects from survivor space to tenured generation.&lt;/li&gt;
+&lt;li&gt;PermGen (Permanent Generation)
+The permanent generation contains meta data of the virtual machine, class and method objects.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(Java JVM Run-time Data Areas)[https://javapapers.com/core-java/java-jvm-run-time-data-areas/#Java_Virtual_Machine_Stacks]&lt;br&gt;
+(Java (JVM) Memory Types)[https://javapapers.com/core-java/java-jvm-memory-types/]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Key Takeaways&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Local Variables are stored in Frames during runtime.&lt;/li&gt;
+&lt;li&gt;Static Variables are stored in Method Area.&lt;/li&gt;
+&lt;li&gt;Arrays are stored in heap memory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;java-static&#34;&gt;Java Static&lt;/h3&gt;
+&lt;h4 id=&#34;java-static-variables&#34;&gt;Java Static Variables&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Java instance variables are given separate memory for storage. If there is a need for a variable to be common to all the objects of a single java class, then the static modifier should be used in the variable declaration.&lt;/li&gt;
+&lt;li&gt;Any java object that belongs to that class can modify its static variables.&lt;/li&gt;
+&lt;li&gt;Also, an instance is not a must to modify the static variable and it can be accessed using the java class directly.&lt;/li&gt;
+&lt;li&gt;Static variables can be accessed by java instance methods also.&lt;/li&gt;
+&lt;li&gt;When the value of a constant is known at compile time it is declared ‘final’ using the ‘static’ keyword.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;####Java Static Methods&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Similar to static variables, java static methods are also common to classes and not tied to a java instance.&lt;/li&gt;
+&lt;li&gt;Good practice in java is that, static methods should be invoked with using the class name though it can be invoked using an object. ClassName.methodName(arguments) or objectName.methodName(arguments)&lt;/li&gt;
+&lt;li&gt;General use for java static methods is to access static fields.&lt;/li&gt;
+&lt;li&gt;Static methods can be accessed by java instance methods.&lt;/li&gt;
+&lt;li&gt;Java static methods cannot access instance variables or instance methods directly.&lt;/li&gt;
+&lt;li&gt;Java static methods cannot use the ‘this’ keyword.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;java-static-classes&#34;&gt;Java Static Classes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;For java classes, only an inner class can be declared using the static modifier.&lt;/li&gt;
+&lt;li&gt;For java a static inner class it does not mean that, all their members are static. These are called nested static classes in java.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://javapapers.com/core-java/explain-the-java-static-modifier/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Static&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
