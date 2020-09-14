@@ -1118,7 +1118,7 @@ The permanent generation contains meta data of the virtual machine, class and me
 &lt;li&gt;Static variables can be accessed by java instance methods also.&lt;/li&gt;
 &lt;li&gt;When the value of a constant is known at compile time it is declared ‘final’ using the ‘static’ keyword.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;####Java Static Methods&lt;/p&gt;
+&lt;h4 id=&#34;java-static-methods&#34;&gt;Java Static Methods&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Similar to static variables, java static methods are also common to classes and not tied to a java instance.&lt;/li&gt;
 &lt;li&gt;Good practice in java is that, static methods should be invoked with using the class name though it can be invoked using an object. ClassName.methodName(arguments) or objectName.methodName(arguments)&lt;/li&gt;
