@@ -2210,6 +2210,58 @@ The permanent generation contains meta data of the virtual machine, class and me
 &lt;/ul&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://javapapers.com/core-java/explain-the-java-static-modifier/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Static&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;static-block&#34;&gt;Static Block&lt;/h3&gt;
+&lt;p&gt;It&amp;rsquo;s a static initializer. It&amp;rsquo;s executed when the class is loaded (or initialized, to be precise, but you usually don&amp;rsquo;t notice the difference).&lt;br&gt;
+It can be thought of as a &amp;ldquo;class constructor&amp;rdquo;.&lt;br&gt;
+Note that there are also instance initializers, which look the same, except that they don&amp;rsquo;t have the static keyword. Those are run in addition to the code in the constructor when a new instance of the object is created.&lt;br&gt;
+A static block in Java is a block of code that is executed at the time of loading a class for use in a Java application. It starts with a &amp;lsquo;static {&amp;rsquo; and it is used for initializing static Class members in general — and is also known as a &amp;lsquo;Static Initializer&amp;rsquo;. The most powerful use of a static block can be realized while performing operations that are required to be executed only once for a Class in an application lifecycle.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/2943556/static-block-in-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Static Block in Java&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://dzone.com/articles/the-hidden-synchronized-keyword-with-a-static-bloc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;The Hidden Synchronized Keyword With a Static Block&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;builder-patter&#34;&gt;Builder Patter&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Builder&lt;/strong&gt; is a creational design pattern that lets you construct complex objects step by step. The pattern allows you to produce different types and representations of an object using the same construction code.&lt;/p&gt;
+&lt;p&gt;Builder pattern builds a complex object using simple objects and using a step by step approach. This type of design pattern comes under creational pattern as this pattern provides one of the best ways to create an object.&lt;/p&gt;
+&lt;p&gt;A Builder class builds the final object step by step. This builder is independent of other objects.&lt;/p&gt;
+&lt;h4 id=&#34;pros-and-cons&#34;&gt;Pros and Cons&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Pros&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can construct objects step-by-step, defer construction steps or run steps recursively.&lt;/li&gt;
+&lt;li&gt;You can reuse the same construction code when building various representations of products.&lt;/li&gt;
+&lt;li&gt;Single Responsibility Principle. You can isolate complex construction code from the business logic of the product.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Cons&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The overall complexity of the code increases since the pattern requires creating multiple new classes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;relations-with-other-patterns&#34;&gt;Relations with Other Patterns&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Many designs start by using &lt;strong&gt;Factory Method&lt;/strong&gt; (less complicated and more customizable via subclasses) and evolve toward &lt;strong&gt;Abstract Factory&lt;/strong&gt;, &lt;strong&gt;Prototype&lt;/strong&gt;, or &lt;strong&gt;Builder&lt;/strong&gt; (more flexible, but more complicated).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Builder&lt;/strong&gt; focuses on constructing complex objects step by step. &lt;strong&gt;Abstract Factory&lt;/strong&gt; specializes in creating families of related objects. Abstract Factory returns the product immediately, whereas Builder lets you run some additional construction steps before fetching the product.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can use &lt;strong&gt;Builder&lt;/strong&gt; when creating complex &lt;strong&gt;Composite&lt;/strong&gt; trees because you can program its construction steps to work recursively.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can combine &lt;strong&gt;Builder&lt;/strong&gt; with &lt;strong&gt;Bridge&lt;/strong&gt;: the director class plays the role of the abstraction, while different builders act as implementations.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Abstract Factories&lt;/strong&gt;, &lt;strong&gt;Builders&lt;/strong&gt; and &lt;strong&gt;Prototypes&lt;/strong&gt; can all be implemented as &lt;strong&gt;Singletons&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Builder_pattern&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Builder pattern&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://refactoring.guru/design-patterns/builder&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Builder&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.tutorialspoint.com/design_pattern/builder_pattern.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Design Patterns - Builder Pattern&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;transient-keyword-in-java&#34;&gt;transient keyword in Java&lt;/h3&gt;
+&lt;p&gt;The transient keyword in Java is used to indicate that a field should not be part of the serialization (which means saved, like to a file) process.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/910374/why-does-java-have-transient-fields&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Why does Java have transient fields?&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
