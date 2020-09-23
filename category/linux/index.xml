@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux | flycoolman</title>
+    <link>/category/linux/</link>
+      <atom:link href="/category/linux/index.xml" rel="self" type="application/rss+xml" />
+    <description>Linux</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
+      <title>Linux</title>
+      <link>/category/linux/</link>
+    </image>
+    
+    <item>
+      <title>Set Up MySQL Cluster</title>
+      <link>/linux/set-up-mysql-master-slave-cluster/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/linux/set-up-mysql-master-slave-cluster/</guid>
+      <description>&lt;p&gt;This document preassumes that you are familiar with VirtualBox, Vagrant on Linux.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;VirtualBox&lt;/li&gt;
+&lt;li&gt;Vagrant&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;what-to-build&#34;&gt;What to Build&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;3 Virtual Machines&lt;/li&gt;
+&lt;li&gt;3 MySQL instances running on the 3 VMs&lt;/li&gt;
+&lt;li&gt;Employees Sample Database&lt;/li&gt;
+&lt;li&gt;Data replication&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ip-settings&#34;&gt;IP Settings&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Master  - 192.168.0.201&lt;/li&gt;
+&lt;li&gt;Slave-1 - 192.168.0.202&lt;/li&gt;
+&lt;li&gt;Slave-2 - 192.168.0.203&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;vagrantfiles&#34;&gt;Vagrantfiles&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;./Vagrantfile-master&#34;&gt;Vagrantfile-Master&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;./Vagrantfile-slave-1&#34;&gt;Vagrantfile-Slave-1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;./Vagrantfile-slave-2&#34;&gt;Vagrantfile-Slave-2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;steps&#34;&gt;Steps&lt;/h2&gt;
+&lt;h3 id=&#34;boot-up-virtual-machines&#34;&gt;Boot up Virtual Machines&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &amp;lsquo;vagrant up&amp;rsquo; to boot up 3 virtual machines.&lt;/li&gt;
+&lt;li&gt;Use &amp;lsquo;vagrant halt&amp;rsquo; to power off the VMs&lt;/li&gt;
+&lt;li&gt;Open VirtualBox GUI and change the MAC addresses of the 3 VMs&lt;br&gt;
+Make sure the 3 VMs have different MAC addresses&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;install-mysql-server&#34;&gt;Install MySQL Server&lt;/h3&gt;
+&lt;p&gt;Install MySQL server on the 3 VMs separately.&lt;br&gt;
+The guide 
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Install MySQL on CentOS 8&lt;/a&gt; can be referenced.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo dnf install mysql-server
+sudo systemctl start mysqld.service
+sudo systemctl status mysqld
+sudo systemctl enable mysqld
+sudo mysql_secure_installation
+mysqladmin -u root -p version
+mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;configure-mysql-server-on-master-vm&#34;&gt;Configure MySQL Server on Master VM&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit MySQL configuration file &amp;lsquo;/etc/my.cnf&amp;rsquo;. Add the below configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[mysqld]&lt;br&gt;
+log-bin=mysql-bin # Optinal&lt;br&gt;
+server-id=1　　　　# Must&lt;/p&gt;
+&lt;p&gt;bind-address = 0.0.0.0 # Must&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;./config-master.png&#34; alt=&#34;config-master&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Restart MySQL server service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;System command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl restart mysqld
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Create user for syncing data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MySQL commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CREATE USER &#39;repl&#39;@&#39;192.168.0.%&#39; IDENTIFIED BY &#39;123456&#39;;  
+GRANT REPLICATION SLAVE ON *.* TO &#39;repl&#39;@&#39;192.168.0.%&#39;;  
+FLUSH PRIVILEGES;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Check master status&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./master-status.png&#34; alt=&#34;master-status&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;configure-mysql-server-on-slave-vm&#34;&gt;Configure MySQL Server on Slave VM&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Edit MySQL configuration file &amp;lsquo;/etc/my.cnf&amp;rsquo;. Add the below configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[mysqld]&lt;br&gt;
+server-id=2&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;./config-slave-1.png&#34; alt=&#34;config-slave-1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Restart MySQL server service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;System command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl restart mysqld
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Configure syncronization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MySQL command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;change master to master_host=&#39;192.168.0.201&#39;, master_user=&#39;repl&#39;, master_password=&#39;123456&#39;, master_log_file=&#39;mysql-bin.000001&#39;, master_log_pos=155;
+
+start slave;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./sync-config-slave-1.png&#34; alt=&#34;sync-config-slave-1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check slave status&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both &lt;strong&gt;Slave_IO_Running&lt;/strong&gt; and &lt;strong&gt;Slave_SQL_Running&lt;/strong&gt; should be &amp;lsquo;&lt;strong&gt;Yes&lt;/strong&gt;&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./slave-1-status.png&#34; alt=&#34;slave-1-status&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Same configuration and steps on Slave-2 VM, except the &lt;strong&gt;server-id=3&lt;/strong&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;import-the-employees-sample-database&#34;&gt;Import the &amp;lsquo;Employees Sample Database&amp;rsquo;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Sync folder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Note that when you vagrant ssh into your machine, you&amp;rsquo;re in /home/vagrant. /home/vagrant is a different directory from the synced /vagrant directory.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&#34;./sync-folder.png&#34; alt=&#34;sync-folder&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    By default, Vagrant only syncs the folders on &lt;strong&gt;vagrant up&lt;/strong&gt; or &lt;strong&gt;vagrant reload&lt;/strong&gt;.&lt;br&gt;
+The tool &lt;strong&gt;rsync&lt;/strong&gt; can be used for data syncronization.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Download the &amp;lsquo;Employees Sample Database&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Download the zip file from 
+&lt;a href=&#34;https://github.com/datacharmer/test_db&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Employees DB on GitHub&lt;/a&gt;, unzip the file and put the unzipped folder into the master VM folder of the host machine.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./database-folder.png&#34; alt=&#34;database-folder&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reload the master VM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here we use the simple way, just reload the master VM.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Import the database&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On master VM:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd test_db-master/
+mysql -u root -p -t &amp;lt; employees.sql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./import-result.png&#34; alt=&#34;import-result&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Validating the Employee Data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;time mysql -u root -p -t &amp;lt; test_employees_sha.sql&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./validating-result.png&#34; alt=&#34;validating-result&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check data on slaves&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now you can see all the data has been replicated on the slave servers.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./data-synced-1.png&#34; alt=&#34;data-synced-1&#34;&gt;
+&lt;img src=&#34;./data-synced-2.png&#34; alt=&#34;data-synced-2&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;errors&#34;&gt;Errors&lt;/h3&gt;
+&lt;h4 id=&#34;slave_io_running-no&#34;&gt;Slave_IO_Running: No&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;./Slave_IO_Running-error.png&#34; alt=&#34;Slave_IO_Running-error&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Possible reasons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Forget to restart mysqld service&lt;/li&gt;
+&lt;li&gt;Forget to bind address.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solution:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Restart mysqld service&lt;/li&gt;
+&lt;li&gt;Use netstat to check the status, i.e.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./Slave_IO_Running-solution.png&#34; alt=&#34;Slave_IO_Running-solution&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.vagrantup.com/intro/getting-started/synced_folders&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Synced Folders&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Install MySQL on CentOS 8&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://dev.mysql.com/doc/employee/en/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Employees Sample Database&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.cnblogs.com/cjsblog/p/9706370.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MySQL Cluster COnfiguration&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://stackoverflow.com/questions/17666249/how-do-i-import-an-sql-file-using-the-command-line-in-mysql&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Import SQL File&lt;/a&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IETF Datatracker Environment Setup</title>
+      <link>/coding/python/ietf-datatracker-environment-setup/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/python/ietf-datatracker-environment-setup/</guid>
+      <description>&lt;h3 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux host machine (i.e. Ubuntu 18.04)&lt;/li&gt;
+&lt;li&gt;Vagrant (i.e. 2.9.9)&lt;/li&gt;
+&lt;li&gt;VirtualBox (i.e. 6.1.12)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The version numbers are just for my environment.&lt;br&gt;
+Find the original log of my setup &lt;a href=&#34;./ietf_datatracker_env_setup.txt&#34;&gt;&lt;strong&gt;here&lt;/strong&gt;&lt;/a&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+&lt;p&gt;The steps are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use Vagrant to boot up a VM&lt;/li&gt;
+&lt;li&gt;Install GUI on the VM&lt;/li&gt;
+&lt;li&gt;Install Docker on the VM&lt;/li&gt;
+&lt;li&gt;Install SVN&lt;/li&gt;
+&lt;li&gt;Check out the branch&lt;/li&gt;
+&lt;li&gt;Set up database&lt;/li&gt;
+&lt;li&gt;Set up virtual environment&lt;/li&gt;
+&lt;li&gt;Run the tests&lt;/li&gt;
+&lt;li&gt;Start the Development Server&lt;/li&gt;
+&lt;li&gt;Mailserver and Rsync Data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-1-use-vagrant-to-boot-up-a-vm&#34;&gt;Step 1: Use Vagrant to boot up a VM&lt;/h3&gt;
+&lt;p&gt;Put the below Vagrantfile into working directory and execute &amp;lsquo;Vagrant up&amp;rsquo;.
+
+&lt;a href=&#34;./Vagrantfile&#34;&gt;Vagrantfile&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-2-install-gui-on-the-vm&#34;&gt;Step 2: Install GUI on the VM&lt;/h3&gt;
+&lt;p&gt;Ssh to the VM,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant ssh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then use the below commands to intall GUI on the VM.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum -y groupinstall &amp;quot;GNOME Desktop&amp;quot;
+echo &amp;quot;exec gnome-session&amp;quot; &amp;gt;&amp;gt; ~/.xinitrc
+systemctl set-default graphical.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;startx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;in VirtualBox console to start the GUI.&lt;/p&gt;
+&lt;h3 id=&#34;step-3-install-docker-on-the-vm&#34;&gt;Step 3: Install Docker on the VM&lt;/h3&gt;
+&lt;p&gt;Install docker and start the service.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum -y install docker
+sudo systemctl status docker
+sudo systemctl start docker
+sudo systemctl enable docker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create user group &amp;lsquo;docker&amp;rsquo; and add you into the group.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo groupadd docker
+sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker vagrant
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Reevaluate the group and restart the docker service.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;logout
+sudo systemctl restart docker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check if you can run docker commands without sudo.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker info
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-4-install-svn&#34;&gt;Step 4: Install SVN&lt;/h3&gt;
+&lt;p&gt;Add the repository and install SVN.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/yum.repos.d/wandisco-svn.repo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[WandiscoSVN]
+name=Wandisco SVN Repo
+baseurl=http://opensource.wandisco.com/centos/$releasever/svn-1.8/RPMS/$basearch/
+enabled=1
+gpgcheck=0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum remove subversion*
+sudo yum clean all
+sudo yum install subversion
+
+svn --version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-5-check-out-the-branch&#34;&gt;Step 5: Check out the branch&lt;/h3&gt;
+&lt;p&gt;UTF-8 settings:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export LC_ALL=C
+sudo vi .bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add below to the file ~/.bashrc&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LANG=en_US.UTF-8
+export LANG&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Change SELinux settings, so that docker image can access your home directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chcon -Rt svirt_sandbox_file_t /home/vagrant/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Checkout the branch&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ietf
+cd ietf
+svn co https://svn.tools.ietf.org/svn/tools/ietfdb/personal/flycoolman/7.10.1.dev0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-6-set-up-database&#34;&gt;Step 6: Set up database&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd 7.10.1.dev0/
+./docker/setupdb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;step-7-set-up-virtual-environment&#34;&gt;Step 7: Set up virtual environment&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;./docker/run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    rsyslog error can be ignored!&lt;br&gt;
+[FAIL] rsyslogd is not running &amp;hellip; failed!
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;In virtual environment of the container&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install --upgrade -r requirements.txt
+
+./ietf/manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;p&gt;The below operation might be needed if the migration fails.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo cp docker/settings_local.py ietf/  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then run the migrate command again.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;step-8-run-the-tests&#34;&gt;Step 8: Run the tests&lt;/h3&gt;
+&lt;p&gt;In the virtual environment to run the tests:&lt;/p&gt;
+&lt;p&gt;./ietf/manage.py test &amp;ndash;settings=settings_sqlitetest&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Make sure that one of the following commands runs to completion without errors.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;step-9-start-the-development-server&#34;&gt;Step 9: Start the Development Server&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;./ietf/manage.py runserver 0.0.0.0:8000 &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Test the access to datatracker.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./featured.png&#34; alt=&#34;ietf-datatracker&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;step-10-mailserver-and-rsync-data&#34;&gt;Step 10: Mailserver and Rsync Data&lt;/h3&gt;
+&lt;p&gt;Go to 
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the original page&lt;/a&gt; for details about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(Optional) Run the mailserver&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manually Edit or rsync Datatracker Data Directories&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;setup-complete&#34;&gt;Setup Complete&lt;/h3&gt;
+&lt;p&gt;For other workflow things, please refer to 
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the original setup guide.&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-centos-7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How To Install and Use Docker on CentOS 7&lt;/a&gt;
+
+&lt;a href=&#34;https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to fix docker: Got permission denied while trying to connect to the Docker daemon socket&lt;/a&gt;
+
+&lt;a href=&#34;https://tecadmin.net/install-subversion-1-8-on-centos-rhel/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to Install Subversion (SVN) 1.8.19 on CentOS/RHEL 7/6/5&lt;/a&gt;
+
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetup&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sprint Coder Setup&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.techrepublic.com/article/how-to-install-a-gui-on-top-of-centos-7/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to install a GUI on top of CentOS 7&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://trac.tools.ietf.org/tools/ietfdb/wiki/SprintCoderSetupTroubleshooting&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SprintCoderSetupTroubleshooting&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/linux/ubuntu-18.04-upgrade-virtualbox-vagrant/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Upgrade to VirtualBox 6.1 and Vagrant 2.9.9 on Ubuntu 18.04&lt;/a&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Upgrade to VirtualBox 6.1 and Vagrant 2.9.9 on Ubuntu 18.04</title>
+      <link>/linux/ubuntu-18.04-upgrade-virtualbox-vagrant/</link>
+      <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/linux/ubuntu-18.04-upgrade-virtualbox-vagrant/</guid>
+      <description>&lt;p&gt;I needed to set up a development environment for this week&amp;rsquo;s IETF code sprint. As this was a very short term project, I would like to
+set up the environment in a VM. Instead of downloading Linux image, install it on VirtualBox or KVM, Vagrant is handy to use, particularly
+for development environment. I was thinking to get some new exeperience. Then CentOS 8 came up, as I have been using CentOS 7, but no
+CentOS 8 experience. And also I wanted the environment with GUI, so that I dould test my code on the VM directly.&lt;/p&gt;
+&lt;h3 id=&#34;why-to-upgrade-virtualbox-and-vagrant&#34;&gt;Why to upgrade VirtualBox and Vagrant&lt;/h3&gt;
+&lt;p&gt;I had VirtualBox and Vagrant on my machine(Ubuntu 18.04). So it was straight forward to boot up CentOS 8 by changing the Vagrantfile.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;# -*- mode: ruby -*-&lt;br&gt;
+# vi: set ft=ruby :&lt;/p&gt;
+&lt;p&gt;Vagrant.configure(&amp;ldquo;2&amp;rdquo;) do |config|&lt;br&gt;
+     config.vm.box = &amp;ldquo;centos/8&amp;rdquo;&lt;br&gt;
+     config.vm.box_check_update = false&lt;br&gt;
+     config.vm.hostname = &amp;ldquo;centos8&amp;rdquo;&lt;br&gt;
+     config.vm.provider &amp;ldquo;virtualbox&amp;rdquo; do |vb|&lt;br&gt;
+     # Display the VirtualBox GUI when booting the machine&lt;br&gt;
+           vb.gui = true&lt;br&gt;
+           vb.memory = &amp;ldquo;4096&amp;rdquo;&lt;br&gt;
+           vb.cpus = 4&lt;br&gt;
+     end&lt;br&gt;
+end&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;a href=&#34;./Vagrantfile&#34;&gt;Vagrantfile&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;After&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Vagrant up&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I could &lt;strong&gt;vagrant ssh&lt;/strong&gt; to the VM and there was terminal on VirtualBox console. Everything worked well until the GUI was installed and started.
+I &lt;strong&gt;could not&lt;/strong&gt; get into the GUI of CentOS.&lt;br&gt;
+I guessed to upgrade the VirtualBox might resolve the issue, because I had VirtualBox 5.2. The latest version of VirtualBox is 6.1. So I started upgrading VirutalBox.&lt;/p&gt;
+&lt;h3 id=&#34;upgrade-virtualbox-61&#34;&gt;Upgrade VirtualBox 6.1&lt;/h3&gt;
+&lt;p&gt;To install the latest version of VirtualBox, the usual way is to download the .DEB binary package simply from
+
+&lt;a href=&#34;https://www.virtualbox.org/wiki/Linux_Downloads&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;VirtualBox downloads page&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget https://download.virtualbox.org/virtualbox/6.1.12/virtualbox-6.1_6.1.12-139181~Ubuntu~bionic_amd64.deb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Install the package by dpkg&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dpkg -i virtualbox-6.1_6.1.12-139181~Ubuntu~bionic_amd64.deb
+sudo apt install -f
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or apt&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install ./virtualbox-6.1_6.1.12-139181~Ubuntu~bionic_amd64.deb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;upgrade-vagrant-299&#34;&gt;Upgrade Vagrant 2.9.9&lt;/h3&gt;
+&lt;p&gt;To support VirtualBox 6.1, I also have to upgrade Vagrant to 2.9.9. Again download the DEB package from  Vagrant release website and install with dpkg or apt.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
+sudo apt install ./vagrant_2.2.9_x86_64.deb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To verify that the installation was successful, run the following command which prints the Vagrant version:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant --version 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;install-virtualbox-dkms&#34;&gt;Install Virtualbox-dkms&lt;/h3&gt;
+&lt;p&gt;When VirtualBox is upgraded, the old virtual machines might fail to open. Some error information like below:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Failed to open a session for the virtual machine xxxxxxx.&lt;/p&gt;
+&lt;p&gt;The VM session was closed before any attempt to power it on.&lt;/p&gt;
+&lt;p&gt;Result Code: NS_ERROR_FAILURE (0x80004005)&lt;br&gt;
+Component: SessionMachine&lt;br&gt;
+Interface: ISession {7844aa05-b02e-4cdd-a04f-ade4a762e6b7}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Even running the command &amp;lsquo;sudo /sbin/vboxconfig&amp;rsquo; can&amp;rsquo;t resolve the issue. the dkms package needs to be reinstalled.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dpkg -l | grep virtualbox-dkms
+sudo apt-get purge virtualbox-dkms &amp;amp;&amp;amp; sudo apt-get install dkms
+sudo /sbin/vboxconfig
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;install-virtualbox-extension-pack&#34;&gt;Install VirtualBox Extension Pack&lt;/h3&gt;
+&lt;p&gt;After the Vagrant and VirtualBox had been upgraded, unfortunately I still couldn&amp;rsquo;t make the CentOS 8 GUI working, even though
+I tried all the options of &amp;lsquo;Graphics Controller&amp;rsquo;. When I tried to connect the VM by RDP, I got an error message of no
+VirtualBox Extension Pack. Here is the step to install the VirtualBox Extension Pack.&lt;/p&gt;
+&lt;h4 id=&#34;step-1&#34;&gt;Step 1&lt;/h4&gt;
+&lt;p&gt;Go to the 
+&lt;a href=&#34;https://www.virtualbox.org/wiki/Downloads&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;virtualbox official website&lt;/a&gt; and download the package.&lt;/p&gt;
+&lt;h4 id=&#34;step-2&#34;&gt;Step 2&lt;/h4&gt;
+&lt;p&gt;Double click the file, such as&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Oracle_VM_VirtualBox_Extension_Pack-6.1.12&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;then follow the wizard to install.&lt;/p&gt;
+&lt;p&gt;Unfortunately the RDP did not show me the desktop successfully either.&lt;/p&gt;
+&lt;h3 id=&#34;install-vagrant-plugin-vagrant-libvirt&#34;&gt;Install Vagrant Plugin vagrant-libvirt&lt;/h3&gt;
+&lt;p&gt;As I couldn&amp;rsquo;t make the CentOS 8 GUI working on VirtualBox with Vagrant, then I moved to Libvirt with Vagrant.
+But When I did &amp;lsquo;vagrant up&amp;rsquo;, got the below error.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./libvirt-not-found.png&#34; alt=&#34;libvirt-not-found&#34;&gt;&lt;/p&gt;
+&lt;p&gt;It seemed that the libvirt plugin was not installed, because I installed Vagrant by DEB package, not apt.
+To install Vagrant Plugin vagrant-libvert, please follow the
+
+&lt;a href=&#34;https://github.com/vagrant-libvirt/vagrant-libvirt#installation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Vagrant Libvirt Provider&lt;/a&gt;
+on GitHub.&lt;/p&gt;
+&lt;h4 id=&#34;step-1-1&#34;&gt;Step 1&lt;/h4&gt;
+&lt;p&gt;The packages for building needs to be installed.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt-get build-dep vagrant ruby-libvirt  
+apt-get install qemu libvirt-bin ebtables dnsmasq-base  
+apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;step-2-1&#34;&gt;Step 2&lt;/h4&gt;
+&lt;p&gt;Install the plugin.
+vagrant plugin install vagrant-libvirt&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./install-vagrant-libvirt.png&#34; alt=&#34;install-vagrant-libvirt&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;non-exist-box-error&#34;&gt;Non-exist Box Error&lt;/h3&gt;
+&lt;p&gt;I even tried some pre-built box with GUI, but the box was gone when I used the new version Vagrant.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./nonexist-box.png&#34; alt=&#34;nonexist-box&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;terminal-mode&#34;&gt;Terminal Mode&lt;/h3&gt;
+&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    Bad news - I have not made the CentOS 8 GUI working on VM through Vagrant with either VirtualBox or Libvirt.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The pictures below show the successful terminal.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./successful-vagrant-up.png&#34; alt=&#34;successful-vagrant-up&#34;&gt;
+&lt;img src=&#34;./vagrant-ssh.png&#34; alt=&#34;vagrant-ssh&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The username and password for console are vagrant and vagrant.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&#34;./username-password-vagrant.png&#34; alt=&#34;username-password-vagrant&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://linuxize.com/post/how-to-install-vagrant-on-ubuntu-18-04/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to Install Vagrant on Ubuntu 18.04&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.golinuxcloud.com/install-gnome-enable-gui-mode-rhel-centos-8/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Install GNOME | How to enable GUI mode | RHEL CentOS 8&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.techrepublic.com/article/how-to-install-a-gui-on-top-of-centos-7/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How to install a GUI on top of CentOS 7&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://computingforgeeks.com/run-centos-8-vm-using-vagrant-on-kvm-virtualbox-vmware-parallels/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Run CentOS 8 VM using Vagrant on KVM / VirtualBox / VMWare / Parallels&lt;/a&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 18.04 System Python 3 Upgrade</title>
+      <link>/linux/ubuntu-18.04-system-python-3-upgrade/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/linux/ubuntu-18.04-system-python-3-upgrade/</guid>
+      <description>&lt;h3 id=&#34;symptom&#34;&gt;Symptom&lt;/h3&gt;
+&lt;p&gt;After the upgrade from Python 3.6 to Python 3.8:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ubuntu Software Center not working&lt;/li&gt;
+&lt;li&gt;Can&amp;rsquo;t start terminal by Ctl+Alt+t&lt;/li&gt;
+&lt;li&gt;Can&amp;rsquo;t start terminal or software&lt;/li&gt;
+&lt;li&gt;Error Message - A problem occured when checking for the updates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;root-cause&#34;&gt;Root cause&lt;/h3&gt;
+&lt;p&gt;After the Python 3 upgrade, I changed the Update-alternatives configuration. Fortunately I remembered it!&lt;/p&gt;
+&lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
+&lt;p&gt;Start terminal in right click menu and change back to the original configuration of update-alternatives, as below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./update-alternatives-config.png&#34; alt=&#34;update-alternatives-config&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
