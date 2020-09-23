@@ -5,12 +5,60 @@
     <link>/author/hongwei-li/</link>
       <atom:link href="/author/hongwei-li/index.xml" rel="self" type="application/rss+xml" />
     <description>Hongwei Li</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Hongwei Li</title>
       <link>/author/hongwei-li/</link>
     </image>
+    
+    <item>
+      <title>Whatis Locate Which Whereis</title>
+      <link>/linux/whatis-locate-which-whereis/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/linux/whatis-locate-which-whereis/</guid>
+      <description>&lt;h2 id=&#34;whatis-locate-which-whereis&#34;&gt;Whatis Locate Which Whereis&lt;/h2&gt;
+&lt;h3 id=&#34;whatis&#34;&gt;Whatis&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;hongwei@840-g5:~$ whatis whatis
+whatis (1)           - display one-line manual page descriptions
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;locate&#34;&gt;Locate&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;hongwei@840-g5:~$ whatis locate
+locate (1)           - find files by name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;locate&lt;/strong&gt; indeed finds all the files that have the pattern specified anywhere in their paths. You can tell it to only find files and directories whose names (rather than full paths) include the pattern with the &lt;strong&gt;-b&lt;/strong&gt; option, which is usually what you want, and gives a less unwieldy list.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;locate&lt;/strong&gt; is fast because it uses a binary database that gets periodically updated (once daily, by cron). You can update it yourself to ensure recently added files are found by running &lt;strong&gt;sudo updatedb&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;One more thing about locate - &lt;strong&gt;it doesn&amp;rsquo;t care whether files still exist or not&lt;/strong&gt;, so to avoid finding recently deleted files, use -e. Often I also pipe to less as the list can be long. Typically I do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo updatedb &amp;amp;&amp;amp; locate -b -e psql | less
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;which&#34;&gt;Which&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;hongwei@840-g5:~$ whatis which
+which (1)            - locate a command
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;which&lt;/strong&gt; finds the binary executable of the program (if it is in your PATH)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;which&lt;/strong&gt; returns the  pathnames of the files (or links) which would be executed in the current environment, had its arguments been given as commands in a strictly POSIX-conformant shell.  It does this by searching the &lt;strong&gt;PATH&lt;/strong&gt; for executable files matching the names of the arguments. It does not canonicalize path names.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hongwei@840-g5:~$ which psql
+/usr/bin/psql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;whereis&#34;&gt;Whereis&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;hongwei@840-g5:~$ whatis whereis
+whereis (1)          - locate the binary, source, and manual page files for a command
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;whereis&lt;/strong&gt; finds the binary, the source, and the man page files for a program.&lt;br&gt;
+&lt;strong&gt;whereis&lt;/strong&gt; locates the binary, source and manual files for the specified command names.&lt;br&gt;
+&lt;strong&gt;whereis&lt;/strong&gt; attempts to locate the desired program in the standard Linux places, and in the places specified by &lt;strong&gt;$PATH&lt;/strong&gt; and &lt;strong&gt;$MANPATH&lt;/strong&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hongwei@840-g5:~$ whereis psql
+psql: /usr/bin/psql /usr/share/man/man1/psql.1.gz
+hongwei@840-g5:~$ whereis postgresql
+postgresql: /usr/lib/postgresql /etc/postgresql /usr/share/postgresql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://askubuntu.com/questions/799776/what-is-the-difference-between-locate-whereis-which&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;What is the difference between locate/whereis/which&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>Set Up MySQL Cluster</title>
