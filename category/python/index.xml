@@ -5,12 +5,137 @@
     <link>/category/python/</link>
       <atom:link href="/category/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Python</title>
       <link>/category/python/</link>
     </image>
+    
+    <item>
+      <title>list, tuple, dict vs List, Tuple, Dict</title>
+      <link>/coding/python/list-tuple-dict-vs-list-tuple-dict/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/python/list-tuple-dict-vs-list-tuple-dict/</guid>
+      <description>&lt;h3 id=&#34;type-hints&#34;&gt;Type Hints&lt;/h3&gt;
+&lt;h4 id=&#34;what-is-the-challenge&#34;&gt;What is the challenge&lt;/h4&gt;
+&lt;p&gt;Due to the dynamic nature of Python, inferring or checking the type of an object being used is especially hard. This fact makes it hard for developers to understand what exactly is going on in code they haven&amp;rsquo;t written and, most importantly, for type checking tools found in many IDEs [PyCharm, PyDev come to mind] that are limited due to the fact that they don&amp;rsquo;t have any indicator of what type the objects are. As a result they resort to trying to infer the type with (as mentioned in the presentation) around 50% success rate.&lt;/p&gt;
+&lt;h4 id=&#34;type-hinting&#34;&gt;Type hinting&lt;/h4&gt;
+&lt;p&gt;Type hinting is a formal solution to statically indicate the type of a value within your Python code. It was specified in 
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-0484/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 484&lt;/a&gt;
+and introduced in Python 3.5.&lt;/p&gt;
+&lt;p&gt;Here’s an example of adding type information to a function. You annotate the arguments and the return value:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def greet(name: str) -&amp;gt; str:
+    return &amp;quot;Hello, &amp;quot; + name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;strong&gt;name: str&lt;/strong&gt; syntax indicates the name argument should be of type str. The &lt;strong&gt;-&amp;gt;&lt;/strong&gt; syntax indicates the greet() function will return a string.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;The below two statements can be found in the 
+&lt;a href=&#34;https://www.youtube.com/watch?v=2wDvzy6Hgxg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Type Hinting&lt;/a&gt; presentation:&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;why-type-hints&#34;&gt;Why Type Hints&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Helps Type Checkers&lt;/strong&gt;: By hinting at what type you want the object to be the type checker can easily detect if, for instance, you&amp;rsquo;re passing an object with a type that isn&amp;rsquo;t expected.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Helps with documentation&lt;/strong&gt;: A third person viewing your code will know what is expected where, ergo, how to use it without getting them TypeErrors.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Helps IDEs develop more accurate and robust tools&lt;/strong&gt;: Development Environments will be better suited at suggesting appropriate methods when know what type your object is. You have probably experienced this with some IDE at some point, hitting the . and having methods/attributes pop up which aren&amp;rsquo;t defined for an object.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;why-use-static-type-checkers&#34;&gt;Why use Static Type Checkers?&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Find bugs sooner&lt;/strong&gt;: This is self evident, I believe.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The larger your project the more you need it&lt;/strong&gt;: Again, makes sense. Static languages offer a robustness and control that dynamic languages lack. The bigger and more complex
+your application becomes the more control and predictability (from a behavioral aspect) you require.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Large teams are already running static analysis&lt;/strong&gt;: I&amp;rsquo;m guessing this verifies the first two points.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;type-hinting-with-mypy&#34;&gt;Type Hinting with Mypy&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;http://mypy-lang.org/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mypy&lt;/a&gt; is an optional static type checker for Python that aims to combine the benefits of dynamic (or &amp;ldquo;duck&amp;rdquo;) typing and static typing. Mypy combines the expressive power and convenience of Python with a powerful type system and compile-time type checking. Mypy type checks standard Python programs; run them using any Python VM with basically no runtime overhead.&lt;/p&gt;
+&lt;p&gt;PEP 484 doesn&amp;rsquo;t enforce anything; it is simply setting a direction for function annotations and proposing guidelines for how type checking can/should be performed. You can annotate your functions and hint as many things as you want; your scripts will still run regardless of the presence of annotations because Python itself doesn&amp;rsquo;t use them.&lt;/p&gt;
+&lt;p&gt;As noted in the PEP, hinting types should generally take three forms:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Function annotations&lt;/strong&gt;. 
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-3107/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 3107&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Stub files&lt;/strong&gt; for built-in/user modules.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Special # type&lt;/strong&gt;: type comments that complement the first two forms. (See: 
+&lt;a href=&#34;https://stackoverflow.com/questions/39971929/what-are-variable-annotations-in-python-3-6/39973133#39973133&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;What are variable annotations in Python 3.6?&lt;/a&gt; for a Python 3.6 update for &lt;strong&gt;# type: type&lt;/strong&gt; comments)
+Additionally, you&amp;rsquo;ll want to use type hints in conjunction with the new typing module introduced in Py3.5.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Additionally, you&amp;rsquo;ll want to use type hints in conjunction with the new &lt;strong&gt;typing module&lt;/strong&gt; introduced in Py3.5.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;the-typing-module&#34;&gt;The Typing Module&lt;/h3&gt;
+&lt;p&gt;The Typing Module supports type hints as specified by 
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-0484/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 484&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The typing module also supports:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://docs.python.org/3/library/typing.html#type-aliases&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Type aliasing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Type hinting for callback functions: 
+&lt;a href=&#34;https://docs.python.org/3/library/typing.html#callable&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Callable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://docs.python.org/3/library/typing.html#generics&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Generics&lt;/a&gt; - Abstract base classes have been extended to support subscription to denote expected types for container elements&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://docs.python.org/3/library/typing.html#user-defined-generic-types&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;User-defined generic types&lt;/a&gt; - A user-defined class can be defined as a generic class&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://docs.python.org/3/library/typing.html#typing.Any&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Any type&lt;/a&gt; - Every type is a subtype of Any&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;type-hinting-generics&#34;&gt;Type Hinting Generics&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;from typing import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -&amp;gt; List[int]:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;list-tupleetc-vs-listtupleetc&#34;&gt;List, Tuple/etc vs list/tuple/etc&lt;/h3&gt;
+&lt;p&gt;typing.Tuple and typing.List are 
+&lt;a href=&#34;https://docs.python.org/3/library/typing.html#generics&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Generic types&lt;/a&gt;; this means you can specify what type their contents must be:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def f(points: Tuple[float, float]):
+    return map(do_stuff, points)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This specifies that the tuple passed in must contain two float values.&lt;br&gt;
+&lt;strong&gt;You can&amp;rsquo;t do this with the built-in tuple type before Python 3.9.&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;Python 3.9 has the change that built-in types support hints&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    You should always pick the typing generics even when you are not currently restricting the contents. It is easier to add that constraint later with a generic type as the resulting change will be smaller.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    From Python 3.9 (PEP 585) onwards tuple, list and various other classes are now generic types. Using these rather than their typing counterpart is now preferred.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    You should always pick then &lt;strong&gt;non-typing generics&lt;/strong&gt; whenever possible as the old &lt;strong&gt;typing.Tuple&lt;/strong&gt;, &lt;strong&gt;typing.List&lt;/strong&gt; and &lt;strong&gt;other generics&lt;/strong&gt; are &lt;strong&gt;deprecated&lt;/strong&gt; and will be removed in a later version of Python.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/32557920/what-are-type-hints-in-python-3-5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;What are type hints in Python 3.5?&lt;/a&gt;
+
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-0585/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 585 &amp;ndash; Type Hinting Generics In Standard Collections&lt;/a&gt;
+
+&lt;a href=&#34;https://docs.python.org/3.9/library/typing.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;typing — Support for type hints&lt;/a&gt;
+
+&lt;a href=&#34;https://stackoverflow.com/questions/39458193/using-list-tuple-etc-from-typing-vs-directly-referring-type-as-list-tuple-etc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Using List/Tuple/etc. from typing vs directly referring type as list/tuple/etc&lt;/a&gt;
+
+&lt;a href=&#34;https://stackoverflow.com/questions/52629265/static-typing-in-python3-list-vs-list&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Static typing in python3: list vs List&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-0483/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 483 &amp;ndash; The Theory of Type Hints&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-0484/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 484 &amp;ndash; Type Hints&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.youtube.com/watch?v=2wDvzy6Hgxg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Type Hints - Guido van Rossum - PyCon 2015&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://realpython.com/lessons/type-hinting/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Type Hinting&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://realpython.com/lessons/type-checking-mypy/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Type Checking With Mypy&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;http://mypy-lang.org/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mypy&lt;/a&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>IETF Datatracker Environment Setup</title>

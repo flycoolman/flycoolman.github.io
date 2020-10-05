@@ -1250,11 +1250,123 @@ add() in the table refers to add(E e), and remove() refers to remove(int index)&
 &lt;/ul&gt;
 &lt;h3 id=&#34;java-collection-hierarchy&#34;&gt;Java Collection Hierarchy&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;./java-collection-hierarchy.png&#34; alt=&#34;java-collection-hierarchy&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;./java-vollections-hierarchy-1.png&#34; alt=&#34;java-vollections-hierarchy-1&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;./java-vollections-hierarchy-1.png&#34; alt=&#34;java-collections-hierarchy-1&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./java-vollections-hierarchy-2.png&#34; alt=&#34;java-collections-hierarchy-2&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;arraysaslist-variable-arguments&#34;&gt;Arrays.asList() Variable Arguments&lt;/h3&gt;
+&lt;p&gt;Since the asList method in Arrays uses variable arguments, and &lt;strong&gt;variable arguments expressions are mapped to arrays&lt;/strong&gt;, you could either pass an inline array as in:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;List&amp;lt;String&amp;gt; list = Arrays.asList(new String[]{&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;});  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or simply pass the variable arguments that will be automatically mapped to an array:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;List&amp;lt;String&amp;gt; list = Arrays.asList(&amp;quot;a&amp;quot;,&amp;quot;b&amp;quot;,&amp;quot;c&amp;quot;);  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;varargs-variable-length-arguments&#34;&gt;Varargs (Variable-length Arguments)&lt;/h3&gt;
+&lt;p&gt;A method that takes a variable number of arguments is a varargs method.&lt;/p&gt;
+&lt;p&gt;A variable-length argument is specified by three periods(…). For Example,&lt;/p&gt;
+&lt;p&gt;public static void varargFunction(dataType &amp;hellip; dataVar)
+{
+// method body
+}&lt;/p&gt;
+&lt;p&gt;The &amp;hellip; syntax tells the Java compiler that the method can be called with zero or more arguments. As a result, &lt;strong&gt;dataVar&lt;/strong&gt; variable is implicitly declared as an array of type dataType[ ]. Thus, inside the method, &lt;strong&gt;dataVar&lt;/strong&gt; variable is accessed using the array syntax.&lt;br&gt;
+In case of no arguments, the length of nums is 0.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vararg Methods can also be overloaded but overloading may lead to ambiguity.&lt;/li&gt;
+&lt;li&gt;Prior to JDK 5, variable length arguments could be handled into two ways : One was using overloading, other was using array argument.&lt;/li&gt;
+&lt;li&gt;There can be only one variable argument in a method.&lt;/li&gt;
+&lt;li&gt;Variable argument (varargs) must be the last argument.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;patterns-by-type&#34;&gt;Patterns by type&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Creational
+Creational patterns are ones that create objects, rather than having to instantiate objects directly. This gives the program more flexibility in deciding which objects need to be created for a given case.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Abstract factory
+groups object factories that have a common theme.&lt;/li&gt;
+&lt;li&gt;Builder
+constructs complex objects by separating construction and representation.&lt;/li&gt;
+&lt;li&gt;Factory method
+creates objects without specifying the exact class to create.&lt;/li&gt;
+&lt;li&gt;Prototype
+creates objects by cloning an existing object.&lt;/li&gt;
+&lt;li&gt;Singleton
+restricts object creation for a class to only one instance.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Structural
+These concern class and object composition. They use inheritance to compose interfaces and define ways to compose objects to obtain new functionality.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adapter
+allows classes with incompatible interfaces to work together by wrapping its own interface around that of an already existing class.&lt;/li&gt;
+&lt;li&gt;Bridge
+decouples an abstraction from its implementation so that the two can vary independently.&lt;/li&gt;
+&lt;li&gt;Composite
+composes zero-or-more similar objects so that they can be manipulated as one object.&lt;/li&gt;
+&lt;li&gt;Decorator
+dynamically adds/overrides behaviour in an existing method of an object.&lt;/li&gt;
+&lt;li&gt;Facade
+provides a simplified interface to a large body of code.&lt;/li&gt;
+&lt;li&gt;Flyweight
+reduces the cost of creating and manipulating a large number of similar objects.&lt;/li&gt;
+&lt;li&gt;Proxy
+provides a placeholder for another object to control access, reduce cost, and reduce complexity.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Behavioral
+Most of these design patterns are specifically concerned with communication between objects.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Chain of responsibility
+delegates commands to a chain of processing objects.&lt;/li&gt;
+&lt;li&gt;Command
+creates objects which encapsulate actions and parameters.&lt;/li&gt;
+&lt;li&gt;Interpreter
+implements a specialized language.&lt;/li&gt;
+&lt;li&gt;Iterator
+accesses the elements of an object sequentially without exposing its underlying representation.&lt;/li&gt;
+&lt;li&gt;Mediator
+allows loose coupling between classes by being the only class that has detailed knowledge of their methods.&lt;/li&gt;
+&lt;li&gt;Memento
+provides the ability to restore an object to its previous state (undo).&lt;/li&gt;
+&lt;li&gt;Observer
+is a publish/subscribe pattern which allows a number of observer objects to see an event.&lt;/li&gt;
+&lt;li&gt;State
+allows an object to alter its behavior when its internal state changes.&lt;/li&gt;
+&lt;li&gt;Strategy
+allows one of a family of algorithms to be selected on-the-fly at runtime.&lt;/li&gt;
+&lt;li&gt;Template method
+defines the skeleton of an algorithm as an abstract class, allowing its subclasses to provide concrete behavior.&lt;/li&gt;
+&lt;li&gt;Visitor
+separates an algorithm from an object structure by moving the hierarchy of methods into one object.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Design_Patterns&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Design Patterns&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;factory-pattern&#34;&gt;Factory Pattern&lt;/h3&gt;
+&lt;h3 id=&#34;java-best-practice&#34;&gt;Java Best Practice&lt;/h3&gt;
+&lt;h4 id=&#34;return-a-list-not-a-linkedlist&#34;&gt;Return a List, not a LinkedList&lt;/h4&gt;
+&lt;h4 id=&#34;return-a-list-not-an-arraylist&#34;&gt;Return a List, not an ArrayList&lt;/h4&gt;
+&lt;p&gt;Your Java code will be more flexible when you learn to return more-general object references. In most cases other developers only need to see your interface, not your implementation. Put another way, does it matter to anyone else if you used a LinkedList or an ArrayList? If it doesn&amp;rsquo;t matter, then return a List, or perhaps even a Collection.&lt;br&gt;
+It&amp;rsquo;s best to return the most generic type that&amp;rsquo;s appropriate for your interface.&lt;br&gt;
+If there&amp;rsquo;s some reason why ArrayList is inherently appropriate for the data you&amp;rsquo;re returning then you should use that. Typically List is fine but you might also consider using Collection if the returned values are inherently unordered.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/10328658/should-i-return-list-or-arraylist#:~:text=The%20only%20reason%20to%20return,properly%20serialize%20generic%20list%20interface.&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Should i return List or ArrayList&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://alvinalexander.com/blog/post/java/java-return-collection-list-not-linkedlist/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Best Practice  - return a List, not a LinkedList&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;mutable-vs-immutable&#34;&gt;Mutable vs. Immutable&lt;/h3&gt;
 &lt;h3 id=&#34;java-generics&#34;&gt;Java Generics&lt;/h3&gt;
 &lt;p&gt;
+&lt;a href=&#34;https://www.ntu.edu.sg/home/ehchua/programming/java/JavaGeneric.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Generics&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.cs.wcupa.edu/rkline/cs3/generic-lists.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Generic Lists&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
 &lt;a href=&#34;http://tutorials.jenkov.com/java-generics/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Generics Tutorial&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;java-x-ables&#34;&gt;Java X-ables&lt;/h3&gt;
+&lt;p&gt;Mutable vs. Immutable
+Closable
+Serialable
+Comparable&lt;/p&gt;
 &lt;h3 id=&#34;javautilproperties&#34;&gt;Java.util.Properties&lt;/h3&gt;
 &lt;p&gt;The java.util.Properties class is a class which represents a persistent set of properties.The Properties can be saved to a stream or loaded from a stream.Following are the important points about Properties&lt;/p&gt;
 &lt;ul&gt;
