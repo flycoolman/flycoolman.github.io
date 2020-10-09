@@ -3125,6 +3125,44 @@ Examples are:&lt;/p&gt;
     </item>
     
     <item>
+      <title>Python Notes</title>
+      <link>/coding/python/python-notes/</link>
+      <pubDate>Tue, 31 Dec 2019 23:59:59 +0000</pubDate>
+      <guid>/coding/python/python-notes/</guid>
+      <description>&lt;h2 id=&#34;python-notes&#34;&gt;Python Notes&lt;/h2&gt;
+&lt;p&gt;A free style notes of Python.&lt;/p&gt;
+&lt;h3 id=&#34;class-or-static-variables-in-python&#34;&gt;Class or Static Variables in Python&lt;/h3&gt;
+&lt;p&gt;In C++ and Java, we can use static keyword to make a variable as class variable. The variables which don’t have preceding static keyword are instance variables.&lt;/p&gt;
+&lt;p&gt;The Python approach is simple, it &lt;strong&gt;doesn’t&lt;/strong&gt; require a static keyword. All variables which are assigned a value in class declaration are class variables. And variables which are assigned values inside methods are instance variables.&lt;/p&gt;
+&lt;h3 id=&#34;true-or-false&#34;&gt;True or False&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Most Values are True:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Almost any value is evaluated to True if it has some sort of content.&lt;/li&gt;
+&lt;li&gt;Any string is True, except empty strings.&lt;/li&gt;
+&lt;li&gt;Any number is True, except 0.&lt;/li&gt;
+&lt;li&gt;Any list, tuple, set, and dictionary are True, except empty ones.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Some Values are False:&lt;/strong&gt;&lt;br&gt;
+In fact, there are not many values that evaluates to False,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;except empty values, such as (), [], {}, &amp;ldquo;&amp;rdquo;,&lt;/li&gt;
+&lt;li&gt;the number 0, and the value None.&lt;/li&gt;
+&lt;li&gt;And of course the value False evaluates to False.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    TBD
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Pass By Value and Pass By Reference and Pass Reference by Value
+
+&lt;a href=&#34;https://javapapers.com/core-java/java-pass-by-value-and-pass-by-reference/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Pass By Value and Pass By Reference&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
       <title>An example preprint / working paper</title>
       <link>/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
