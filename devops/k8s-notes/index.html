@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="A short summary of Docker.">
+  <meta name="description" content="A free style notes of Kubernetes.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/devops/docker/">
+  <link rel="alternate" hreflang="en-us" href="/devops/k8s-notes/">
 
   
 
@@ -255,7 +255,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/devops/docker/">
+  <link rel="canonical" href="/devops/k8s-notes/">
 
   
   
@@ -273,15 +273,15 @@
   <meta property="twitter:creator" content="@flycoolman">
   
   <meta property="og:site_name" content="flycoolman">
-  <meta property="og:url" content="/devops/docker/">
-  <meta property="og:title" content="Docker | flycoolman">
-  <meta property="og:description" content="A short summary of Docker."><meta property="og:image" content="/devops/docker/featured.png">
-  <meta property="twitter:image" content="/devops/docker/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/devops/k8s-notes/">
+  <meta property="og:title" content="Kubernetes Notes | flycoolman">
+  <meta property="og:description" content="A free style notes of Kubernetes."><meta property="og:image" content="/devops/k8s-notes/featured.png">
+  <meta property="twitter:image" content="/devops/k8s-notes/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-09-10T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2019-12-31T23:59:59&#43;00:00">
     
-    <meta property="article:modified_time" content="2020-10-05T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2020-01-01T00:00:00&#43;00:00">
   
 
   
@@ -300,7 +300,7 @@
 
 
 
-  <title>Docker | flycoolman</title>
+  <title>Kubernetes Notes | flycoolman</title>
 
 </head>
 
@@ -578,10 +578,12 @@
 
   
   
+    
+  
 
 
 <div class="article-container pt-3">
-  <h1>Docker</h1>
+  <h1>Kubernetes Notes</h1>
 
   
 
@@ -611,7 +613,7 @@
           Last updated on
       
     
-    Oct 5, 2020
+    Jan 1, 2020
   </span>
   
 
@@ -650,9 +652,9 @@
 </div>
 
 
-<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 900px; max-height: 500px;">
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 624px;">
   <div style="position: relative">
-    <img src="/devops/docker/featured.png" alt="" class="featured-image">
+    <img src="/devops/k8s-notes/featured_hu17716b4583cc34cc18f696ae16171d56_11324_1200x0_resize_lanczos_2.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -662,148 +664,232 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="docker">Docker</h2>
-<h3 id="what-is-docker">What is Docker?</h3>
-<p><strong>Docker</strong> is basically a container engine which uses the Linux Kernel features like <strong>namespaces</strong> and <strong>control groups</strong> to create containers on top of an operating system and automates application deployment on the container. Docker uses <strong>Copy-on-write union file system</strong> for its <strong>backend storage</strong>.</p>
-<h3 id="what-is-the-difference-between-a-docker-container-and-a-docker-image">What is the difference between a docker container and a docker image?</h3>
-<p><strong>Docker Image</strong> is a set of files which has no state, whereas <strong>Docker Container</strong> is the instantiation of Docker Image. In other words, Docker Container is the <strong>run time instance</strong> of images.</p>
-<h3 id="what-is-a-container">What is a container?</h3>
-<p>In 4 bullet points:</p>
+      <h2 id="k8s-notes">K8S NOTES</h2>
+<h3 id="kubernetes-components">Kubernetes Components</h3>
 <ul>
-<li>Containers share the host kernel</li>
-<li>Containers use the kernel ability to group processes for resource control</li>
-<li>Containers ensure isolation through namespaces</li>
-<li>Containers feel like lightweight VMs (lower footprint, faster), but are not Virtual Machines!</li>
-</ul>
-<h3 id="namespaces-and-cgroups----------------docker">Namespaces and Cgroups  - - - - - - &gt;  Docker</h3>
-<p>Docker makes use of kernel <strong>namespaces</strong> to provide the <strong>isolated workspace</strong> called the container.<br>
-Docker also makes use of kernel <strong>control groups</strong> for resource allocation and isolation.<br>
-<img src="./namespace.png" alt="namespace"></p>
-<h3 id="container-format">Container Format</h3>
-<p>Docker Engine combines the <strong>namespaces</strong>, <strong>control groups</strong> and <strong>UnionFS</strong> into a wrapper called a container format. The default container format is <strong>libcontainer</strong>.</p>
-<h3 id="types-of-containers">Types of Containers</h3>
-<p>Given the above constructs, containers may be divided into 3 types as follows:</p>
+<li>Cluster
 <ul>
-<li><strong>System Containers</strong> share rootfs, PID, network, IPC and UTS with host system but live inside a cgroup.</li>
-<li><strong>Application Containers</strong> live inside a cgroup and use namespaces (PID, network, IPC, chroot) for isolation from host system</li>
-<li><strong>Pods</strong> use namespaces for isolation from host system but create sub groups which share PID, network, IPC and UTS except the rootfs.</li>
-</ul>
-<h3 id="images--layers">Images &amp; Layers</h3>
-<p>Each Docker image references a list of <strong>read-only layers</strong> that represent filesystem differences. Layers are stacked on top of each other to form a base for a container’s rootfs.<br>
-One big innovation of the Docker engine was the concept of leveraging Copy-On-Write file systems to significantly speed up the preparation of the rootfs.</p>
-<h3 id="copy-on-write">Copy-On-Write</h3>
-<p>When <strong>Docker</strong> creates a container, it <strong>adds a new, thin, writable layer</strong> on top of the underlying stack of image layers. This layer is often called the “container layer”.<br>
-All changes made to the running container - such as writing new files, modifying existing files, and deleting files - are written to this thin writable container layer.</p>
-<h3 id="union-file-systems">Union File Systems</h3>
-<p>Union File Systems provide the following features for storage:</p>
-<ul>
-<li>Layering</li>
-<li>Copy-On-Write</li>
-<li>Caching</li>
-<li>Diffing</li>
-</ul>
-<h3 id="dangling-images">Dangling images</h3>
-<p>Docker images consist of multiple layers.</p>
-<ul>
-<li><strong>Dangling images</strong> are layers that have no relationship to any tagged images.</li>
-<li>They no longer serve a purpose and consume disk space.</li>
-<li>They can be located by adding the filter flag, <strong>-f</strong> with a value of <strong>dangling=true</strong> to the docker images command.</li>
-</ul>
-<p><strong>Another description:</strong></p>
-<ul>
-<li>An unused image means that it has not been assigned or used in a container. For example, when running docker ps -a - it will list all of your exited and currently running containers. Any images shown being used inside any of containers are a &ldquo;used image&rdquo;.</li>
-<li>On the other hand, a dangling image just means that you&rsquo;ve created the new build of the image, but it wasn&rsquo;t given a new name. So the old images you have becomes the &ldquo;dangling image&rdquo;. Those old images are the ones that are untagged and displays &ldquo;<none>&rdquo; on its name when you run docker images.</li>
-<li>When running <strong>docker system prune -a</strong>, it will remove both unused and dangling images. Therefore any images being used in a container, whether they have been exited or currently running, will NOT be affected.</li>
-</ul>
-<h3 id="the-difference-between-copy-and-add-in-a-dockerfile">The Difference between COPY and ADD in a Dockerfile</h3>
-<p>Sometimes you see <strong>COPY</strong> or <strong>ADD</strong> being used in a Dockerfile, but 99% of the time you should be using <strong>COPY</strong>, here&rsquo;s why.</p>
-<ul>
-<li>
-<p><strong>COPY</strong> and <strong>ADD</strong> are both Dockerfile instructions that serve similar purposes. They let you copy files from a specific location into a Docker image.</p>
-</li>
-<li>
-<p><strong>COPY</strong> takes in a <strong>src</strong> and <strong>destination</strong>. It <strong>only</strong> lets you copy in a local file or directory from your host (the machine building the Docker image) into the Docker image itself.</p>
-</li>
-<li>
-<p><strong>ADD</strong> lets you do that too, but it also supports <strong>2 other sources</strong>.</p>
-<ul>
-<li>First, you can use a <strong>URL</strong> instead of a local file / directory.</li>
-<li>Secondly, you can extract a tar file from the source directly into the destination.</li>
+<li>A cluster is a set of machines, called nodes, that run containerized applications managed by Kubernetes.</li>
+<li>A cluster has at least one worker node and at least one master node.</li>
 </ul>
 </li>
-<li>
-<p>In most cases if you’re using a URL, you’re downloading a zip file and are then using the RUN command to extract it. However, you might as well just use RUN with curl instead of ADD here so you chain everything into 1 RUN command to <strong>make a smaller Docker image</strong>.</p>
-</li>
-<li>
-<p>A valid use case for <strong>ADD</strong> is when you want to extract a local tar file into a specific directory in your Docker image. This is exactly what the Alpine image does with ADD rootfs.tar.gz /.</p>
-</li>
-<li>
-<p>If you’re copying in local files to your Docker image, always use COPY because it’s more explicit.</p>
-</li>
-</ul>
-<h3 id="cmd-vs-entrypoint">CMD vs. ENTRYPOINT</h3>
+<li>Node
 <ul>
-<li>Run or execute something when docker starts</li>
-<li>The main purpose of a CMD is to provide defaults for an executing container</li>
-<li>An ENTRYPOINT helps you to configure a container that you can run as an executable</li>
-<li>CMD can be overridden, The ENTRYPOINT instruction works very similarly to CMD in that it is used to specify the command executed when the container is started. However, where it differs is that ENTRYPOINT doesn’t allow you to override the command.</li>
-<li>CMD will be overridden by the ‘docker run …….’ command line, ENTRYPOINT just gets the parameter from ‘docker run …….’ command line</li>
-<li>One important thing to call out about the ENTRYPOINT instruction is that syntax is critical. Technically, ENTRYPOINT supports both the ENTRYPOINT [&ldquo;command&rdquo;] syntax and the ENTRYPOINT command syntax. However, while both of these are supported, they have two different meanings and change how ENTRYPOINT works.</li>
+<li>Master node(s)<br>
+The master node(s) manages the worker nodes and the pods in the cluster. Multiple master nodes are used to provide a cluster with failover and high availability.</li>
+<li>Worker node(s)<br>
+The worker node(s) host the pods that are the components of the application.</li>
 </ul>
-<h3 id="cmd-and-entrypoint-syntax">CMD and ENTRYPOINT syntax</h3>
-<p>Both CMD and ENTRYPOINT are straight forward but they have a hidden, err, &ldquo;feature&rdquo; that can cause issues if you are not aware. Two different syntaxes are supported for these instructions.</p>
-<p>CMD /bin/echo<br>
-or<br>
-CMD [&quot;/bin/echo&rdquo;]<br>
-This may not look like it would be an issues but the devil in the details will trip you up. If you use the second syntax where the CMD ( or ENTRYPOINT ) is an array, it acts exactly like you would expect. If you use the first syntax without the array, docker pre-pends /bin/sh -c to your command. This has always been in docker as far as I can remember.</p>
-<p>Pre-pending /bin/sh -c can cause some unexpected issues and functionality that is not easily understood if you did not know that docker modified your CMD. Therefore, you should always use the array syntax for both instructions because both will be executed exactly how you intended.</p>
+</li>
+</ul>
+<h4 id="master-node-components">Master Node Components</h4>
+<ul>
+<li>kube-apiserver</li>
+<li>etcd</li>
+<li>kube-scheduler</li>
+<li>kube-controller-manager
+<ul>
+<li>Node Controller</li>
+<li>Replication Controller</li>
+<li>Endpoints Controller</li>
+<li>Service Account &amp; Token Controllers</li>
+</ul>
+</li>
+<li>cloud-controller-manager<br>
+The following controllers have cloud provider dependencies:
+<ul>
+<li>Node Controller</li>
+<li>Route Controller</li>
+<li>Service Controller</li>
+<li>Volume Controller</li>
+</ul>
+</li>
+</ul>
+<h4 id="worker-node-components">Worker Node Components</h4>
+<ul>
+<li>Kubelet</li>
+<li>kube-proxy</li>
+<li>Container Runtime</li>
+</ul>
+<h4 id="addons">Addons</h4>
+<ul>
+<li>DNS</li>
+<li>Web UI (Dashboard)</li>
+<li>Container Resource Monitoring</li>
+<li>Cluster-level Logging</li>
+</ul>
+<h3 id="k8s-abbreviation">K8S Abbreviation</h3>
+<h4 id="cni">CNI</h4>
+<p>Kubernetes has adopted the Container Network Interface(CNI) specification for managing network resources on a cluster.</p>
+<h4 id="cri">CRI</h4>
+<p>Container Runtime Interface (CRI)<br>
+Each container runtime has it own strengths, and many users have asked for Kubernetes to support more runtimes. CRI consists of a protocol buffers and gRPC API, and libraries, with additional specifications and tools under active development.<br>
+Kubelet communicates with the container runtime (or a CRI shim for the runtime) over Unix sockets using the gRPC framework, where kubelet acts as a client and the CRI shim as the server.<br>
+<img src="./cri.png" alt="cri.png"></p>
+<ul>
+<li>Docker</li>
+<li>CRI-O</li>
+<li>Containerd</li>
+<li>Other CRI runtimes: frakti</li>
+</ul>
+<h4 id="csi">CSI</h4>
+<p>The goal of CSI is to establish a standardized mechanism for Container Orchestration Systems (COs) to expose arbitrary storage systems to their containerized workloads.
+Assuming a CSI storage plugin is already deployed on a Kubernetes cluster, users can use CSI volumes through the familiar Kubernetes storage API objects:</p>
+<ul>
+<li>PersistentVolumeClaims</li>
+<li>PersistentVolumes</li>
+<li>StorageClasses</li>
+</ul>
+<h4 id="crd">CRD</h4>
+<p>CustomResourceDefinition</p>
+<h3 id="k8s-networking">K8S Networking</h3>
+<h4 id="pod-communication">POD Communication</h4>
+<ul>
+<li>
+<p>Inner POD<br>
+Multi-containers in one POD<br>
+Containers within a pod share an IP address and port space, and can find each other via localhost. They can also communicate with each other using standard inter-process communications.</p>
+<ul>
+<li>Shared volume</li>
+<li>IPC, i.e. queue</li>
+<li>Networking, localhost with different port</li>
+</ul>
+</li>
+<li>
+<p>Inter PODs</p>
+</li>
+</ul>
+<h3 id="services">Services</h3>
+<h4 id="clusterip">ClusterIP</h4>
+<p>ClusterIP accesses the services through proxy.<br>
+ClusterIP can access services only inside the cluster.<br>
+<img src="./clusterip.png" alt="clusterip"></p>
+<h4 id="nodeport">Nodeport</h4>
+<p>NodePort opens a specific port on each node of the cluster and traffic on that node is forwarded directly to the service.<br>
+<img src="./nodeport.png" alt="nodeport"></p>
+<h4 id="loadbalancer">Loadbalancer</h4>
+<p>All the traffic on the port is forwarded to the service, there&rsquo;s no filtering, no routing.<br>
+<img src="./loadbalancer.png" alt="loadbalancer"></p>
+<h3 id="ingress-controller">Ingress Controller</h3>
+<p>Ingress Controller but there are third party solutions like <strong>Traefik</strong> and <strong>Nginx</strong> available. Ingress controller also provide L7 load balancing unlike cluster services.</p>
+<h3 id="network-policies">Network policies</h3>
+<p>Isolation policies are configured on a per-namespace basis.<br>
+
+<a href="https://cloudnativelabs.github.io/post/2017-04-18-kubernetes-networking/" target="_blank" rel="noopener">Kubernetes Networking</a></p>
+<h3 id="k8s-objects">K8S Objects</h3>
+<p>To find all the objects in some specific API version:</p>
+<ul>
+<li>kubectl api-resources | cut -c92-</li>
+<li>kubectl api-resources | cut -c92-150</li>
+<li>kubectl api-resources | cut -c92-150 | wc -l</li>
+<li>kubectl api-resources</li>
+</ul>
+<h4 id="pod">Pod</h4>
+<p>A thin wrapper around one or more containers</p>
+<h4 id="daemonset">DaemonSet</h4>
+<p>Implements a single instance of a pod on a worker node</p>
+<h4 id="deployment">Deployment</h4>
+<p>Details how to roll out (or roll back) across versions of your application</p>
+<h4 id="replicaset">ReplicaSet</h4>
+<p>Ensures a defined number of pods are always running</p>
+<h4 id="job">Job</h4>
+<p>Ensures a pod properly runs to completion</p>
+<h4 id="service">Service</h4>
+<p>Maps a fixed IP address to a logical group of pods</p>
+<h4 id="label">Label</h4>
+<p>Key/Value pairs used for association and filtering<br>
+Labels in Kubernetes are intended to be used to specify identifying attributes for objects. They are used by selector queries or with label selectors. Since they are used internally by Kubernetes, the structure of keys and values is constrained, to optimize queries.</p>
+<h4 id="annotations">Annotations</h4>
+<p>annotations are a way to attach non-identifying metadata to objects. This metadata is not used internally by Kubernetes, so they cannot be used to identify within k8s. Instead, they are used by external tools and libraries. Examples of annotations include build/release timestamps, client library information for debugging, or fields managed by a network policy like Calico in this case.</p>
+<h4 id="label-vs-annotation">Label vs. Annotation</h4>
+<p>You can use either labels or annotations to attach metadata to Kubernetes objects. Labels can be used to select objects and to find collections of objects that satisfy certain conditions. In contrast, annotations are not used to identify and select objects.</p>
+<h4 id="taints-and-tolerations">Taints and Tolerations</h4>
+<p>Node affinity, described here, is a property of pods that attracts them to a set of nodes (either as a preference or a hard requirement). Taints are the opposite – they allow a node to repel a set of pods.</p>
+<p>Taints and tolerations work together to ensure that pods are not scheduled onto inappropriate nodes. One or more taints are applied to a node; this marks that the node should not accept any pods that do not tolerate the taints. Tolerations are applied to pods, and allow (but do not require) the pods to schedule onto nodes with matching taints.</p>
+<h4 id="node-isolationrestriction">Node isolation/restriction</h4>
+<p>Adding labels to Node objects allows targeting pods to specific nodes or groups of nodes. This can be used to ensure specific pods only run on nodes with certain isolation, security, or regulatory properties.</p>
+<h4 id="nodeselector">NODESELECTOR</h4>
+<ol>
+<li>Attach a label to the node</li>
+<li>Add a nodeSelector field to your pod configuration</li>
+</ol>
+<h4 id="affinity-and-anti-affinity">Affinity and anti-affinity</h4>
+<pre><code>• Node affinity
+• Inter-pod affinity and anti-affinity
+</code></pre>
+<p>nodeSelector provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity feature, currently in beta, greatly extends the types of constraints you can express. The key enhancements are:</p>
+<pre><code>• The language is more expressive (not just “AND of exact match”)
+• You can indicate that the rule is “soft”/“preference” rather than a hard requirement, so if the scheduler can’t satisfy it, the pod will still be scheduled
+• You can constrain against labels on other pods running on the node (or other topological domain), rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
+</code></pre>
+<p>The affinity feature consists of two types of affinity, “node affinity” and “inter-pod affinity/anti-affinity”. Node affinity is like the existing nodeSelector (but with the first two benefits listed above), while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as described in the third item listed above, in addition to having the first and second properties listed above.</p>
+<p>Node affinity is conceptually similar to nodeSelector – it allows you to constrain which nodes your pod is eligible to be scheduled on, based on labels on the node.</p>
+<h3 id="deploy">Deploy</h3>
+<p>When you wish to deploy an application in Kubernetes, you usually define three components:</p>
+<ul>
+<li>a <strong>Deployment</strong> — which is a recipe for creating copies of your application called Pods</li>
+<li>a <strong>Service</strong> — an internal load balancer that routes the traffic to Pods</li>
+<li>an <strong>Ingress</strong> — a description of how the traffic should flow from outside the cluster to your Service</li>
+</ul>
+<h3 id="ingress">Ingress</h3>
+<h4 id="what-is-an-ingress">What is an ingress?</h4>
+<p>In Kubernetes, an Ingress is an object that allows access to your Kubernetes services from outside the Kubernetes cluster. You configure access by creating a collection of rules that define which inbound connections reach which services.<br>
+<br>
+Ingress, added in Kubernetes v1.1, exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.<br>
+<br>
+Internet&mdash;[ Ingress ]&ndash;|&ndash;|&ndash;[ Services ]
+<br></p>
+<p>An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, and offer name based virtual hosting. An Ingress controller is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic.</p>
+<p>An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically uses a service of type NodePort or LoadBalancer.</p>
+<h4 id="what-is-an-ingress-controller">What is an ingress controller?</h4>
+<p>Kubernetes supports a high level abstraction called Ingress, which allows simple host or URL based HTTP routing. An ingress is a core concept (in beta) of Kubernetes, but is always implemented by a third party proxy. These implementations are known as ingress controllers.<br>
+<br>
+In order for the Ingress resource to work, the cluster must have an ingress controller running.<br>
+Unlike other types of controllers which run as part of the kube-controller-manager binary, Ingress controllers are not started automatically with a cluster. Let’s see some options:</p>
+<ul>
+<li>ALB Ingress Controller</li>
+</ul>
+<h4 id="ingress-vs-ingress-controller">Ingress vs. Ingress controller</h4>
+<ul>
+<li>Ingress should be the rules for the traffic, which indicate the destination of a request will go through in the cluster.</li>
+<li>Ingress Controller is the implementation for the Ingress. GCE and Nginx are both supported by k8s. They will take care of L4 or L7 proxy.</li>
+<li>Just like other objects in K8s, ingress is also a type of object, which is mainly referred as set of redirection rules.</li>
+<li>Where as ingress controller is like other deployment objects(could be deamon set as well) which listen and configure those ingress rules.</li>
+<li>If I talk in terms of Nginx, Ingress controller is Nginx software itself where as ingress(ingress rules) are nginx configurations.</li>
+</ul>
+<h4 id="the-ingress-resource">The Ingress Resource</h4>
+<p>A minimal ingress resource example:<br>
+<img src="./ingress-resource-examle.png" alt="ingress-resource-examle"></p>
+<p>As with all other Kubernetes resources, an Ingress needs apiVersion, kind, and metadata fields. Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which is the rewrite-target annotation. Different Ingress controller support different annotations. Review the documentation for your choice of Ingress controller to learn which annotations are supported.<br>
+The Ingress spec has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Ingress resource only supports rules for directing HTTP traffic.</p>
+<h4 id="ingress-rules">Ingress Rules</h4>
+<p>Each http rule contains the following information:</p>
+<ul>
+<li>An optional host. In this example, no host is specified, so the rule applies to all inbound HTTP traffic through the IP address specified. If a host is provided (for example, foo.bar.com), the rules apply to that host.</li>
+<li>A list of paths (for example, /testpath), each of which has an associated backend defined with a serviceName and servicePort. Both the host and path must match the content of an incoming request before the loadbalancer will direct traffic to the referenced service.</li>
+<li>A backend is a combination of service and port names as described in the services doc. HTTP (and HTTPS) requests to the Ingress matching the host and path of the rule will be sent to the listed backend.</li>
+<li>A default backend is often configured in an Ingress controller that will service any requests that do not match a path in the spec.</li>
+</ul>
+<h4 id="default-backend">Default Backend</h4>
+<p>An Ingress with no rules sends all traffic to a single default backend. The default backend is typically a configuration option of the Ingress controller and is not specified in your Ingress resources.</p>
+<p>If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is routed to your default backend.</p>
+<h3 id="configmap">ConfigMap</h3>
+<p>
+<a href="https://matthewpalmer.net/kubernetes-app-developer/articles/ultimate-configmap-guide-kubernetes.html" target="_blank" rel="noopener">Ultimate Guide to ConfigMaps in Kubernetes</a></p>
+<h3 id="kubernetes-operator">Kubernetes Operator</h3>
+<p>An Operator is an application-specific controller that extends the Kubernetes API to create, configure, and manage instances of complex stateful applications on behalf of a Kubernetes user. It builds upon the basic Kubernetes resource and controller concepts but includes domain or application-specific knowledge to automate common tasks.<br>
+Examples are:</p>
+<ul>
+<li>elasticsearch-operator</li>
+<li>prometheus-operator</li>
+<li>cassandra-operator</li>
+<li>Flux  The GitOps Kubernetes Operator</li>
+</ul>
 <div class="alert alert-note">
   <div>
     Always use the array syntax when using CMD and ENTRYPOINT.
   </div>
 </div>
-<h3 id="docker-commands">Docker commands</h3>
-<ul>
-<li>docker build</li>
-<li>docker pull</li>
-<li>docker push</li>
-<li>docker images …</li>
-<li>docker commit</li>
-<li>docker exec -it</li>
-<li>docker run -it</li>
-<li>docker system
-<ul>
-<li>df</li>
-<li>events</li>
-<li>info</li>
-<li>prune</li>
-</ul>
-</li>
-<li>docker ps</li>
-</ul>
-<p><img src="./docker-commands.png" alt="docker-commands"></p>
-<h3 id="docker-instructions-in-dockerfile">Docker instructions in dockerfile</h3>
-<ul>
-<li>ENV</li>
-<li>RUN</li>
-<li>CMD</li>
-<li>ENTRYPOINT</li>
-<li>COPY</li>
-<li>ADD</li>
-<li>USER</li>
-<li>WORKDIR</li>
-<li>ARG</li>
-<li>EXPOSE</li>
-</ul>
-<h3 id="dockerfile-best-practices">Dockerfile Best Practices</h3>
-<p>
-<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Best practices for writing Dockerfiles</a><br>
-
-<a href="https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/" target="_blank" rel="noopener">Intro Guide to Dockerfile Best Practices</a><br>
-
-<a href="https://docs.docker.com/develop/dev-best-practices/" target="_blank" rel="noopener">Docker development best practices</a><br>
-
-<a href="https://engineering.bitnami.com/articles/best-practices-writing-a-dockerfile.html" target="_blank" rel="noopener">Best practices writing a Dockerfile</a></p>
 <h2 id="links">Links</h2>
 <p>
 <a href="https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile" target="_blank" rel="noopener">The Difference between COPY and ADD in a Dockerfile</a></p>
@@ -825,7 +911,9 @@ This may not look like it would be an issues but the devil in the details will t
   
   <a class="badge badge-light" href="/tag/system/">System</a>
   
-  <a class="badge badge-light" href="/tag/docker/">Docker</a>
+  <a class="badge badge-light" href="/tag/kubernetes/">Kubernetes</a>
+  
+  <a class="badge badge-light" href="/tag/k8s/">K8S</a>
   
 </div>
 
@@ -842,7 +930,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/devops/docker/&amp;text=Docker" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/devops/k8s-notes/&amp;text=Kubernetes%20Notes" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -855,7 +943,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/devops/docker/&amp;t=Docker" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/devops/k8s-notes/&amp;t=Kubernetes%20Notes" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -868,7 +956,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="mailto:?subject=Docker&amp;body=/devops/docker/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Kubernetes%20Notes&amp;body=/devops/k8s-notes/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -881,7 +969,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/devops/docker/&amp;title=Docker" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/devops/k8s-notes/&amp;title=Kubernetes%20Notes" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -894,7 +982,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="whatsapp://send?text=Docker%20/devops/docker/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Kubernetes%20Notes%20/devops/k8s-notes/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -907,7 +995,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/devops/docker/&amp;title=Docker" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/devops/k8s-notes/&amp;title=Kubernetes%20Notes" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="A short summary of Docker.">
+  <meta name="description" content="A simple guide introduces how to use Minikube.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/devops/docker/">
+  <link rel="alternate" hreflang="en-us" href="/devops/minikube/">
 
   
 
@@ -255,7 +255,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/devops/docker/">
+  <link rel="canonical" href="/devops/minikube/">
 
   
   
@@ -273,15 +273,15 @@
   <meta property="twitter:creator" content="@flycoolman">
   
   <meta property="og:site_name" content="flycoolman">
-  <meta property="og:url" content="/devops/docker/">
-  <meta property="og:title" content="Docker | flycoolman">
-  <meta property="og:description" content="A short summary of Docker."><meta property="og:image" content="/devops/docker/featured.png">
-  <meta property="twitter:image" content="/devops/docker/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/devops/minikube/">
+  <meta property="og:title" content="Minikube | flycoolman">
+  <meta property="og:description" content="A simple guide introduces how to use Minikube."><meta property="og:image" content="/devops/minikube/featured.png">
+  <meta property="twitter:image" content="/devops/minikube/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-09-10T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2020-07-01T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2020-10-05T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2020-07-01T00:00:00&#43;00:00">
   
 
   
@@ -300,7 +300,7 @@
 
 
 
-  <title>Docker | flycoolman</title>
+  <title>Minikube | flycoolman</title>
 
 </head>
 
@@ -578,10 +578,12 @@
 
   
   
+    
+  
 
 
 <div class="article-container pt-3">
-  <h1>Docker</h1>
+  <h1>Minikube</h1>
 
   
 
@@ -608,10 +610,8 @@
     
     
       
-          Last updated on
-      
     
-    Oct 5, 2020
+    Jul 1, 2020
   </span>
   
 
@@ -650,9 +650,9 @@
 </div>
 
 
-<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 900px; max-height: 500px;">
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 624px;">
   <div style="position: relative">
-    <img src="/devops/docker/featured.png" alt="" class="featured-image">
+    <img src="/devops/minikube/featured_hu17716b4583cc34cc18f696ae16171d56_11324_1200x0_resize_lanczos_2.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -662,153 +662,61 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="docker">Docker</h2>
-<h3 id="what-is-docker">What is Docker?</h3>
-<p><strong>Docker</strong> is basically a container engine which uses the Linux Kernel features like <strong>namespaces</strong> and <strong>control groups</strong> to create containers on top of an operating system and automates application deployment on the container. Docker uses <strong>Copy-on-write union file system</strong> for its <strong>backend storage</strong>.</p>
-<h3 id="what-is-the-difference-between-a-docker-container-and-a-docker-image">What is the difference between a docker container and a docker image?</h3>
-<p><strong>Docker Image</strong> is a set of files which has no state, whereas <strong>Docker Container</strong> is the instantiation of Docker Image. In other words, Docker Container is the <strong>run time instance</strong> of images.</p>
-<h3 id="what-is-a-container">What is a container?</h3>
-<p>In 4 bullet points:</p>
-<ul>
-<li>Containers share the host kernel</li>
-<li>Containers use the kernel ability to group processes for resource control</li>
-<li>Containers ensure isolation through namespaces</li>
-<li>Containers feel like lightweight VMs (lower footprint, faster), but are not Virtual Machines!</li>
-</ul>
-<h3 id="namespaces-and-cgroups----------------docker">Namespaces and Cgroups  - - - - - - &gt;  Docker</h3>
-<p>Docker makes use of kernel <strong>namespaces</strong> to provide the <strong>isolated workspace</strong> called the container.<br>
-Docker also makes use of kernel <strong>control groups</strong> for resource allocation and isolation.<br>
-<img src="./namespace.png" alt="namespace"></p>
-<h3 id="container-format">Container Format</h3>
-<p>Docker Engine combines the <strong>namespaces</strong>, <strong>control groups</strong> and <strong>UnionFS</strong> into a wrapper called a container format. The default container format is <strong>libcontainer</strong>.</p>
-<h3 id="types-of-containers">Types of Containers</h3>
-<p>Given the above constructs, containers may be divided into 3 types as follows:</p>
-<ul>
-<li><strong>System Containers</strong> share rootfs, PID, network, IPC and UTS with host system but live inside a cgroup.</li>
-<li><strong>Application Containers</strong> live inside a cgroup and use namespaces (PID, network, IPC, chroot) for isolation from host system</li>
-<li><strong>Pods</strong> use namespaces for isolation from host system but create sub groups which share PID, network, IPC and UTS except the rootfs.</li>
-</ul>
-<h3 id="images--layers">Images &amp; Layers</h3>
-<p>Each Docker image references a list of <strong>read-only layers</strong> that represent filesystem differences. Layers are stacked on top of each other to form a base for a container’s rootfs.<br>
-One big innovation of the Docker engine was the concept of leveraging Copy-On-Write file systems to significantly speed up the preparation of the rootfs.</p>
-<h3 id="copy-on-write">Copy-On-Write</h3>
-<p>When <strong>Docker</strong> creates a container, it <strong>adds a new, thin, writable layer</strong> on top of the underlying stack of image layers. This layer is often called the “container layer”.<br>
-All changes made to the running container - such as writing new files, modifying existing files, and deleting files - are written to this thin writable container layer.</p>
-<h3 id="union-file-systems">Union File Systems</h3>
-<p>Union File Systems provide the following features for storage:</p>
-<ul>
-<li>Layering</li>
-<li>Copy-On-Write</li>
-<li>Caching</li>
-<li>Diffing</li>
-</ul>
-<h3 id="dangling-images">Dangling images</h3>
-<p>Docker images consist of multiple layers.</p>
-<ul>
-<li><strong>Dangling images</strong> are layers that have no relationship to any tagged images.</li>
-<li>They no longer serve a purpose and consume disk space.</li>
-<li>They can be located by adding the filter flag, <strong>-f</strong> with a value of <strong>dangling=true</strong> to the docker images command.</li>
-</ul>
-<p><strong>Another description:</strong></p>
-<ul>
-<li>An unused image means that it has not been assigned or used in a container. For example, when running docker ps -a - it will list all of your exited and currently running containers. Any images shown being used inside any of containers are a &ldquo;used image&rdquo;.</li>
-<li>On the other hand, a dangling image just means that you&rsquo;ve created the new build of the image, but it wasn&rsquo;t given a new name. So the old images you have becomes the &ldquo;dangling image&rdquo;. Those old images are the ones that are untagged and displays &ldquo;<none>&rdquo; on its name when you run docker images.</li>
-<li>When running <strong>docker system prune -a</strong>, it will remove both unused and dangling images. Therefore any images being used in a container, whether they have been exited or currently running, will NOT be affected.</li>
-</ul>
-<h3 id="the-difference-between-copy-and-add-in-a-dockerfile">The Difference between COPY and ADD in a Dockerfile</h3>
-<p>Sometimes you see <strong>COPY</strong> or <strong>ADD</strong> being used in a Dockerfile, but 99% of the time you should be using <strong>COPY</strong>, here&rsquo;s why.</p>
-<ul>
-<li>
-<p><strong>COPY</strong> and <strong>ADD</strong> are both Dockerfile instructions that serve similar purposes. They let you copy files from a specific location into a Docker image.</p>
-</li>
-<li>
-<p><strong>COPY</strong> takes in a <strong>src</strong> and <strong>destination</strong>. It <strong>only</strong> lets you copy in a local file or directory from your host (the machine building the Docker image) into the Docker image itself.</p>
-</li>
-<li>
-<p><strong>ADD</strong> lets you do that too, but it also supports <strong>2 other sources</strong>.</p>
-<ul>
-<li>First, you can use a <strong>URL</strong> instead of a local file / directory.</li>
-<li>Secondly, you can extract a tar file from the source directly into the destination.</li>
-</ul>
-</li>
-<li>
-<p>In most cases if you’re using a URL, you’re downloading a zip file and are then using the RUN command to extract it. However, you might as well just use RUN with curl instead of ADD here so you chain everything into 1 RUN command to <strong>make a smaller Docker image</strong>.</p>
-</li>
-<li>
-<p>A valid use case for <strong>ADD</strong> is when you want to extract a local tar file into a specific directory in your Docker image. This is exactly what the Alpine image does with ADD rootfs.tar.gz /.</p>
-</li>
-<li>
-<p>If you’re copying in local files to your Docker image, always use COPY because it’s more explicit.</p>
-</li>
-</ul>
-<h3 id="cmd-vs-entrypoint">CMD vs. ENTRYPOINT</h3>
-<ul>
-<li>Run or execute something when docker starts</li>
-<li>The main purpose of a CMD is to provide defaults for an executing container</li>
-<li>An ENTRYPOINT helps you to configure a container that you can run as an executable</li>
-<li>CMD can be overridden, The ENTRYPOINT instruction works very similarly to CMD in that it is used to specify the command executed when the container is started. However, where it differs is that ENTRYPOINT doesn’t allow you to override the command.</li>
-<li>CMD will be overridden by the ‘docker run …….’ command line, ENTRYPOINT just gets the parameter from ‘docker run …….’ command line</li>
-<li>One important thing to call out about the ENTRYPOINT instruction is that syntax is critical. Technically, ENTRYPOINT supports both the ENTRYPOINT [&ldquo;command&rdquo;] syntax and the ENTRYPOINT command syntax. However, while both of these are supported, they have two different meanings and change how ENTRYPOINT works.</li>
-</ul>
-<h3 id="cmd-and-entrypoint-syntax">CMD and ENTRYPOINT syntax</h3>
-<p>Both CMD and ENTRYPOINT are straight forward but they have a hidden, err, &ldquo;feature&rdquo; that can cause issues if you are not aware. Two different syntaxes are supported for these instructions.</p>
-<p>CMD /bin/echo<br>
-or<br>
-CMD [&quot;/bin/echo&rdquo;]<br>
-This may not look like it would be an issues but the devil in the details will trip you up. If you use the second syntax where the CMD ( or ENTRYPOINT ) is an array, it acts exactly like you would expect. If you use the first syntax without the array, docker pre-pends /bin/sh -c to your command. This has always been in docker as far as I can remember.</p>
-<p>Pre-pending /bin/sh -c can cause some unexpected issues and functionality that is not easily understood if you did not know that docker modified your CMD. Therefore, you should always use the array syntax for both instructions because both will be executed exactly how you intended.</p>
-<div class="alert alert-note">
-  <div>
-    Always use the array syntax when using CMD and ENTRYPOINT.
-  </div>
-</div>
-<h3 id="docker-commands">Docker commands</h3>
-<ul>
-<li>docker build</li>
-<li>docker pull</li>
-<li>docker push</li>
-<li>docker images …</li>
-<li>docker commit</li>
-<li>docker exec -it</li>
-<li>docker run -it</li>
-<li>docker system
-<ul>
-<li>df</li>
-<li>events</li>
-<li>info</li>
-<li>prune</li>
-</ul>
-</li>
-<li>docker ps</li>
-</ul>
-<p><img src="./docker-commands.png" alt="docker-commands"></p>
-<h3 id="docker-instructions-in-dockerfile">Docker instructions in dockerfile</h3>
-<ul>
-<li>ENV</li>
-<li>RUN</li>
-<li>CMD</li>
-<li>ENTRYPOINT</li>
-<li>COPY</li>
-<li>ADD</li>
-<li>USER</li>
-<li>WORKDIR</li>
-<li>ARG</li>
-<li>EXPOSE</li>
-</ul>
-<h3 id="dockerfile-best-practices">Dockerfile Best Practices</h3>
+      <h2 id="minikube">Minikube</h2>
+<p><strong>Minikube</strong> is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your laptop for users looking to try out Kubernetes or develop with it day-to-day.</p>
+<h3 id="set-up-minikube">Set up Minikube</h3>
 <p>
-<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Best practices for writing Dockerfiles</a><br>
-
-<a href="https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/" target="_blank" rel="noopener">Intro Guide to Dockerfile Best Practices</a><br>
-
-<a href="https://docs.docker.com/develop/dev-best-practices/" target="_blank" rel="noopener">Docker development best practices</a><br>
-
-<a href="https://engineering.bitnami.com/articles/best-practices-writing-a-dockerfile.html" target="_blank" rel="noopener">Best practices writing a Dockerfile</a></p>
-<h2 id="links">Links</h2>
+<a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">minikube start</a></p>
+<h3 id="minikube-vm-login">Minikube VM Login</h3>
+<ul>
+<li>
+<p>On VM console:<br>
+username: root
+no password</p>
+</li>
+<li>
+<p>from host terminal:<br>
+minikube ssh</p>
+</li>
+</ul>
+<p>username+IP on host:<br>
+username: docker<br>
+password: tcuser<br>
+i.e.</p>
+<pre><code>ssh docker@192.168.99.103
+</code></pre>
+<p>Exit the login:
+exit</p>
+<h3 id="setting-a-vm-driver-by-default">Setting a VM driver by default</h3>
+<p>minikube config set vm-driver virtualbox</p>
+<h3 id="use-local-images-by-re-using-the-docker-daemon">Use local images by re-using the Docker daemon</h3>
 <p>
-<a href="https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile" target="_blank" rel="noopener">The Difference between COPY and ADD in a Dockerfile</a></p>
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04" target="_blank" rel="noopener">How To Install and Use Docker on Ubuntu 18.04</a><br>
+
+<a href="https://kubernetes.io/docs/setup/learning-environment/minikube/#use-local-images-by-re-using-the-docker-daemon" target="_blank" rel="noopener">Use local images by re-using the Docker daemon</a></p>
+<p>eval $(minikube docker-env)</p>
+<h3 id="commands-for-using-minikube">Commands for using minikube</h3>
+<p>minikube start<br>
+minikube delete<br>
+minikube status</p>
+<p>minikube start -p test<br>
+minikube delete -p test<br>
 <br>
-<h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
+minikube ssh<br>
+minikube ssh -p test<br>
+minikube ip<br>
+minikube dashboard<br>
+minikube addons list<br>
+<br>
+kubectl get pods -A</p>
+<p>
+<a href="https://blog.pilosus.org/posts/2019/05/18/minikube-cheat-sheet/" target="_blank" rel="noopener">Minikube Cheat Sheet: most helpful commands and features I wish I knew from the start</a></p>
+<h3 id="minikube-command-auto-completion">Minikube command auto completion</h3>
+<p>sudo apt install bash-completion<br>
+
+<a href="https://www.cyberciti.biz/faq/add-bash-auto-completion-in-ubuntu-linux/" target="_blank" rel="noopener">How to add bash auto completion in Ubuntu Linux</a><br>
+
+<a href="https://stackoverflow.com/questions/57891054/how-can-i-enable-tab-completion-to-minikube" target="_blank" rel="noopener">How can I enable Tab completion to minikube?</a></p>
 
     </div>
 
@@ -825,7 +733,9 @@ This may not look like it would be an issues but the devil in the details will t
   
   <a class="badge badge-light" href="/tag/system/">System</a>
   
-  <a class="badge badge-light" href="/tag/docker/">Docker</a>
+  <a class="badge badge-light" href="/tag/kubernetes/">Kubernetes</a>
+  
+  <a class="badge badge-light" href="/tag/k8s/">K8S</a>
   
 </div>
 
@@ -842,7 +752,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/devops/docker/&amp;text=Docker" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/devops/minikube/&amp;text=Minikube" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -855,7 +765,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/devops/docker/&amp;t=Docker" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/devops/minikube/&amp;t=Minikube" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -868,7 +778,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="mailto:?subject=Docker&amp;body=/devops/docker/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Minikube&amp;body=/devops/minikube/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -881,7 +791,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/devops/docker/&amp;title=Docker" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/devops/minikube/&amp;title=Minikube" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -894,7 +804,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="whatsapp://send?text=Docker%20/devops/docker/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Minikube%20/devops/minikube/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -907,7 +817,7 @@ This may not look like it would be an issues but the devil in the details will t
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/devops/docker/&amp;title=Docker" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/devops/minikube/&amp;title=Minikube" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
