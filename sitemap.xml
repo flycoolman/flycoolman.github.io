@@ -29,7 +29,42 @@
   
   <url>
     <loc>/coding/</loc>
-    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/author/hongwei-li/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/python/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/python/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/python-x-ables/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/type-hints/</loc>
+    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -49,11 +84,6 @@
   
   <url>
     <loc>/devops/docker/</loc>
-    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/hongwei-li/</loc>
     <lastmod>2020-10-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -78,21 +108,6 @@
   </url>
   
   <url>
-    <loc>/tag/python/</loc>
-    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/python/</loc>
-    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/coding/python/</loc>
-    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/category/sre/</loc>
     <lastmod>2020-10-05T00:00:00+00:00</lastmod>
   </url>
@@ -105,16 +120,6 @@
   <url>
     <loc>/category/system/</loc>
     <lastmod>2020-10-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/type-hints/</loc>
-    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -335,6 +340,11 @@
   <url>
     <loc>/devops/minikube/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/python/frequent-mistakes/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>

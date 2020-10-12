@@ -682,14 +682,38 @@ In fact, there are not many values that evaluates to False,</p>
 <li>the number 0, and the value None.</li>
 <li>And of course the value False evaluates to False.</li>
 </ul>
+<h3 id="casting">Casting</h3>
+<ul>
+<li><strong>int()</strong> - constructs an integer number from an integer literal, a float literal (by rounding down to the previous whole number), or a string literal (providing the string represents a whole number)</li>
+<li><strong>float()</strong> - constructs a float number from an integer literal, a float literal or a string literal (providing the string represents a float or an integer)</li>
+<li><strong>tr()</strong> - constructs a string from a wide variety of data types, including strings, integer literals and float literals</li>
+</ul>
+<h3 id="dictionary--vs-update">Dictionary: [] vs. update</h3>
+<p>
+<a href="https://stackoverflow.com/questions/1024847/how-can-i-add-new-keys-to-a-dictionary" target="_blank" rel="noopener">How can I add new keys to a dictionary?</a></p>
+<ul>
+<li>
+<p><strong>[]</strong><br>
+you create a new key\value pair on a dictionary by assigning a value to that key. If the key doesn&rsquo;t exist, it&rsquo;s added and points to that value. If it exists, the current value it points to is overwritten.<br>
+the d[key]=val syntax as it is shorter and can handle any object as key (as long it is hashable), and only sets one value</p>
+</li>
+<li>
+<p><strong>update</strong><br>
+Whereas the .update(key1=val1, key2=val2) is nicer if you want to set multiple values at the same time, as long as the keys are strings (since kwargs are converted to strings).</p>
+</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    dict.update can also take another dictionary, but I personally prefer not to explicitly create a new dictionary in order to update another one.
+  </div>
+</div>
 <div class="alert alert-note">
   <div>
     TBD
   </div>
 </div>
-<p>Pass By Value and Pass By Reference and Pass Reference by Value
-
-<a href="https://javapapers.com/core-java/java-pass-by-value-and-pass-by-reference/" target="_blank" rel="noopener">Java Pass By Value and Pass By Reference</a></p>
+<p>
+<a href="https://flycoolman.com" target="_blank" rel="noopener">Just a Placeholder</a></p>
 <br>
 <h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
 

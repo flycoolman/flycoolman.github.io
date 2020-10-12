@@ -5,12 +5,32 @@
     <link>/tag/type-hints/</link>
       <atom:link href="/tag/type-hints/index.xml" rel="self" type="application/rss+xml" />
     <description>Type hints</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Fri, 11 Sep 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>Type hints</title>
       <link>/tag/type-hints/</link>
     </image>
+    
+    <item>
+      <title>Python x-ables</title>
+      <link>/coding/python/python-x-ables/</link>
+      <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/python/python-x-ables/</guid>
+      <description>&lt;h2 id=&#34;python-x-ables&#34;&gt;Python x-ables&lt;/h2&gt;
+&lt;p&gt;iterable, hashable, subscriptable, callable&lt;/p&gt;
+&lt;p&gt;&amp;lsquo;builtin_function_or_method&amp;rsquo; object is not subscriptable
+
+&lt;a href=&#34;https://stackoverflow.com/questions/19989606/builtin-function-or-method-object-is-not-subscriptable&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;lsquo;builtin_function_or_method&amp;rsquo; object is not subscriptable&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    TBD
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>list, tuple, dict vs List, Tuple, Dict</title>
