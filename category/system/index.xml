@@ -5,12 +5,159 @@
     <link>/category/system/</link>
       <atom:link href="/category/system/index.xml" rel="self" type="application/rss+xml" />
     <description>System</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 01 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
       <title>System</title>
       <link>/category/system/</link>
     </image>
+    
+    <item>
+      <title>Kubernetes Best Practices</title>
+      <link>/devops/kubernetes-best-practices/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/devops/kubernetes-best-practices/</guid>
+      <description>&lt;h2 id=&#34;kubernetes-best-practices&#34;&gt;Kubernetes Best Practices&lt;/h2&gt;
+&lt;h3 id=&#34;best-practices-for-image-management&#34;&gt;Best Practices for Image Management&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Build your images you base them on only well-known and trusted image providers.&lt;/li&gt;
+&lt;li&gt;Some combination of the semantic version and the SHA hash of the commit where the image was built is a good practice for naming images (e.g., v1.0.1-bfeda01f).&lt;/li&gt;
+&lt;li&gt;It is a bad idea for production usage because latest is clearly being mutated every time a new image is built.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;deploying-services-best-practices&#34;&gt;Deploying Services Best Practices&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Most services should be deployed as &lt;strong&gt;Deployment resources&lt;/strong&gt;. Deployments create identical replicas for redundancy and scale.&lt;/li&gt;
+&lt;li&gt;Deployments can be exposed using a Service, which is effectively a load balancer. A Service can be exposed either within a cluster (the default) or externally. If you want to expose an HTTP application, you can use an Ingress controller to add things like request routing and SSL.&lt;/li&gt;
+&lt;li&gt;Eventually you will want to &lt;strong&gt;parameterize&lt;/strong&gt; your application to make its configuration more reusable in different environments. Packaging tools like 
+&lt;a href=&#34;https://helm.sh/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Helm&lt;/a&gt; are the best choice for this kind of parameterization.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;setting-up-a-development-environment-best-practices&#34;&gt;Setting Up a Development Environment Best Practices&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Think about developer experience in three phases: onboarding, developing, and testing. Make sure that the development environment you build supports all three of these phases.&lt;/li&gt;
+&lt;li&gt;When building a development cluster, you can choose between one large cluster and a cluster per developer. There are pros and cons to each, but generally a single large cluster is a better approach.&lt;/li&gt;
+&lt;li&gt;When you add users to a cluster, add them with their own identity and access to their own namespace. Use resource limits to restrict how much of the cluster they can use.&lt;/li&gt;
+&lt;li&gt;When managing namespaces, think about how you can reap old, unused resources. Developers will have bad hygiene about deleting unused things. Use automation to clean it up for them.&lt;/li&gt;
+&lt;li&gt;Think about cluster-level services like logs and monitoring that you can set up for all users. Sometimes, cluster-level dependencies like databases are also useful to set up on behalf of all users using templates like Helm charts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;best-practices-for-monitoring-logging-and-alerting&#34;&gt;Best Practices for Monitoring, Logging, and Alerting&lt;/h3&gt;
+&lt;p&gt;Following are the best practices that you should adopt regarding monitoring, logging, and alerting.&lt;/p&gt;
+&lt;h4 id=&#34;monitoring&#34;&gt;Monitoring&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Monitor nodes and all Kubernetes components for utilization, saturation, and error rates, and monitor applications for rate, errors, and duration.&lt;/li&gt;
+&lt;li&gt;Use black-box monitoring to monitor for symptoms and not predictive health of a system.&lt;/li&gt;
+&lt;li&gt;Use white-box monitoring to inspect the system and its internals with instrumentation.&lt;/li&gt;
+&lt;li&gt;Implement time-series-based metrics to gain high-precision metrics that also allow you to gain insight within the behavior of your application.&lt;/li&gt;
+&lt;li&gt;Utilize monitoring systems like Prometheus that provide key labeling for high dimensionality; this will give a better signal to symptoms of an impacting issue.&lt;/li&gt;
+&lt;li&gt;Use average metrics to visualize subtotals and metrics based on factual data. Utilize sum metrics to visualize the distribution across a specific metric.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;logging&#34;&gt;Logging&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;You should use logging in combination with metrics monitoring to get the full picture of how your environment is operating.&lt;/li&gt;
+&lt;li&gt;Be cautious of storing logs for more than 30 to 45 days and, if needed, use cheaper resources for long-term archiving.&lt;/li&gt;
+&lt;li&gt;Limit usage of log forwarders in a sidecar pattern, as they will utilize a lot more resources. Opt for using a DaemonSet for the log forwarder and sending logs to STDOUT.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;alerting&#34;&gt;Alerting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Be cautious of alert fatigue because it can lead to bad behaviors in people and processes.&lt;/li&gt;
+&lt;li&gt;Always look at incrementally improving upon alerting and accept that it will not always be perfect.&lt;/li&gt;
+&lt;li&gt;Alert for symptoms that affect your SLO and customers and not for transient issues that don’t need immediate human attention.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+&lt;li&gt;It’s a good practice to monitor your cluster from a “utility cluster” to avoid a production issue also affecting your monitoring system.&lt;/li&gt;
+&lt;li&gt;Black-box monitoring gives you symptoms.&lt;/li&gt;
+&lt;li&gt;White-box monitoring gives you &amp;ldquo;Why&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;USE&lt;/strong&gt; and &lt;strong&gt;RED&lt;/strong&gt; methods are complementary to each other given that the USE method focuses on the infrastructure components and the RED method focuses on monitoring the end-user experience for the application.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;cAdvisor&lt;/strong&gt; and &lt;strong&gt;metrics server&lt;/strong&gt; are used to provide detailed metrics on resource usage, &lt;strong&gt;kube-state-metrics&lt;/strong&gt; is focused on identifying conditions on Kubernetes objects deployed to your cluster.&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;best-practices-for-configmaps-and-secrets&#34;&gt;Best Practices for ConfigMaps and Secrets&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;To support dynamic changes to your application without having to redeploy new versions of the pods, mount your ConfigMaps/Secrets as a volume and configure your application with a file watcher to detect the changed file data and reconfigure itself as needed.&lt;/li&gt;
+&lt;li&gt;ConfigMap/Secrets must exist in the namespace for the pods that will consume them prior to the pod being deployed. The optional flag can be used to prevent the pods from not starting if the ConfigMap/Secret is not present.&lt;/li&gt;
+&lt;li&gt;Use an admission controller to ensure specific configuration data or to prevent deployments that do not have specific configuration values set. An example would be if you require all production Java workloads to have certain JVM properties set in production environments. There is an alpha API called PodPresets that will allow ConfigMaps and secrets to be applied to all pods based on an annotation, without needing to write a custom admission controller.&lt;/li&gt;
+&lt;li&gt;If you’re using Helm to release applications into your environment, you can use a life cycle hook to ensure the ConfigMap/Secret template is deployed before the Deployment is applied.&lt;/li&gt;
+&lt;li&gt;Some applications require their configuration to be applied as a single file such as a JSON or YAML file. ConfigMap/Secrets allows an entire block of raw data by using the | symbol.&lt;/li&gt;
+&lt;li&gt;If the application uses system environment variables to determine its configuration, you can use the injection of the ConfigMap data to create an environment variable mapping into the pod. There are two main ways to do this: mounting every key/value pair in the ConfigMap as a series of environment variables into the pod using envFrom and then using configMapRef or secretRef, or assigning individual keys with their respective values using the configMapKeyRef or secretKeyRef.&lt;/li&gt;
+&lt;li&gt;If you’re using the configMapKeyRef or secretKeyRef method, be aware that if the actual key does not exist, this will prevent the pod from starting.&lt;/li&gt;
+&lt;li&gt;If you’re loading all of the key/value pairs from the ConfigMap/Secret into the pod using envFrom, any keys that are considered invalid environment values will be skipped; however, the pod will be allowed to start. The event for the pod will have an event with reason InvalidVariableNames and the appropriate message about which key was skipped. The following code is an example of a Deployment with a ConfigMap and Secret reference as an environment variable&lt;/li&gt;
+&lt;li&gt;If there is a need to pass command-line arguments to your containers, environment variable data can be sourced using $(ENV_KEY) interpolation syntax.&lt;/li&gt;
+&lt;li&gt;When consuming ConfigMap/Secret data as environment variables, it is very important to understand that updates to the data in the ConfigMap/Secret will not update in the pod and will require a pod restart either through deleting the pods and letting the ReplicaSet controller create a new pod, or triggering a Deployment update, which will follow the proper application update strategy as declared in the Deployment specification.&lt;/li&gt;
+&lt;li&gt;It is easier to assume that all changes to a ConfigMap/Secret require an update to the entire deployment; this ensures that even if you’re using environment variables or volumes, the code will take the new configuration data. To make this easier, you can use a CI/CD pipeline to update the name property of the ConfigMap/Secret and also update the reference in the deployment, which will then trigger an update through normal Kubernetes update strategies of your deployment. We will explore this in the following example code. If you’re using Helm to release your application code into Kubernetes, you can take advantage of an annotation in the Deployment template to check the sha256 checksum of the ConfigMap/Secret. This triggers Helm to update the Deployment using the helm upgrade command when the data within a ConfigMap/Secret is changed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;best-practices-specific-to-secrets&#34;&gt;Best Practices Specific to Secrets&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Use 3rd party solutions to allow the use of external storage systems for secret data, such as HashiCorp Vault, Aqua Security, Twistlock, AWS Secrets Manager, Google Cloud KMS, or Azure Key Vault&lt;/li&gt;
+&lt;li&gt;Assign an imagePullSecrets to a serviceaccount that the pod will use to automatically mount the secret without having to declare it in the pod.spec.&lt;/li&gt;
+&lt;li&gt;Use CI/CD capabilities to get secrets from a secure vault or encrypted store with a Hardware Security Module (HSM) during the release pipeline.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;rbac-best-practices&#34;&gt;RBAC Best Practices&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Applications that are developed to run in Kubernetes rarely ever need an RBAC role and role binding associated to it. Only if the application code actually interacts directly with the Kubernetes API directly does the application require RBAC configuration.&lt;/li&gt;
+&lt;li&gt;If the application does need to directly access the Kubernetes API to perhaps change configuration depending on endpoints being added to a service, or if it needs to list all of the pods in a specific namespace, the best practice is to create a new service account that is then specified in the pod specification. Then, create a role that has the least amount of privileges needed to accomplish its goal.&lt;/li&gt;
+&lt;li&gt;Use an OpenID Connect service that enables identity management and, if needed, two-factor authentication. This will allow for a higher level of identity authentication. Map user groups to roles that have the least amount of privileges needed to accomplish the job.&lt;/li&gt;
+&lt;li&gt;Along with the aforementioned practice, you should use Just in Time (JIT) access systems to allow site reliability engineers (SREs), operators, and those who might need to have escalated privileges for a short period of time to accomplish a very specific task. Alternatively, these users should have different identities that are more heavily audited for sign-on, and those accounts should have more elevated privileges assigned by the user account or group bound to a role.&lt;/li&gt;
+&lt;li&gt;Specific service accounts should be used for CI/CD tools that deploy into your Kubernetes clusters. This ensures for auditability within the cluster and an understanding of who might have deployed or deleted any objects in a cluster.&lt;/li&gt;
+&lt;li&gt;Limit any applications that require watch and list on the Secrets API. This basically allows the application or the person who deployed the pod to view the secrets in that namespace. If an application needs to access the Secrets API for specific secrets, limit using get on any specific secrets that the application needs to read outside of those that it is directly assigned.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Service accounts in Kubernetes are different than user accounts in that they are namespace bound, internally stored in Kubernetes; they are meant to represent processes, not people, and are managed by native Kubernetes controllers.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;best-practices-for-cicd&#34;&gt;Best Practices for CI/CD&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;With CI, focus on automation and providing quick builds. Optimizing the build speed will provide developers quick feedback if their changes have broken the build.&lt;/li&gt;
+&lt;li&gt;Focus on providing reliable tests in your pipeline. This will give developers rapid feedback on issues with their code. The faster the feedback loop to developers, the more productive they’ll become in their workflow.&lt;/li&gt;
+&lt;li&gt;When deciding on CI/CD tools, ensure that the tools allow you to define the pipeline as code. This will allow you to version-control the pipeline with your application code.&lt;/li&gt;
+&lt;li&gt;Ensure that you optimize your images so that you can reduce the size of the image and also reduce the attack surface when running the image in production. Multistage Docker builds allow you to remove packages not needed for the application to run. For example, you might need Maven to build the application, but you don’t need it for the actual running image.&lt;/li&gt;
+&lt;li&gt;Avoid using “latest” as an image tag, and utilize a tag that can be referenced back to the buildID or Git commit.&lt;/li&gt;
+&lt;li&gt;If you are new to CD, utilize Kubernetes rolling upgrades to start out. They are easy to use and will get you comfortable with deployment. As you become more comfortable and confident with CD, look at utilizing blue/green and canary deployment strategies.&lt;/li&gt;
+&lt;li&gt;With CD, ensure that you test how client connections and database schema upgrades are handled in your application.&lt;/li&gt;
+&lt;li&gt;Testing in production will help you build reliability into your application, and ensure that you have good monitoring in place. With testing in production, also start at a small scale and limit the blast radius of the experiment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;build-the-smallest-image&#34;&gt;Build the smallest image&lt;/h4&gt;
+&lt;p&gt;Build the smallest image possible for your application:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Multistage builds&lt;/li&gt;
+&lt;li&gt;Distroless base images&lt;/li&gt;
+&lt;li&gt;Optimized base images&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;container-image-tagging&#34;&gt;Container Image Tagging&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;BuildID&lt;/li&gt;
+&lt;li&gt;Build System-BuildID&lt;/li&gt;
+&lt;li&gt;Git Hash&lt;/li&gt;
+&lt;li&gt;Githsah-buildID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;deployment-strategies&#34;&gt;Deployment Strategies&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Rolling updates&lt;/li&gt;
+&lt;li&gt;Blue/green deployments&lt;/li&gt;
+&lt;li&gt;Canary deployments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+&lt;li&gt;including both application code and configuration code, such as a Kubernetes manifest or Helm charts, helps promote good DevOps principles of communication and collaboration. Having both application developers and operation engineers collaborate in a single repository builds confidence in a team to deliver an application to production.&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&#34;./cri.png&#34; alt=&#34;cri.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    TBD
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.amazon.com/Kubernetes-Best-Practices-Blueprints-Applications/dp/1492056472/ref=sr_1_3?crid=22K492WLGAPTP&amp;amp;dchild=1&amp;amp;keywords=kubernetes&amp;#43;best&amp;#43;practices&amp;amp;qid=1602558033&amp;amp;sprefix=Kubernetes&amp;#43;Best&amp;#43;Practices%2Caps%2C176&amp;amp;sr=8-3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kubernetes Best Practices: Blueprints for Building Successful Applications on Kubernetes&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>Docker</title>
@@ -851,6 +998,28 @@ The Ingress spec has all the information needed to configure a loadbalancer or p
 &lt;h3 id=&#34;configmap&#34;&gt;ConfigMap&lt;/h3&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://matthewpalmer.net/kubernetes-app-developer/articles/ultimate-configmap-guide-kubernetes.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ultimate Guide to ConfigMaps in Kubernetes&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;secrets&#34;&gt;Secrets&lt;/h3&gt;
+&lt;p&gt;Secret data should be stored and handled in a way that can be easily hidden and possibly encrypted at rest if the environment is configured as such. The Secret data is represented as base64-encoded information, and it is critical to understand that this is not encrypted. As soon as the secret is injected into the pod, the pod itself can see the secret data in plain text.&lt;/p&gt;
+&lt;p&gt;Secret data is meant to be small amounts of data, limited by default in Kubernetes to 1 MB in size, for the base64-encoded data, so ensure that the actual data is approximately 750 KB because of the overhead of the encoding.&lt;/p&gt;
+&lt;p&gt;There are three types of secrets in Kubernetes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;generic&lt;br&gt;
+regular key/value pairs that are created from a file, a directory, or from string literals using the &amp;ndash;from-literal= parameter.&lt;/li&gt;
+&lt;li&gt;docker-registry&lt;br&gt;
+This is used by the kubelet when passed in a pod template if there is an imagePullsecret to provide the credentials needed to authenticate to a private Docker registry:&lt;/li&gt;
+&lt;li&gt;tls&lt;br&gt;
+This creates a Transport Layer Security (TLS) secret from a valid public/private key pair. As long as the cert is in a valid PEM format, the key pair will be encoded as a secret and can be passed to the pod to use for SSL/TLS needs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;configmaps-vs-secrets&#34;&gt;ConfigMaps vs Secrets&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;the ConfigMap API is meant more for string data that is not really sensitive data. If your application requires more sensitive data, the Secrets API is more appropriate.&lt;/li&gt;
+&lt;li&gt;ConfigMap data can be injected as either a volume mounted into the pod or as environment variables.&lt;/li&gt;
+&lt;li&gt;Secrets are also mounted into tmpfs only on the nodes that have a pod that requires the secret and are deleted when the pod that needs it is gone. This prevents any secrets from being left behind on the disk of the node.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;roles&#34;&gt;Roles&lt;/h3&gt;
+&lt;p&gt;Kubernetes has two types of roles, role and clusterRole, the difference being that role is specific to a namespace, and clusterRole is a cluster-wide role across all namespaces.&lt;/p&gt;
+&lt;h3 id=&#34;rolebindings&#34;&gt;RoleBindings&lt;/h3&gt;
+&lt;p&gt;The RoleBinding allows a mapping of a subject like a user or group to a specific role. Bindings also have two modes: roleBinding, which is specific to a namespace, and clusterRoleBinding, which is across the entire cluster.&lt;/p&gt;
 &lt;h3 id=&#34;kubernetes-operator&#34;&gt;Kubernetes Operator&lt;/h3&gt;
 &lt;p&gt;An Operator is an application-specific controller that extends the Kubernetes API to create, configure, and manage instances of complex stateful applications on behalf of a Kubernetes user. It builds upon the basic Kubernetes resource and controller concepts but includes domain or application-specific knowledge to automate common tasks.&lt;br&gt;
 Examples are:&lt;/p&gt;

@@ -1384,5 +1384,47 @@ Comparable&lt;/p&gt;
 </description>
     </item>
     
+    <item>
+      <title>Python vs. Java</title>
+      <link>/coding/python/python-vs-java/</link>
+      <pubDate>Tue, 31 Dec 2019 23:59:59 +0000</pubDate>
+      <guid>/coding/python/python-vs-java/</guid>
+      <description>&lt;h2 id=&#34;python-vs-java&#34;&gt;Python vs. Java&lt;/h2&gt;
+&lt;p&gt;A VS. notes between Python and Java.&lt;/p&gt;
+&lt;h3 id=&#34;type-casting&#34;&gt;Type casting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Python: &lt;strong&gt;int(1.9)&lt;/strong&gt;, &lt;strong&gt;float(1)&lt;/strong&gt;, &lt;strong&gt;str(1.9)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Java:
+&lt;ul&gt;
+&lt;li&gt;Narrowing casting: (manually) - converting a larger type to a smaller size type
+&lt;strong&gt;(int)1.9&lt;/strong&gt;, &lt;strong&gt;(float)9.78&lt;/strong&gt; &lt;br&gt;
+double -&amp;gt; float -&amp;gt; long -&amp;gt; int -&amp;gt; char -&amp;gt; short -&amp;gt; byte&lt;/li&gt;
+&lt;li&gt;Widening casting: automatically - converting a smaller type to a larger type size&lt;br&gt;
+byte -&amp;gt; short -&amp;gt; char -&amp;gt; int -&amp;gt; long -&amp;gt; float -&amp;gt; double&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;true-or-false&#34;&gt;True or False&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Python: True/False&lt;/li&gt;
+&lt;li&gt;Java: true/false&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;map-sorting&#34;&gt;Map sorting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Python:&lt;br&gt;
+Easy to use sorted() and lambda to sort dict/map by keys or values&lt;/li&gt;
+&lt;li&gt;Java:&lt;br&gt;
+Use Collections.sort() and Comparator to sort map by keys or values&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    To Be Continued
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
