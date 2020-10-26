@@ -445,7 +445,8 @@ byte -&amp;gt; short -&amp;gt; char -&amp;gt; int -&amp;gt; long -&amp;gt; float
 &lt;li&gt;Python:&lt;br&gt;
 Easy to use sorted() and lambda to sort dict/map by keys or values&lt;/li&gt;
 &lt;li&gt;Java:&lt;br&gt;
-Use Collections.sort() and Comparator to sort map by keys or values&lt;/li&gt;
+Use Collections.sort() and Comparator to sort map by keys or values&lt;br&gt;
+Java 8 provides new ways of defining Comparators by using lambda expressions and the comparing() static factory method.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;

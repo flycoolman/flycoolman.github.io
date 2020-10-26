@@ -13,6 +13,32 @@
     </image>
     
     <item>
+      <title>-- Latest and Updated Posts -- </title>
+      <link>/post/latest-and-updates/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/latest-and-updates/</guid>
+      <description>&lt;h2 id=&#34;the-latest-and-updated-posts&#34;&gt;The Latest and Updated Posts&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://flycoolman.com/coding/python&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Python&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/coding/java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Java&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/coding/go&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Go&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/coding/javascript&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Javascript&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/linux&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Linux&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/devops&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;DevOps | SRE&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/networking&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Networking&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/courses&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Courses&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Docker</title>
       <link>/devops/docker/</link>
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
@@ -1046,6 +1072,45 @@ This creates a Transport Layer Security (TLS) secret from a valid public/private
 &lt;p&gt;Kubernetes has two types of roles, role and clusterRole, the difference being that role is specific to a namespace, and clusterRole is a cluster-wide role across all namespaces.&lt;/p&gt;
 &lt;h3 id=&#34;rolebindings&#34;&gt;RoleBindings&lt;/h3&gt;
 &lt;p&gt;The RoleBinding allows a mapping of a subject like a user or group to a specific role. Bindings also have two modes: roleBinding, which is specific to a namespace, and clusterRoleBinding, which is across the entire cluster.&lt;/p&gt;
+&lt;h3 id=&#34;storage&#34;&gt;Storage&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;PersistentVolume – the low level representation of a storage volume&lt;/li&gt;
+&lt;li&gt;Volume Driver – the code used to communicate with the backend storage provider&lt;/li&gt;
+&lt;li&gt;Pod – a running container that will consume a PersistentVolume&lt;/li&gt;
+&lt;li&gt;PersistentVolumeClaim – the binding between a Pod and PersistentVolume&lt;/li&gt;
+&lt;li&gt;StorageClass – allows for dynamic provisioning of PersistentVolumes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;controllers-and-kubelets&#34;&gt;Controllers and Kubelets&lt;/h4&gt;
+&lt;p&gt;Kubernetes has a number of controllers that run on the masters, monitor the state of the cluster and initiate actions in response to events.&lt;br&gt;
+It also runs a kubelet process on all of the worker nodes. The kubelet stays in constant contact with the controllers, submitting metrics about current running pods and listening for new instructions.&lt;/p&gt;
+&lt;h5 id=&#34;kubelet&#34;&gt;Kubelet:&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Mount and format new PersistentVolumes that are scheduled to this host&lt;/li&gt;
+&lt;li&gt;Start containers with PersistentVolume hostpath mounted inside the container&lt;/li&gt;
+&lt;li&gt;Stop containers and unmount the associated PersistentVolume&lt;/li&gt;
+&lt;li&gt;Constantly send metrics to the controllers about container &amp;amp; PersistentVolume state&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;controller&#34;&gt;Controller:&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;to match a PersistentVolumeClaim to a PersistentVolume&lt;/li&gt;
+&lt;li&gt;to dynamically provision a new PersistentVolume if a claim cannot be met (if enabled)
+&lt;ul&gt;
+&lt;li&gt;in the case of EBS this is done via the AWS api from the masters&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;to attach the backend storage to a specific node if needed
+&lt;ul&gt;
+&lt;li&gt;in the case of EBS this is done via the AWS api from the masters&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;to instruct the kubelet for a node to mount (and potentially format) the volume
+&lt;ul&gt;
+&lt;li&gt;this is done on the actual node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;to instruct the kubelet to start a container that uses the volume&lt;br&gt;
+The kubelet itself performs the low-level mount and mkfs commands when instructed by the controller.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;kubernetes-operator&#34;&gt;Kubernetes Operator&lt;/h3&gt;
 &lt;p&gt;An Operator is an application-specific controller that extends the Kubernetes API to create, configure, and manage instances of complex stateful applications on behalf of a Kubernetes user. It builds upon the basic Kubernetes resource and controller concepts but includes domain or application-specific knowledge to automate common tasks.&lt;br&gt;
 Examples are:&lt;/p&gt;
@@ -1070,7 +1135,9 @@ Examples are:&lt;/p&gt;
 
 &lt;a href=&#34;https://matthewpalmer.net/kubernetes-app-developer/articles/ultimate-configmap-guide-kubernetes.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ultimate Guide to ConfigMaps in Kubernetes&lt;/a&gt;&lt;br&gt;
 
-&lt;a href=&#34;https://learnk8s.io/troubleshooting-deployments&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A visual guide on troubleshooting Kubernetes deployments&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://learnk8s.io/troubleshooting-deployments&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A visual guide on troubleshooting Kubernetes deployments&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://portworx.com/basic-guide-kubernetes-storage/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A Basic Guide to Kubernetes Storage: PVS, PVCs, Statefulsets and More&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>

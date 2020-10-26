@@ -898,6 +898,45 @@ This creates a Transport Layer Security (TLS) secret from a valid public/private
 <p>Kubernetes has two types of roles, role and clusterRole, the difference being that role is specific to a namespace, and clusterRole is a cluster-wide role across all namespaces.</p>
 <h3 id="rolebindings">RoleBindings</h3>
 <p>The RoleBinding allows a mapping of a subject like a user or group to a specific role. Bindings also have two modes: roleBinding, which is specific to a namespace, and clusterRoleBinding, which is across the entire cluster.</p>
+<h3 id="storage">Storage</h3>
+<ul>
+<li>PersistentVolume – the low level representation of a storage volume</li>
+<li>Volume Driver – the code used to communicate with the backend storage provider</li>
+<li>Pod – a running container that will consume a PersistentVolume</li>
+<li>PersistentVolumeClaim – the binding between a Pod and PersistentVolume</li>
+<li>StorageClass – allows for dynamic provisioning of PersistentVolumes</li>
+</ul>
+<h4 id="controllers-and-kubelets">Controllers and Kubelets</h4>
+<p>Kubernetes has a number of controllers that run on the masters, monitor the state of the cluster and initiate actions in response to events.<br>
+It also runs a kubelet process on all of the worker nodes. The kubelet stays in constant contact with the controllers, submitting metrics about current running pods and listening for new instructions.</p>
+<h5 id="kubelet">Kubelet:</h5>
+<ul>
+<li>Mount and format new PersistentVolumes that are scheduled to this host</li>
+<li>Start containers with PersistentVolume hostpath mounted inside the container</li>
+<li>Stop containers and unmount the associated PersistentVolume</li>
+<li>Constantly send metrics to the controllers about container &amp; PersistentVolume state</li>
+</ul>
+<h5 id="controller">Controller:</h5>
+<ul>
+<li>to match a PersistentVolumeClaim to a PersistentVolume</li>
+<li>to dynamically provision a new PersistentVolume if a claim cannot be met (if enabled)
+<ul>
+<li>in the case of EBS this is done via the AWS api from the masters</li>
+</ul>
+</li>
+<li>to attach the backend storage to a specific node if needed
+<ul>
+<li>in the case of EBS this is done via the AWS api from the masters</li>
+</ul>
+</li>
+<li>to instruct the kubelet for a node to mount (and potentially format) the volume
+<ul>
+<li>this is done on the actual node</li>
+</ul>
+</li>
+<li>to instruct the kubelet to start a container that uses the volume<br>
+The kubelet itself performs the low-level mount and mkfs commands when instructed by the controller.</li>
+</ul>
 <h3 id="kubernetes-operator">Kubernetes Operator</h3>
 <p>An Operator is an application-specific controller that extends the Kubernetes API to create, configure, and manage instances of complex stateful applications on behalf of a Kubernetes user. It builds upon the basic Kubernetes resource and controller concepts but includes domain or application-specific knowledge to automate common tasks.<br>
 Examples are:</p>
@@ -922,7 +961,9 @@ Examples are:</p>
 
 <a href="https://matthewpalmer.net/kubernetes-app-developer/articles/ultimate-configmap-guide-kubernetes.html" target="_blank" rel="noopener">Ultimate Guide to ConfigMaps in Kubernetes</a><br>
 
-<a href="https://learnk8s.io/troubleshooting-deployments" target="_blank" rel="noopener">A visual guide on troubleshooting Kubernetes deployments</a></p>
+<a href="https://learnk8s.io/troubleshooting-deployments" target="_blank" rel="noopener">A visual guide on troubleshooting Kubernetes deployments</a><br>
+
+<a href="https://portworx.com/basic-guide-kubernetes-storage/" target="_blank" rel="noopener">A Basic Guide to Kubernetes Storage: PVS, PVCs, Statefulsets and More</a></p>
 <br>
 <h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
 

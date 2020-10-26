@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Courses | flycoolman</title>
+    <link>/category/courses/</link>
+      <atom:link href="/category/courses/index.xml" rel="self" type="application/rss+xml" />
+    <description>Courses</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
+      <title>Courses</title>
+      <link>/category/courses/</link>
+    </image>
+    
+    <item>
+      <title>-- Latest and Updated Posts -- </title>
+      <link>/post/latest-and-updates/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/latest-and-updates/</guid>
+      <description>&lt;h2 id=&#34;the-latest-and-updated-posts&#34;&gt;The Latest and Updated Posts&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://flycoolman.com/coding/python&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Python&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/coding/java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Java&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/coding/go&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Go&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/coding/javascript&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Javascript&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/linux&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Linux&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/devops&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;DevOps | SRE&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/networking&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Networking&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://flycoolman.com/courses&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Courses&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
