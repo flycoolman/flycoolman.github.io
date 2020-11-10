@@ -1,0 +1,1360 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Hongwei Li">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A summary of checked and unchecked exceptions in Java.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/coding/java/checked-vs-unchecked-exceptions-in-java/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146441609-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-146441609-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/coding/java/checked-vs-unchecked-exceptions-in-java/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@flycoolman">
+  <meta property="twitter:creator" content="@flycoolman">
+  
+  <meta property="og:site_name" content="flycoolman">
+  <meta property="og:url" content="/coding/java/checked-vs-unchecked-exceptions-in-java/">
+  <meta property="og:title" content="Checked vs Unchecked Exceptions in Java | flycoolman">
+  <meta property="og:description" content="A summary of checked and unchecked exceptions in Java."><meta property="og:image" content="/coding/java/checked-vs-unchecked-exceptions-in-java/featured.jpg">
+  <meta property="twitter:image" content="/coding/java/checked-vs-unchecked-exceptions-in-java/featured.jpg"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-10-31T23:59:59&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-11-01T00:00:00&#43;00:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Checked vs Unchecked Exceptions in Java | flycoolman</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">flycoolman</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">flycoolman</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Coding</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/coding/python/"><span>Python</span></a>
+            
+              <a class="dropdown-item" href="/coding/java/"><span>Java</span></a>
+            
+              <a class="dropdown-item" href="/coding/go/"><span>Go</span></a>
+            
+              <a class="dropdown-item" href="/coding/javascript/"><span>JavaScript</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/linux/"><span>Linux</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/devops/"><span>DevOps</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/networking/"><span>Networking</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/courses/"><span>Courses</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Checked vs Unchecked Exceptions in Java</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span ><a href="/author/hongwei-li/">Hongwei Li</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Nov 1, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/java/">Java</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 780px; max-height: 330px;">
+  <div style="position: relative">
+    <img src="/coding/java/checked-vs-unchecked-exceptions-in-java/featured.jpg" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="checked-vs-unchecked-exceptions-in-java">Checked vs Unchecked Exceptions in Java</h2>
+<h3 id="exception-in-java">Exception in Java</h3>
+<h4 id="what-is-an-exception">What is an Exception?</h4>
+<hr>
+<p><strong>Definition:</strong> An exception is an event, which occurs during the execution of a program, that disrupts the normal flow of the program&rsquo;s instructions.<br>
+The general meaning of an exception is the breaching of predefined assumption of the application.</p>
+<hr>
+<p>In Java, all errors and exceptions are represented with <strong>Throwable</strong> class. When an error occurs within a method, the method creates an object (of any subtype of Throwable) and hands it off to the runtime system. The object, called an <strong>exception object</strong>, contains information about the error, including its type and the state of the program when the error occurred. Creating an exception object and handing it to the runtime system is called <strong>throwing an exception</strong>.</p>
+<h4 id="call-stack">Call Stack</h4>
+<p>After a method throws an exception, the runtime system attempts to find something to handle it. The set of possible &ldquo;somethings&rdquo; to handle the exception is the ordered list of methods that had been called to get to the method where the error occurred. The list of methods is known as the <strong>call stack</strong> (see the next figure).</p>
+<p><img src="./exceptions-callstack.gif" alt="exceptions-callstack"></p>
+<h4 id="exception-handler">Exception Handler</h4>
+<p>The runtime system searches the call stack for a method that contains a block of code that can handle the exception. This block of code is called an exception handler. The search begins with the method in which the error occurred and proceeds through the call stack in the reverse order in which the methods were called. When an appropriate handler is found, the runtime system passes the exception to the handler. An exception handler is considered appropriate if the type of the exception object thrown matches the type that can be handled by the handler.</p>
+<p>The exception handler chosen is said to catch the exception. If the runtime system exhaustively searches all the methods on the call stack without finding an appropriate exception handler, as shown in the next figure, the runtime system (and, consequently, the program) terminates.</p>
+<p><img src="./Searching-the-call-stack-for-the-exception-handler.gif" alt="Searching-the-call-stack-for-the-exception-handler"></p>
+<h4 id="exception-handling">Exception Handling</h4>
+<p>When an exception object is created in application, there are two choices:</p>
+<ul>
+<li>Either handle it within method</li>
+<li>Or pass it to the caller method to handle.</li>
+</ul>
+<p>In reality, there are 3 basic options to react when a exception occurs at runtime:</p>
+<ul>
+<li><strong>Ignore the exception</strong> and let it move up the call stack to another catch block for the exception.</li>
+<li><strong>Catch the exception and perform required action</strong> for your application. If you can not recover from the exception, rethrow it.</li>
+<li><strong>Catch the exception and wrap it with another exception</strong> which is more relevant for your application. Exception wrapping is used to avoid breaking the layer abstraction caught in the exception. You can assign the original exception to the InnerException property of the Exception object you throw. This enables the original exception to be wrapped inside a new exception (which is more relevant for your application). To understand the wrapping of an exception lets consider a method that caught an exception called IOException. You can wrap the original exception (IOException) with a application level exception called LoadingException or FailtoLoadInfoException, as examples, rather than alerting the lower-level IOException to the user.</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    If an exception is not handled in the application, then it will be propagated to JVM and JVM will usually terminate the program itself.
+  </div>
+</div>
+<h3 id="exception-hierarchy-in-java">Exception Hierarchy in Java</h3>
+<p><img src="./exception-hierarchy-java.png" alt="exception-hierarchy-java"></p>
+<p><strong>Note:</strong> The terms &ldquo;exception&rdquo; and &ldquo;error&rdquo; are not the same.<br>
+Whether should a general error in application be handled as Error or Exception in Java, depends on <strong>the context</strong> in the application.</p>
+<p>In Java, exceptions are broadly categorized into two sections:</p>
+<ul>
+<li>
+<p><strong>Checked exceptions</strong><br>
+Checked Exceptions are subclasses of java.lang.<strong>Exception</strong>, i.e. IOException, SQLException, ClassNotFoundException, etc.</p>
+</li>
+<li>
+<p><strong>Unchecked exceptions</strong>.<br>
+Unchecked Exceptions are subclasses of java.lang.<strong>RuntimeException</strong>, i.e. NullPointerException, NumberFormatException, etc.</p>
+</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    <strong>Errors</strong> are serious runtime environment problems that are almost certainly not recoverable, i.e. OutOfMemoryError, LinkageError, and StackOverflowError. They generally crash you program or part of program. Only a good logging practice will help you in determining the exact causes of errors.
+  </div>
+</div>
+<h3 id="checked-exceptions">Checked Exceptions</h3>
+<p>The exceptions that are checked at <strong>compile time</strong> (A.K.A.compile-time exceptions). If some code within a method throws a checked exception, then the method must either handle the exception by using <strong>try-catch block</strong> or it must specify the exception using <strong>throws</strong> keyword.</p>
+<p>Generally, checked exceptions denote error scenarios which are outside the immediate control of the program. They occur usually interacting with outside resources/network resources e.g. database problems, network connection errors, missing files etc.</p>
+<h3 id="unchecked-exceptions">Unchecked Exceptions</h3>
+<p>The exceptions that are <strong>not</strong> checked at <strong>compiled time</strong>.<br>
+These are exceptions that do not need to be declared in a throws clause. JVM simply doesn’t force you to handle them as they are mostly generated at runtime due to programmatic errors.</p>
+<h3 id="checked-vs-unchecked-exceptions">Checked vs Unchecked Exceptions</h3>
+<h4 id="class-definition">Class definition</h4>
+<ul>
+<li>Checked exceptions are subclasses of Exception class. All other Exceptions and Throwable are unchecked exceptions.</li>
+<li>RuntimeException, Error, and their subclasses are unchecked Exceptions. (From 
+<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html" target="_blank" rel="noopener">Unchecked Exceptions — The Controversy</a>)</li>
+<li>As the javadoc for Throwable says: &ldquo;Throwable and any subclass of Throwable that is not also a subclass of either RuntimeException or Error are regarded as checked exceptions&rdquo;.</li>
+</ul>
+<h4 id="compiler-check">Compiler check</h4>
+<ul>
+<li>Checked exceptions are forced by compiler and used to indicate exceptional conditions that are out of the control of the program (for example, I/O errors).</li>
+<li>Unchecked exceptions are occurred during runtime and used to indicate programming errors (for example, a null pointer).</li>
+<li>Compiler checks each method call and deceleration to determine whether the method throws checked exception.</li>
+</ul>
+<h4 id="contract">Contract</h4>
+<p>There&rsquo;s also an important bit of information in the Java Language Specification:<br>
+The checked exception classes named in the throws clause are part of the contract between the implementor and user of the method or constructor.</p>
+<h4 id="experience-when-and-how">Experience: When and How</h4>
+<p>The below statements are some experiences of developers. These can provide a feel on the use of checked and unchecked exceptions, though they are not so accurate or absolutely correct. In reality, this all depends on the app and specific context. Just feel it&hellip;</p>
+<ul>
+<li>
+<p>Checked exceptions ideally should never be used for programming errors, but absolutely should be used for resource errors and for flow control in such cases.
+Throw only those exceptions which a method can not handle by any mean. Method should first try to handle it as soon as it encounters. Throw the exception only if it is not possible to handle inside method.</p>
+</li>
+<li>
+<p>Checked exceptions can be used when a method cannot do what its name says it does. e.g. A method named prepareSystem() which pre-populate configuration files and do some configuration using them, can declare throwing FileNotFoundException which implies that method uses configuration files from file system.</p>
+</li>
+<li>
+<p>Rule is if a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception.</p>
+</li>
+<li>
+<p>The only time it is normally legal to shut down an application is during startup. For example, if a configuration file is missing and the application cannot do anything sensible without it, then it is legal to shut down the application.</p>
+</li>
+<li>
+<p>Myself, I prefer using checked exceptions as I can.</p>
+</li>
+<li>
+<p>If you are an API Developer (back-end developer), use checked exceptions, otherwise, use Runtime exceptions.</p>
+</li>
+<li>
+<p>My rules are:</p>
+<ul>
+<li>if statements for business logic errors (like your code)</li>
+<li>cheched exceptions for environment errors where the application can recover</li>
+<li>uncheched exception for environment errors where there is no recovery</li>
+</ul>
+</li>
+<li>
+<p>Line is not always clear, but for me usually RuntimeException = programming errors, checked exceptions = external errors. This is very rough categorization though. Like others say, checked exceptions force you to handle, or at least think for a very tiny fraction of time, about it.</p>
+</li>
+<li>
+<p>In general I use the following rules:</p>
+<ul>
+<li>In my components &amp; libraries I only catch an exception if I intend to handle it or do something based on it. Or if I want to provide additional contextual information in an exception.</li>
+<li>I use a general try catch at the application entry point, or the highest level possible. If an exception gets here I just log it and let it fail. Ideally exceptions should never get here.</li>
+</ul>
+</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    <p>In Effective Java by Joshua Bloch:</p>
+<ul>
+<li>Use checked expections for recoverable conditions and runtime exceptions for programming errors (Item 58 in 2nd edition).</li>
+<li>Avoid unnecessary use of checked exceptions (Item 59)</li>
+<li>Use exceptions only for exceptional conditions (Item 57). As others have pointed out, this case may not warrant an exception at all. Consider returning false (or perhaps a status object with details about what happened) if there is not enough credit.</li>
+</ul>
+  </div>
+</div>
+<h3 id="the-controversy">The Controversy</h3>
+<hr>
+<p>Checked exceptions are a controversial issue in general, and in Java in particular.</p>
+<hr>
+<ul>
+<li>
+<p>Some say checked exceptions should be eliminated completely, given the verbosity, tediousness and error-proneness they introduce.</p>
+</li>
+<li>
+<p>Some believe the decision to have these two types of exceptions has its plus(es). It forces the developer to think that an exception is likely to happen in this situation, so he must take measures. The API declares that it will throw exceptions and the developer sees this compile-time. It enforces compile-time safety. You should not wait until the code goes to production to discover that something might fail. Javadoc? Well, a good option to say that, but I bet no one will read the javadoc until the exception actually happens.</p>
+</li>
+<li>
+<p>Fundamentally the only difference between checked exceptions and unchecked exceptions is that the compiler forces you to document checked exceptions. You should be documenting any exceptions your code can throw anyway; I can&rsquo;t see why anyone would be against this being statically checkable to prevent it from being stale or from any exceptions being missed out. Exceptions are part of your API whether checked or not; checked just ensures you declare your API accurately.</p>
+</li>
+<li>
+<p>Like every other trade, there is a trade-off. The advantage of having the compiler do the checks means that there is no way to accidentally leak exceptions (and humans do make mistakes). If the calling code does not handle the exception, it has to leak it explicitly. This is exactly the same trade-off we get from loosely-typed vs strongly-typed languages.</p>
+</li>
+</ul>
+<hr>
+<p>
+<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html" target="_blank" rel="noopener">Unchecked Exceptions — The Controversy</a><br>
+Because the Java programming language does not require methods to catch or to specify unchecked exceptions (RuntimeException, Error, and their subclasses), programmers may be tempted to write code that throws only unchecked exceptions or to make all their exception subclasses inherit from RuntimeException. Both of these shortcuts allow programmers to write code without bothering with compiler errors and without bothering to specify or to catch any exceptions. Although this may seem convenient to the programmer, it sidesteps the intent of the catch or specify requirement and can cause problems for others using your classes.</p>
+<p>Why did the designers decide to force a method to specify all uncaught checked exceptions that can be thrown within its scope? Any Exception that can be thrown by a method is part of the method&rsquo;s public programming interface. Those who call a method must know about the exceptions that a method can throw so that they can decide what to do about them. These exceptions are as much a part of that method&rsquo;s programming interface as its parameters and return value.</p>
+<p>The next question might be: &ldquo;If it&rsquo;s so good to document a method&rsquo;s API, including the exceptions it can throw, why not specify runtime exceptions too?&rdquo; Runtime exceptions represent problems that are the result of a programming problem, and as such, the API client code cannot reasonably be expected to recover from them or to handle them in any way. Such problems include arithmetic exceptions, such as dividing by zero; pointer exceptions, such as trying to access an object through a null reference; and indexing exceptions, such as attempting to access an array element through an index that is too large or too small.</p>
+<p>Runtime exceptions can occur anywhere in a program, and in a typical one they can be very numerous. Having to add runtime exceptions in every method declaration would reduce a program&rsquo;s clarity. Thus, the compiler does not require that you catch or specify runtime exceptions (although you can).</p>
+<p>One case where it is common practice to throw a RuntimeException is when the user calls a method incorrectly. For example, a method can check if one of its arguments is incorrectly null. If an argument is null, the method might throw a NullPointerException, which is an unchecked exception.</p>
+<p>Generally speaking, do not throw a RuntimeException or create a subclass of RuntimeException simply because you don&rsquo;t want to be bothered with specifying the exceptions your methods can throw.</p>
+<p>Here&rsquo;s the bottom line guideline: If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception.</p>
+<hr>
+<h3 id="best-practices">Best Practices</h3>
+<div class="alert alert-note">
+  <div>
+    <ul>
+<li>If a client can reasonably be expected to recover from an exception, make it a checked exception.</li>
+<li>If a client cannot do anything to recover from the exception, make it an unchecked exception.</li>
+</ul>
+  </div>
+</div>
+<ol>
+<li>Never swallow the exception in catch block</li>
+<li>Declare the specific checked exceptions that your method can throw</li>
+<li>Do not catch the Exception class, always catch a specific exception class</li>
+<li>Never catch Throwable class</li>
+<li>Never (ever) catch Errors<br>
+Errors are problems you will most likely never be able to handle (e.g. OutOfMemory, or other JVM issues)</li>
+<li>Always correctly wrap the exceptions in custom exceptions so that stack trace is not lost</li>
+<li>Either log the exception or throw it but never do the both</li>
+<li>Never throw any exception from finally block</li>
+<li>Always catch only those exceptions that you can actually handle</li>
+<li>Catch exceptions and handle them, don&rsquo;t just throw them up the stack</li>
+<li>Don&rsquo;t use printStackTrace() statement or similar<br>
+Chances are one of your users will get one of those stack traces eventually, and have exactly zero knowledge as to what to do with it.</li>
+<li>Pass all relevant information to exceptions to make them informative as much as possible<br>
+At least rethrow an exception that explains what was happening at the time and has the caught exception inside of it.</li>
+<li>Always log exceptions for the sake of maintainability<br>
+When starting seeing bugs, the log will assist in pointing you to the place your bug has likely started.</li>
+<li>Always include all information about an exception in single log message</li>
+<li>Use finally blocks instead of catch blocks if you are not going to handle exception</li>
+<li>Remember &ldquo;Throw early catch late&rdquo; principle</li>
+<li>Always clean up after handling the exception</li>
+<li>Throw only relevant exception from a method</li>
+<li>Never use exceptions for flow control in your program</li>
+<li>Validate user input to catch adverse conditions very early in request processing</li>
+<li>Always terminate the thread which it is interrupted</li>
+<li>Use template methods for repeated try-catch</li>
+<li>Document all exceptions in your application in javadoc</li>
+<li>Do something useful with the errors (logs, restarts, recoveries, etc)</li>
+<li>Use one big handler at the higher-level to manage any or all of the weird conditions arising in the code that aren&rsquo;t caught at a low-level</li>
+<li>Think about validation check vs exception
+<ul>
+<li>NullPointerException<br>
+Catching a NullPointerException should replaced with a graceful null-check.</li>
+<li>NumberFormatException<br>
+Catching a NumberFormatException explicitly to avoid possible introduction of error prone code to handle different number formats.</li>
+</ul>
+</li>
+</ol>
+<p>Once you embrace exceptions, you should find that it makes your code simpler and clearer, by moving your error handling code away from your core logic. Aim to have lots of statements in a single try block.</p>
+<div class="alert alert-note">
+  <div>
+    Be respectful of the language and how it traditionally manages such issues. For example, don&rsquo;t bring a C mindset into a Java world.
+  </div>
+</div>
+<h3 id="faq">FAQ</h3>
+<ol>
+<li>
+<p><strong>Is RuntimeException an unchecked exception?</strong><br>
+Yes, exactly.</p>
+</li>
+<li>
+<p><strong>Why do people add class Exception in the throws clause?</strong><br>
+Most often because people are lazy to consider what to catch and what to rethrow. Throwing Exception is a <strong>bad practice</strong> and should be avoided.<br>
+But it&rsquo;s common when implementing frameworks, let users of the framework be able to throw any exception, e.g. the signature of the Callable interface in JSE.</p>
+</li>
+<li>
+<p><strong>Should I bubble up the exact exception or mask it using Exception?</strong><br>
+<strong>Yes</strong> and <strong>No</strong>.<br>
+<strong>Yes</strong> for bubble up the exact exception and always declare the most precise exception possible, or a list of such.<br>
+<strong>No</strong> for mask any exception.<br>
+The exceptions you declare your method as capable of throwing are a part of the contract between your method and the caller. Throwing &ldquo;FileNotFoundException&rdquo; means that something wrong with the file, either the file name isn&rsquo;t valid or the file is not there. Throwing Exception causes very difficult to find the root cuase.</p>
+</li>
+<li>
+<p><strong>Why bubble up?</strong><br>
+Should the error be handled sooner better?<br>
+What it means is to bubble it up to the top most responsible layer that controls the logic flow and oversees the business logic for the application. It would be impossible, for example, for the database layer to communicate to the client that something critical is missing or unresponsive. When it bubbles up to the top most server layer then it is straight forward to refresh the client&rsquo;s view with a critical error message.</p>
+</li>
+<li>
+<p><strong>How to handle exception?</strong><br>
+Basically it depends on context of the application, such as where this code is and what you want to happen. Here are some examples:</p>
+<ul>
+<li>If it is in the UI layer - catch it and show a warning.</li>
+<li>If it&rsquo;s in the service layer - don&rsquo;t catch it at all - let it bubble. Just don&rsquo;t swallow the exception.</li>
+<li>If an exception occurs in most of the cases you should choose one of these:
+<ul>
+<li>log it and return</li>
+<li>rethrow it (declare it to be thrown by the method)</li>
+<li>construct a new exception by passing the current one in constructor</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Why did the designers decide to force a method to specify all uncaught checked exceptions that can be thrown within its scope?</strong><br>
+Any Exception that can be thrown by a method is part of the method&rsquo;s public programming interface. Those who call a method must know about the exceptions that a method can throw so that they can decide what to do about them. These exceptions are as much a part of that method&rsquo;s programming interface as its parameters and return value.</p>
+</li>
+<li>
+<p><strong>If it&rsquo;s so good to document a method&rsquo;s API, including the exceptions it can throw, why not specify runtime exceptions too?</strong><br>
+Runtime exceptions represent problems that are the result of a programming problem, and as such, the API client code cannot reasonably be expected to recover from them or to handle them in any way. Such problems include arithmetic exceptions, such as dividing by zero; pointer exceptions, such as trying to access an object through a null reference; and indexing exceptions, such as attempting to access an array element through an index that is too large or too small.</p>
+</li>
+</ol>
+<h3 id="wrapping-exceptions">Wrapping Exceptions</h3>
+<p>wrapping exceptions (checked or otherwise) has several benefits that are worth the cost:</p>
+<ol>
+<li>
+<p><strong>It encourages you to think about the failure modes for the code you write.</strong> Basically, you have to consider the exceptions that the code you call may throw, and in turn you&rsquo;ll consider the exceptions you&rsquo;ll throw for the code that calls yours.</p>
+</li>
+<li>
+<p><strong>It gives you the opportunity to add additional debugging information into the exception chain.</strong> For instance, if you have a method that throws an exception on a duplicate username, you might wrap that exception with one that includes additional information about the circumstances of the failure (for example, the IP of the request that provided the dupe username) that wasn&rsquo;t available to the lower-level code. The cookie trail of exceptions may help you debug a complex problem (it certainly has for me).</p>
+</li>
+<li>
+<p><strong>It lets you become implementation-independent from the lower level code.</strong> If you&rsquo;re wrapping exceptions and need to swap out Hibernate for some other ORM, you only have to change your Hibernate-handling code. All the other layers of code will still be successfully using the wrapped exceptions and will interpret them in the same way, even though the underlying circumstances have changed. Note that this applies even if Hibernate changes in some way (ex: they switch exceptions in a new version); it&rsquo;s not just for wholesale technology replacement.</p>
+</li>
+<li>
+<p><strong>It encourages you use different classes of exceptions to represent different situations.</strong> For example, you may have a DuplicateUsernameException when the user tries to reuse a username, and a DatabaseFailureException when you can&rsquo;t check for dupe usernames due to a broken DB connection. This, in turn, lets you answer your question (&ldquo;how do I recover?&quot;) in flexible and powerful ways. If you get a DuplicateUsernameException, you may decide to suggest a different username to the user. If you get a DatabaseFailureException, you may let it bubble up to the point where it displays a &ldquo;down for maintenance&rdquo; page to the user and send off a notification email to you. Once you have custom exceptions, you have customizeable responses &ndash; and that&rsquo;s a good thing.</p>
+</li>
+</ol>
+<h3 id="links">Links</h3>
+<p>
+<a href="https://stackoverflow.com/questions/6115896/understanding-checked-vs-unchecked-exceptions-in-java" target="_blank" rel="noopener">Understanding checked vs unchecked exceptions in Java</a><br>
+
+<a href="https://techblog.bozho.net/checked-and-unchecked-exceptions-in-java/" target="_blank" rel="noopener">CHECKED AND UNCHECKED EXCEPTIONS IN JAVA</a><br>
+
+<a href="https://stackoverflow.com/questions/409563/best-practices-for-exception-management-in-java-or-c-sharp" target="_blank" rel="noopener">Best practices for exception management in Java or C#</a><br>
+
+<a href="http://web.archive.org/web/20081207002838/http://www.dotnetjunkies.ddj.com/Article/197E493F-BA73-45A2-B39A-4EA282A2E562.dcik" target="_blank" rel="noopener">Best Practices: Exception Management</a><br>
+
+<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html" target="_blank" rel="noopener">Unchecked Exceptions — The Controversy</a><br>
+
+<a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html" target="_blank" rel="noopener">Lesson: Exceptions</a><br>
+
+<a href="https://howtodoinjava.com/java/exception-handling/checked-vs-unchecked-exceptions-in-java/" target="_blank" rel="noopener">Java Checked vs Unchecked Exceptions</a><br>
+
+<a href="https://www.artima.com/intv/solid.html" target="_blank" rel="noopener">Failure and Exceptions</a><br>
+
+<a href="https://howtodoinjava.com/best-practices/java-exception-handling-best-practices/" target="_blank" rel="noopener">Top 20 Java Exception Handling Best Practices</a><br>
+
+<a href="https://stackoverflow.com/questions/33497/how-do-i-recover-from-an-unchecked-exception#33564" target="_blank" rel="noopener">How do I recover from an unchecked exception?</a><br>
+
+<a href="https://stackoverflow.com/questions/27578/when-to-choose-checked-and-unchecked-exceptions" target="_blank" rel="noopener">When to choose checked and unchecked exceptions</a></p>
+<br>
+<h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/java/">Java</a>
+  
+  <a class="badge badge-light" href="/tag/exception/">Exception</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/coding/java/checked-vs-unchecked-exceptions-in-java/&amp;text=Checked%20vs%20Unchecked%20Exceptions%20in%20Java" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/coding/java/checked-vs-unchecked-exceptions-in-java/&amp;t=Checked%20vs%20Unchecked%20Exceptions%20in%20Java" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Checked%20vs%20Unchecked%20Exceptions%20in%20Java&amp;body=/coding/java/checked-vs-unchecked-exceptions-in-java/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/coding/java/checked-vs-unchecked-exceptions-in-java/&amp;title=Checked%20vs%20Unchecked%20Exceptions%20in%20Java" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Checked%20vs%20Unchecked%20Exceptions%20in%20Java%20/coding/java/checked-vs-unchecked-exceptions-in-java/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/coding/java/checked-vs-unchecked-exceptions-in-java/&amp;title=Checked%20vs%20Unchecked%20Exceptions%20in%20Java" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/hongwei-li/avatar_hu33d8f2710ea4928d295bd08cdc05f6eb_17524_270x270_fill_q90_lanczos_center.jpg" alt="Hongwei Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Hongwei Li</a></h5>
+        <h6 class="card-subtitle">Software, Networking</h6>
+        <p class="card-text">Always on the way - Coding, DevOps, Networking.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:flycoolman@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    ©2020 flycoolman.com All Rights Reserved
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

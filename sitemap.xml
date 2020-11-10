@@ -28,6 +28,46 @@
   </url>
   
   <url>
+    <loc>/coding/java/checked-vs-unchecked-exceptions-in-java/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/exception/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/author/hongwei-li/</loc>
+    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/java/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/java/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/java/</loc>
+    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/category/devops/</loc>
     <lastmod>9999-12-31T00:00:00+00:00</lastmod>
   </url>
@@ -35,11 +75,6 @@
   <url>
     <loc>/devops/</loc>
     <lastmod>2020-10-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/hongwei-li/</loc>
-    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -70,16 +105,6 @@
   <url>
     <loc>/category/system/</loc>
     <lastmod>2020-10-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/coding/</loc>
-    <lastmod>2020-10-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -244,21 +269,6 @@
   
   <url>
     <loc>/category/database/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/java/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/java/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/coding/java/</loc>
     <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   

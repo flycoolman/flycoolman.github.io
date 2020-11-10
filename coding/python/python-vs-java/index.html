@@ -690,6 +690,95 @@ Easy to use sorted() and lambda to sort dict/map by keys or values</li>
 Use Collections.sort() and Comparator to sort map by keys or values<br>
 Java 8 provides new ways of defining Comparators by using lambda expressions and the comparing() static factory method.</li>
 </ul>
+<h3 id="python-max-vs-java-mathmax-vs-java-collectionsmax">Python max() vs Java Math.max() vs Java Collections.max()</h3>
+<ul>
+<li>
+<p>Python max()<br>
+Can campare multiple items, or iterable, even strings</p>
+<pre><code>  max(n1, n2, n3, ...)
+</code></pre>
+</li>
+</ul>
+<p>or</p>
+<pre><code>    max(iterable)
+</code></pre>
+<p>or <strong>Compare strings</strong></p>
+<pre><code>    max(&quot;Mike&quot;, &quot;John&quot;, &quot;Vicky&quot;)
+</code></pre>
+<ul>
+<li>
+<p>Java max()<br>
+Only compare two mathematic items, i.e. int, float, double &hellip;</p>
+</li>
+<li>
+<p>Java Collections.max()</p>
+</li>
+</ul>
+<p>max(Collection&lt;? extends T&gt; coll)<br>
+Returns the maximum element of the given collection, according to the natural ordering of its elements.<br>
+static <T> T	max(Collection&lt;? extends T&gt; coll, Comparator&lt;? super T&gt; comp)<br>
+Returns the maximum element of the given collection, according to the order induced by the specified comparator.<br>
+<strong>Compare Integers</strong></p>
+<pre><code>    Integer[] num = { 2, 4, 7, 5, 9 };
+    // using Collections.min() to
+    // find minimum element
+    // using only 1 line.
+    int min = Collections.min(Arrays.asList(num));
+    // using Collections.max()
+    // to find maximum element
+    // using only 1 line.
+    int max = Collections.max(Arrays.asList(num));
+</code></pre>
+<p>or <strong>Compare Strings</strong></p>
+<pre><code>    // List&lt;String&gt; list = new ArrayList&lt;String&gt;(Arrays.asList(&quot;Mike Smith&quot;, &quot;John&quot;, &quot;Vicky&quot;));
+    List&lt;String&gt; list = Arrays.asList(&quot;Mike&quot;, &quot;John&quot;, &quot;Vicky&quot;);
+    String max = Collections.max(list);
+</code></pre>
+<p>or <strong>Use comparator</strong></p>
+<pre><code>    List&lt;String&gt; list = Arrays.asList(&quot;Mike Smith&quot;, &quot;John&quot;, &quot;Vicky&quot;);
+    String max = Collections.max(list, Comparator.comparing(s -&gt; s.length()));
+</code></pre>
+<div class="alert alert-note">
+  <div>
+    Python - Java<br>
+The aboves are same to min().
+  </div>
+</div>
+<h3 id="infinity">Infinity</h3>
+<ul>
+<li>
+<p>Python</p>
+<ul>
+<li>
+<p>math.inf
+The <strong>math.inf</strong> constant returns a floating-point positive infinity.
+For negative infinity, use <strong>-math.inf</strong>.
+The inf constant is equivalent to float(&lsquo;inf&rsquo;).</p>
+<p>import math
+print(math.inf)</p>
+</li>
+<li>
+<p>sys.maxsize<br>
+An integer giving the maximum value a variable of type Py_ssize_t can take. It’s usually 2<strong>31 - 1 on a 32-bit platform and 2</strong>63 - 1 on a 64-bit platform.<br>
+like sys.maxint in Python2.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Java</p>
+<ul>
+<li>Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE+1, Integer.MIN_VALUE-1</li>
+<li>Long.MAX_VALUE, Long.MIN_VALUE</li>
+<li>Float.MAX_VALUE, Float.MIN_VALUE, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY</li>
+<li>Double.MAX_VALUE, Double.MIN_VALUE, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN</li>
+</ul>
+</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    There is no way to represent infinity as an integer in Python. This matches the behaviour of many other languages. However, due to Python&rsquo;s dynamic typing system, you can use float(&lsquo;inf&rsquo;) in place of an integer, and it will behave as you would expect.
+  </div>
+</div>
 <div class="alert alert-note">
   <div>
     To Be Continued

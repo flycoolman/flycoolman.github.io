@@ -71,6 +71,95 @@ Easy to use sorted() and lambda to sort dict/map by keys or values&lt;/li&gt;
 Use Collections.sort() and Comparator to sort map by keys or values&lt;br&gt;
 Java 8 provides new ways of defining Comparators by using lambda expressions and the comparing() static factory method.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;python-max-vs-java-mathmax-vs-java-collectionsmax&#34;&gt;Python max() vs Java Math.max() vs Java Collections.max()&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Python max()&lt;br&gt;
+Can campare multiple items, or iterable, even strings&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  max(n1, n2, n3, ...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;or&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    max(iterable)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or &lt;strong&gt;Compare strings&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    max(&amp;quot;Mike&amp;quot;, &amp;quot;John&amp;quot;, &amp;quot;Vicky&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Java max()&lt;br&gt;
+Only compare two mathematic items, i.e. int, float, double &amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java Collections.max()&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;max(Collection&amp;lt;? extends T&amp;gt; coll)&lt;br&gt;
+Returns the maximum element of the given collection, according to the natural ordering of its elements.&lt;br&gt;
+static &lt;T&gt; T	max(Collection&amp;lt;? extends T&amp;gt; coll, Comparator&amp;lt;? super T&amp;gt; comp)&lt;br&gt;
+Returns the maximum element of the given collection, according to the order induced by the specified comparator.&lt;br&gt;
+&lt;strong&gt;Compare Integers&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    Integer[] num = { 2, 4, 7, 5, 9 };
+    // using Collections.min() to
+    // find minimum element
+    // using only 1 line.
+    int min = Collections.min(Arrays.asList(num));
+    // using Collections.max()
+    // to find maximum element
+    // using only 1 line.
+    int max = Collections.max(Arrays.asList(num));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or &lt;strong&gt;Compare Strings&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    // List&amp;lt;String&amp;gt; list = new ArrayList&amp;lt;String&amp;gt;(Arrays.asList(&amp;quot;Mike Smith&amp;quot;, &amp;quot;John&amp;quot;, &amp;quot;Vicky&amp;quot;));
+    List&amp;lt;String&amp;gt; list = Arrays.asList(&amp;quot;Mike&amp;quot;, &amp;quot;John&amp;quot;, &amp;quot;Vicky&amp;quot;);
+    String max = Collections.max(list);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or &lt;strong&gt;Use comparator&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    List&amp;lt;String&amp;gt; list = Arrays.asList(&amp;quot;Mike Smith&amp;quot;, &amp;quot;John&amp;quot;, &amp;quot;Vicky&amp;quot;);
+    String max = Collections.max(list, Comparator.comparing(s -&amp;gt; s.length()));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Python - Java&lt;br&gt;
+The aboves are same to min().
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;infinity&#34;&gt;Infinity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Python&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;math.inf
+The &lt;strong&gt;math.inf&lt;/strong&gt; constant returns a floating-point positive infinity.
+For negative infinity, use &lt;strong&gt;-math.inf&lt;/strong&gt;.
+The inf constant is equivalent to float(&amp;lsquo;inf&amp;rsquo;).&lt;/p&gt;
+&lt;p&gt;import math
+print(math.inf)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sys.maxsize&lt;br&gt;
+An integer giving the maximum value a variable of type Py_ssize_t can take. It’s usually 2&lt;strong&gt;31 - 1 on a 32-bit platform and 2&lt;/strong&gt;63 - 1 on a 64-bit platform.&lt;br&gt;
+like sys.maxint in Python2.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE+1, Integer.MIN_VALUE-1&lt;/li&gt;
+&lt;li&gt;Long.MAX_VALUE, Long.MIN_VALUE&lt;/li&gt;
+&lt;li&gt;Float.MAX_VALUE, Float.MIN_VALUE, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY&lt;/li&gt;
+&lt;li&gt;Double.MAX_VALUE, Double.MIN_VALUE, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    There is no way to represent infinity as an integer in Python. This matches the behaviour of many other languages. However, due to Python&amp;rsquo;s dynamic typing system, you can use float(&amp;lsquo;inf&amp;rsquo;) in place of an integer, and it will behave as you would expect.
+  &lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     To Be Continued
