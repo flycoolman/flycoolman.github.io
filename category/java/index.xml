@@ -211,7 +211,8 @@ When starting seeing bugs, the log will assist in pointing you to the place your
 &lt;li&gt;Document all exceptions in your application in javadoc&lt;/li&gt;
 &lt;li&gt;Do something useful with the errors (logs, restarts, recoveries, etc)&lt;/li&gt;
 &lt;li&gt;Use one big handler at the higher-level to manage any or all of the weird conditions arising in the code that aren&amp;rsquo;t caught at a low-level&lt;/li&gt;
-&lt;li&gt;Think about validation check vs exception
+&lt;li&gt;Think about validation check vs exception&lt;br&gt;
+Throwing an exception is a expensive process.
 &lt;ul&gt;
 &lt;li&gt;NullPointerException&lt;br&gt;
 Catching a NullPointerException should replaced with a graceful null-check.&lt;/li&gt;
@@ -219,8 +220,11 @@ Catching a NullPointerException should replaced with a graceful null-check.&lt;/
 Catching a NumberFormatException explicitly to avoid possible introduction of error prone code to handle different number formats.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;Avoid exception handling inside loops&lt;br&gt;
+If it is truly necessary implement a try/catch block arround the entire loop.&lt;/li&gt;
+&lt;li&gt;Adopt a standard way of handling exceptions through try/catch/finally blocks&lt;br&gt;
+This is the recommended approach to handle exceptions in managed code. Finally blocks ensure that resources are closed in the event of an exception.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Once you embrace exceptions, you should find that it makes your code simpler and clearer, by moving your error handling code away from your core logic. Aim to have lots of statements in a single try block.&lt;/p&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Be respectful of the language and how it traditionally manages such issues. For example, don&amp;rsquo;t bring a C mindset into a Java world.
@@ -289,6 +293,18 @@ Runtime exceptions represent problems that are the result of a programming probl
 &lt;p&gt;&lt;strong&gt;It encourages you use different classes of exceptions to represent different situations.&lt;/strong&gt; For example, you may have a DuplicateUsernameException when the user tries to reuse a username, and a DatabaseFailureException when you can&amp;rsquo;t check for dupe usernames due to a broken DB connection. This, in turn, lets you answer your question (&amp;ldquo;how do I recover?&amp;quot;) in flexible and powerful ways. If you get a DuplicateUsernameException, you may decide to suggest a different username to the user. If you get a DatabaseFailureException, you may let it bubble up to the point where it displays a &amp;ldquo;down for maintenance&amp;rdquo; page to the user and send off a notification email to you. Once you have custom exceptions, you have customizeable responses &amp;ndash; and that&amp;rsquo;s a good thing.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;h3 id=&#34;exception-management-architecture&#34;&gt;Exception Management Architecture&lt;/h3&gt;
+&lt;p&gt;The exception management architecture of an application should be capable of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Detecting exceptions&lt;/li&gt;
+&lt;li&gt;Performing code clean up&lt;/li&gt;
+&lt;li&gt;Wrapping one exception inside another&lt;/li&gt;
+&lt;li&gt;Replacing one exception with another&lt;/li&gt;
+&lt;li&gt;Logging and reporting error information&lt;/li&gt;
+&lt;li&gt;Generating events that can be monitored externally to assist system operation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At the beginning of the design you must plan for a consist and robust exception management architecture. It should be well encapsulated and abstract the details of logging and reporting throughout all of your application.&lt;/p&gt;
+&lt;p&gt;Once you embrace exceptions, you should find that it makes your code simpler and clearer, by moving your error handling code away from your core logic. Aim to have lots of statements in a single try block.&lt;/p&gt;
 &lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://stackoverflow.com/questions/6115896/understanding-checked-vs-unchecked-exceptions-in-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Understanding checked vs unchecked exceptions in Java&lt;/a&gt;&lt;br&gt;

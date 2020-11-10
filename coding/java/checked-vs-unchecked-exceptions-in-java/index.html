@@ -856,7 +856,8 @@ When starting seeing bugs, the log will assist in pointing you to the place your
 <li>Document all exceptions in your application in javadoc</li>
 <li>Do something useful with the errors (logs, restarts, recoveries, etc)</li>
 <li>Use one big handler at the higher-level to manage any or all of the weird conditions arising in the code that aren&rsquo;t caught at a low-level</li>
-<li>Think about validation check vs exception
+<li>Think about validation check vs exception<br>
+Throwing an exception is a expensive process.
 <ul>
 <li>NullPointerException<br>
 Catching a NullPointerException should replaced with a graceful null-check.</li>
@@ -864,8 +865,11 @@ Catching a NullPointerException should replaced with a graceful null-check.</li>
 Catching a NumberFormatException explicitly to avoid possible introduction of error prone code to handle different number formats.</li>
 </ul>
 </li>
+<li>Avoid exception handling inside loops<br>
+If it is truly necessary implement a try/catch block arround the entire loop.</li>
+<li>Adopt a standard way of handling exceptions through try/catch/finally blocks<br>
+This is the recommended approach to handle exceptions in managed code. Finally blocks ensure that resources are closed in the event of an exception.</li>
 </ol>
-<p>Once you embrace exceptions, you should find that it makes your code simpler and clearer, by moving your error handling code away from your core logic. Aim to have lots of statements in a single try block.</p>
 <div class="alert alert-note">
   <div>
     Be respectful of the language and how it traditionally manages such issues. For example, don&rsquo;t bring a C mindset into a Java world.
@@ -934,6 +938,18 @@ Runtime exceptions represent problems that are the result of a programming probl
 <p><strong>It encourages you use different classes of exceptions to represent different situations.</strong> For example, you may have a DuplicateUsernameException when the user tries to reuse a username, and a DatabaseFailureException when you can&rsquo;t check for dupe usernames due to a broken DB connection. This, in turn, lets you answer your question (&ldquo;how do I recover?&quot;) in flexible and powerful ways. If you get a DuplicateUsernameException, you may decide to suggest a different username to the user. If you get a DatabaseFailureException, you may let it bubble up to the point where it displays a &ldquo;down for maintenance&rdquo; page to the user and send off a notification email to you. Once you have custom exceptions, you have customizeable responses &ndash; and that&rsquo;s a good thing.</p>
 </li>
 </ol>
+<h3 id="exception-management-architecture">Exception Management Architecture</h3>
+<p>The exception management architecture of an application should be capable of:</p>
+<ul>
+<li>Detecting exceptions</li>
+<li>Performing code clean up</li>
+<li>Wrapping one exception inside another</li>
+<li>Replacing one exception with another</li>
+<li>Logging and reporting error information</li>
+<li>Generating events that can be monitored externally to assist system operation</li>
+</ul>
+<p>At the beginning of the design you must plan for a consist and robust exception management architecture. It should be well encapsulated and abstract the details of logging and reporting throughout all of your application.</p>
+<p>Once you embrace exceptions, you should find that it makes your code simpler and clearer, by moving your error handling code away from your core logic. Aim to have lots of statements in a single try block.</p>
 <h3 id="links">Links</h3>
 <p>
 <a href="https://stackoverflow.com/questions/6115896/understanding-checked-vs-unchecked-exceptions-in-java" target="_blank" rel="noopener">Understanding checked vs unchecked exceptions in Java</a><br>
