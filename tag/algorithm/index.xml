@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm | flycoolman</title>
+    <link>/tag/algorithm/</link>
+      <atom:link href="/tag/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <description>Algorithm</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Fri, 30 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
+      <title>Algorithm</title>
+      <link>/tag/algorithm/</link>
+    </image>
+    
+    <item>
+      <title>Manacher&#39;s Algorithm</title>
+      <link>/coding/python/manachers-algorithm/</link>
+      <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/python/manachers-algorithm/</guid>
+      <description>&lt;h2 id=&#34;algorithm-description&#34;&gt;Algorithm Description&lt;/h2&gt;
+&lt;p&gt;To find a longest palindrome in a string in linear time, an algorithm may take advantage of the following characteristics or observations about a palindrome and a sub-palindrome:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The left side of a palindrome is a mirror image of its right side.&lt;/li&gt;
+&lt;li&gt;(Case 1) A third palindrome whose center is within the right side of a first palindrome will have exactly the same length as a second palindrome anchored at the mirror center on the left side, if the second palindrome is within the bounds of the first palindrome by at least one character (not meeting the left bound of the first palindrome). Such as &amp;ldquo;dacabacad&amp;rdquo;, the whole string is the first palindrome, &amp;ldquo;aca&amp;rdquo; in the left side as second palindrome, &amp;ldquo;aca&amp;rdquo; in the right side as third palindrome. In this case, the second and third palindrome have exactly the same length.&lt;/li&gt;
+&lt;li&gt;(Case 2) If the second palindrome meets or extends beyond the left bound of the first palindrome, then the distance from the center of the second palindrome to the left bound of the first palindrome is exactly equal to the distance from the center of the third palindrome to the right bound of the first palindrome.&lt;/li&gt;
+&lt;li&gt;To find the length of the third palindrome under Case 2, the next character after the right outermost character of the first palindrome would then be compared with its mirror character about the center of the third palindrome, until there is no match or no more characters to compare.&lt;/li&gt;
+&lt;li&gt;(Case 3) Neither the first nor second palindrome provides information to help determine the palindromic length of a fourth palindrome whose center is outside the right side of the first palindrome.&lt;/li&gt;
+&lt;li&gt;It is therefore desirable to have a palindrome as a reference (i.e., the role of the first palindrome) that possesses characters farthest to the right in a string when determining from left to right the palindromic length of a substring in the string (and consequently, the third palindrome in Case 2 and the fourth palindrome in Case 3 could replace the first palindrome to become the new reference).&lt;/li&gt;
+&lt;li&gt;Regarding the time complexity of palindromic length determination for each character in a string: there is no character comparison for Case 1, while for Cases 2 and 3 only the characters in the string beyond the right outermost character of the reference palindrome are candidates for comparison (and consequently Case 3 always results in a new reference palindrome while Case 2 does so only if the third palindrome is actually longer than its guaranteed minimum length).&lt;/li&gt;
+&lt;li&gt;For even-length palindromes, the center is at the boundary of the two characters in the middle.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;Manacher&amp;rsquo;s algorithm fills in a table P[i] which contains how far the palindrome centered at i extends. If P[5]=3, then three characters on either side of position five are part of the palindrome. The algorithm takes advantage of the fact that if you&amp;rsquo;ve found a long palindrome, you can fill in values of P on the right side of the palindrome quickly by looking at the values of P on the left side, since they should mostly be the same.&lt;/p&gt;
+&lt;p&gt;Simply put:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;makes either odd length or even lenght as odd length only by adding a special character, which is not in the original string, to the both sides of each character in original string.&lt;/li&gt;
+&lt;li&gt;utilize the mirroring charateristic of a palindrome and a sub-palindrome to fill the table p[i].&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To simplify the desciption, define:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;String &lt;strong&gt;S&lt;/strong&gt; is the original string with inserted special characters.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;C&lt;/strong&gt; is the center position of panlindrome &lt;strong&gt;sub(C)&lt;/strong&gt; of string S.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;L&lt;/strong&gt; is the leftmost position of sub(C).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;R&lt;/strong&gt; is the rightmost position of sub(C).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;P[i]&lt;/strong&gt; is the array to store the length of panlindrome, which has center position x.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;i&lt;/strong&gt; is the position that needs to calculate the length of panlindrom, that is to calculate &lt;strong&gt;P[i]&lt;/strong&gt; of &lt;strong&gt;sub(i)&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;j&lt;/strong&gt; is the mirroring position of i about center position C.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;P[j]&lt;/strong&gt; is the calculated/known lenght of panlindrome &lt;strong&gt;sub(j)&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;odd--even-----odd-only&#34;&gt;Odd + Even &amp;mdash;&amp;gt; Odd only&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;aba   ---&amp;gt;  #a#b#a#
+abba  ---&amp;gt;  #a#b#b#a#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;mirroring&#34;&gt;Mirroring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;i and j are mirroring about C&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sub(i) and sub(j) are mirroring about C&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  C - j = i - C  ---&amp;gt; j = 2 * C - i
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./mirroring.png&#34; alt=&#34;mirroring&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3-cases&#34;&gt;3 Cases&lt;/h3&gt;
+&lt;h4 id=&#34;case-1-i--r-and-j-pj--l&#34;&gt;Case 1: i &amp;lt; R and j-P[j] &amp;gt; L&lt;/h4&gt;
+&lt;p&gt;i &amp;lt; R and j-P[j] &amp;gt; L  means  whole sub(j) within left side of sub(C)&lt;br&gt;
+&lt;img src=&#34;./case-1.png&#34; alt=&#34;case-1&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;j - P[j] &amp;gt; L   ---&amp;gt;   R - i &amp;gt; P[j]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Based on mirroring:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;P[i] = P[j] 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;case-2-i--r-and-j-pj--l&#34;&gt;Case 2: i &amp;lt; R and j-P[j] &amp;lt;= L&lt;/h4&gt;
+&lt;p&gt;leftmost side of sub(j) is at or outside of leftmost of sub(C)
+&lt;img src=&#34;./case-2.png&#34; alt=&#34;case-2&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;j - P[j] &amp;lt;= L   ---&amp;gt;   R - i &amp;lt;= P[j]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the picture, we can see P[i] is at least R - i&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;P[i] &amp;gt;= R - i   ---&amp;gt;   P[i] = R - i as initial value of P[i] and do calculation for the part outside R and update P[i] 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Code for case 1 and case 2:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;From programming convenience perspective, here make case 1 and case 2 in 1 situation i &amp;lt; R.&lt;br&gt;
+length is the intermidiate variable of P[i].&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if i &amp;lt; R:
+    j = 2 * C - i
+    length = min(P[j], R - i)
+while i + length &amp;lt; len(s) and i - length &amp;gt;= 0:
+    if s[i + length] != s[i - length]:
+        break
+    length += 1    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;case-3-i--r&#34;&gt;Case 3: i &amp;gt;= R&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;./case-3.png&#34; alt=&#34;case-3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;No shortcuts for this situation other than brute force.&lt;br&gt;
+Calculate from length of 1 at the position i as the center.&lt;br&gt;
+length is the intermidiate variable of P[i].&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Code for case 3:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;length = 1
+while i + length &amp;lt; len(s) and i - length &amp;gt;= 0:
+    if s[i + length] != s[i - length]:
+        break
+    length += 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;full-implementation&#34;&gt;Full Implementation&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;def longestPalindrome(self, s: str) -&amp;gt; str:
+    if not s:
+        return
+    
+    # Using manacher&#39;s algorithm
+    # abba =&amp;gt; #a#b#b#a#
+    # s: original string
+    # t: transformed string
+    t = []
+    for c in s:
+        t.append(&#39;#&#39;)
+        t.append(c)
+    t.append(&#39;#&#39;)
+    
+    n = len(t)
+    # p: P[i] table
+    p = [0] * n
+    p[0] = 1
+    
+    mid, longest = 0, 1
+    for i in range(1, n):
+        length = 1
+        if mid + longest &amp;gt; i:
+            mirror = mid - (i - mid)
+            length = min(p[mirror], mid + longest - i)
+    
+        while i + length &amp;lt; len(t) and i - length &amp;gt;= 0:
+            if t[i + length] != t[i - length]:
+                break;
+            length += 1
+        
+        if length &amp;gt; longest:
+            longest = length
+            mid = i
+        
+        p[i] = length
+    
+    # remove the extra #
+    longest = longest - 1
+    start = (mid - 1) // 2 - (longest - 1) // 2
+    return s[start:start + longest]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;time-complexition&#34;&gt;Time Complexition&lt;/h2&gt;
+&lt;p&gt;O(N)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For case 1: no comparison&lt;/li&gt;
+&lt;li&gt;For case 2: take the example in below picture, i&amp;rsquo; is the following position of i.&lt;br&gt;
+Even there is comparison for range X, but for the following any i&amp;rsquo;, no comparison again for range X&amp;rsquo;. So ther is no repeated comparison for the whole process.&lt;br&gt;
+&lt;img src=&#34;./time-complexity.png&#34; alt=&#34;time-complexity&#34;&gt;&lt;/li&gt;
+&lt;li&gt;For case 3: similar to case 2.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So the time complexity is O(N).&lt;/p&gt;
+&lt;h2 id=&#34;space-complexition&#34;&gt;Space Complexition&lt;/h2&gt;
+&lt;p&gt;O(N)&lt;br&gt;
+Array P to store the lengths of sub-panlindrome strings.&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher%27s_algorithm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manacher&amp;rsquo;s algorithm&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.felix021.com/blog/read.php?2040&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manacher&amp;rsquo;s ALGORITHM&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.jiuzhang.com/solution/longest-palindromic-substring/#tag-lang-python&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Longest Palindromic Substring&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://cp-algorithms.com/string/manacher.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manacher&amp;rsquo;s Algorithm - Finding all sub-palindromes in O(N)&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

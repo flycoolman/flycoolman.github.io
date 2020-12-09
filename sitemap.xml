@@ -68,6 +68,21 @@
   </url>
   
   <url>
+    <loc>/tag/algorithm/</loc>
+    <lastmod>2020-10-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/algorithm/</loc>
+    <lastmod>2020-10-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/manachers-algorithm/</loc>
+    <lastmod>2020-10-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/coding/python/manachers-algorithm/</loc>
     <lastmod>2020-10-30T00:00:00+00:00</lastmod>
   </url>
@@ -84,11 +99,6 @@
   
   <url>
     <loc>/coding/python/</loc>
-    <lastmod>2020-10-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/type-hints/</loc>
     <lastmod>2020-10-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -195,6 +205,11 @@
   <url>
     <loc>/post/</loc>
     <lastmod>9999-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/type-hints/</loc>
+    <lastmod>2020-10-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
