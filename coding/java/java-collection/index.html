@@ -1,0 +1,1516 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Hongwei Li">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A brief description of Java collections.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/coding/java/java-collection/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146441609-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-146441609-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/coding/java/java-collection/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@flycoolman">
+  <meta property="twitter:creator" content="@flycoolman">
+  
+  <meta property="og:site_name" content="flycoolman">
+  <meta property="og:url" content="/coding/java/java-collection/">
+  <meta property="og:title" content="Java Collections | flycoolman">
+  <meta property="og:description" content="A brief description of Java collections."><meta property="og:image" content="/coding/java/java-collection/featured.jpg">
+  <meta property="twitter:image" content="/coding/java/java-collection/featured.jpg"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-09-10T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-09-20T00:00:00&#43;00:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Java Collections | flycoolman</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">flycoolman</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">flycoolman</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Coding</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/coding/python/"><span>Python</span></a>
+            
+              <a class="dropdown-item" href="/coding/java/"><span>Java</span></a>
+            
+              <a class="dropdown-item" href="/coding/go/"><span>Go</span></a>
+            
+              <a class="dropdown-item" href="/coding/javascript/"><span>JavaScript</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/linux/"><span>Linux</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/devops/"><span>DevOps</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/networking/"><span>Networking</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/courses/"><span>Courses</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Java Collections</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span ><a href="/author/hongwei-li/">Hongwei Li</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Sep 20, 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/java/">Java</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 780px; max-height: 330px;">
+  <div style="position: relative">
+    <img src="/coding/java/java-collection/featured.jpg" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="java-collections">Java Collections</h1>
+<ul>
+<li>Any group of individual objects which are represented as a single unit is known as the collection of the objects.</li>
+<li>The **Collection in Java is a framework that provides an architecture to store and manipulate the group of objects.</li>
+<li>The <strong>Collection</strong> interface (<strong>java.util.Collection</strong>) and Map interface (<strong>java.util.Map</strong>) are the two main “root” interfaces of Java collection classes.</li>
+<li>Java Collections can achieve all the operations that you perform on a data such as <strong>searching</strong>, <strong>sorting</strong>, <strong>insertion</strong>, <strong>manipulation</strong>, and <strong>deletion</strong>.</li>
+</ul>
+<h2 id="java-collection-hierarchy">Java Collection Hierarchy</h2>
+<p><img src="./java-collection-hierarchy.png" alt="java-collection-hierarchy"><br>
+<img src="./java-collections-hierarchy-1.png" alt="java-collections-hierarchy-1"><br>
+<img src="./java-collections-hierarchy-2.jpg" alt="java-collections-hierarchy-2"></p>
+<p>The utility package, (java.util) contains all the classes and interfaces that are required by the collection framework. The collection framework contains an interface named as an iterable interface which provides the iterator to iterate through all the collections. This interface is extended by the main collection interface which acts as a root for the collection framework. All the collections extend this collection interface thereby extending the properties of the iterator and the methods of this interface.</p>
+<h3 id="iterable-interface">Iterable Interface</h3>
+<p>This is the root interface for the entire collection framework. The collection interface extends the iterable interface. Therefore, inherently, all the interfaces and classes implement this interface. The main functionality of this interface is to provide an iterator for the collections. Therefore, this interface contains only one abstract method which is the iterator. It returns the</p>
+<pre><code>Iterator iterator();
+</code></pre>
+<h3 id="list-interface">List Interface</h3>
+<ul>
+<li>This interface is dedicated to the data of the list type in which we can store all the ordered collection of the objects.</li>
+<li>This also allows duplicate data to be present in it.</li>
+<li>It is implemented by various classes like <strong>ArrayList</strong>, <strong>Vector</strong>, <strong>Stack</strong>, etc.</li>
+</ul>
+<h4 id="arraylist">ArrayList</h4>
+<ul>
+<li>ArrayList provides us with <strong>dynamic arrays</strong> in Java. Though, it may be slower than standard arrays but can be helpful in programs where lots of manipulation in the array is needed. The size of an ArrayList is increased automatically if the collection grows or shrinks if the objects are removed from the collection.</li>
+<li>It is like an array, but there is no size limit.</li>
+<li>Java ArrayList allows us to randomly access the list. ArrayList can not be used for primitive types, like int, char, etc. We will need a wrapper class for such cases.</li>
+<li>The ArrayList class maintains the insertion order and is non-synchronized.</li>
+<li>The elements stored in the ArrayList class can be randomly accessed.</li>
+</ul>
+<h4 id="linkedlist">LinkedList</h4>
+<ul>
+<li>LinkedList is a linear data structure where the elements are not stored in contiguous locations and every element is a separate object with a data part and address part.</li>
+<li>The elements are linked using pointers and addresses. Each element is known as a node.</li>
+<li>It uses a doubly linked list internally to store the elements.</li>
+<li>It can store the duplicate elements.</li>
+<li>It maintains the insertion order and is not synchronized.</li>
+<li>In LinkedList, the manipulation is fast because no shifting is required.</li>
+<li>It can be used as a list, stack or queue.</li>
+</ul>
+<h4 id="vector">Vector</h4>
+<ul>
+<li>Vector uses a dynamic array to store the data elements.</li>
+<li>It may be slower than standard arrays but can be helpful in programs where lots of manipulation in the array is needed.</li>
+<li>The primary difference between a vector and an ArrayList is that a Vector is synchronized and an ArrayList is non-synchronized.</li>
+<li>It is synchronized and contains many methods that are not the part of Collection framework.</li>
+</ul>
+<h4 id="stack">Stack</h4>
+<ul>
+<li>It implements the last-in-first-out data structure.</li>
+<li>The stack is the subclass of Vector. The stack contains all of the methods of Vector class and also provides its methods like boolean push(), boolean peek(), boolean push(object o), which defines its properties.</li>
+</ul>
+<div class="alert alert-note">
+  <div>
+    Stack is a subclass of Vector and a legacy class. It is thread safe which might be an overhead in an environment where thread safety is not needed.<br>
+An alternate to Stack is to use ArrayDequeue which is not thread safe and faster array implementation.
+  </div>
+</div>
+<h3 id="queue-interface">Queue Interface</h3>
+<p>A queue interface maintains the FIFO(First In First Out) order similar to a real-world queue line. This interface is dedicated to storing all the elements where the order of the elements matter. There are various classes like <strong>PriorityQueue</strong>, <strong>Deque</strong>, <strong>ArrayDeque</strong>, etc.</p>
+<h4 id="priority-queue">Priority Queue</h4>
+<ul>
+<li>A PriorityQueue is used when the objects are supposed to be processed based on the priority.</li>
+<li>It is known that a queue follows the First-In-First-Out algorithm, but sometimes the elements of the queue are needed to be processed according to the priority and this class is used in these cases.</li>
+<li>The PriorityQueue is based on the priority heap.</li>
+<li>The elements of the priority queue are ordered according to the natural ordering, or by a Comparator provided at queue construction time, depending on which constructor is used.</li>
+<li>PriorityQueue doesn&rsquo;t allow null values to be stored in the queue.</li>
+<li>The elements in PriorityQueue must be of Comparable type. String and Wrapper classes are Comparable by default.</li>
+<li>To add user-defined objects in PriorityQueue, you need to implement Comparable interface.</li>
+</ul>
+<h3 id="deque-interface">Deque Interface</h3>
+<p>Deque, also known as a double-ended queue, is a data structure where we can add and remove the elements from both the ends of the queue.</p>
+<ul>
+<li>This interface extends the queue interface.</li>
+<li>The class which implements this interface is <strong>ArrayDeque</strong>.</li>
+</ul>
+<h4 id="arraydeque">ArrayDeque</h4>
+<ul>
+<li>The ArrayDeque class provides the facility of using deque and resizable-array. This is a special kind of array that grows and allows users to add or remove an element from both sides of the queue.</li>
+<li>Array deques have no capacity restrictions and they grow as necessary to support usage.</li>
+<li>ArrayDeque is faster than ArrayList and Stack.</li>
+<li>Unlike Queue, we can add or remove elements from both sides.</li>
+<li>Null elements are not allowed in the ArrayDeque.</li>
+<li>ArrayDeque is not thread safe, in the absence of external synchronization.</li>
+</ul>
+<h3 id="set-interface">Set Interface</h3>
+<ul>
+<li>A set is an unordered collection of objects in which duplicate values cannot be stored.</li>
+<li>This collection is used when we wish to avoid the duplication of the objects and wish to store only the unique objects.</li>
+<li>This set interface is implemented by various classes like <strong>HashSet</strong>, <strong>TreeSet</strong>, <strong>LinkedHashSet</strong>, etc.</li>
+</ul>
+<h4 id="hashset">HashSet</h4>
+<ul>
+<li>The HashSet class is an inherent implementation of the hash table data structure.</li>
+<li>HashSet stores the elements by using a mechanism called hashing.</li>
+<li>HashSet contains unique elements only.</li>
+<li>HashSet allows null value.</li>
+<li>HashSet class is non synchronized.</li>
+<li>HashSet doesn&rsquo;t maintain the insertion order. Here, elements are inserted on the basis of their hashcode.</li>
+<li>HashSet is the best approach for search operations.</li>
+<li>The initial default capacity of HashSet is 16, and the load factor is 0.75.</li>
+</ul>
+<p><img src="./hashset.png" alt="hashset"></p>
+<h4 id="linkedhashset">LinkedHashSet</h4>
+<ul>
+<li>LinkedHashSet uses a doubly linked list to store the data and retains the ordering of the elements.</li>
+<li>Like HashSet, It also contains unique elements only.</li>
+<li>It maintains the insertion order.</li>
+<li>It permits null elements.</li>
+<li>LinkedHashSet class is non synchronized.</li>
+</ul>
+<p><img src="./linkedhashset.png" alt="linkedhashset"></p>
+<h3 id="sortedset-interface">SortedSet Interface</h3>
+<ul>
+<li>This interface is very similar to the set interface. The only difference is that this interface has extra methods that maintain the ordering of the elements.</li>
+<li>The sorted set interface extends the set interface and is used to handle the data which needs to be sorted.</li>
+<li>The class which implements this interface is <strong>TreeSet</strong>.</li>
+</ul>
+<h4 id="treeset">TreeSet</h4>
+<ul>
+<li>TreeSet class contains unique elements only like HashSet.</li>
+<li>TreeSet class <strong>doesn&rsquo;t</strong> allow null element.</li>
+<li>The TreeSet class uses a Tree for storage.</li>
+<li>The ordering of the elements is maintained by a set using their natural ordering whether or not an explicit comparator is provided.</li>
+<li>It can also be ordered by a Comparator provided at set creation time, depending on which constructor is used.</li>
+<li>the access and retrieval time of TreeSet is quite fast.</li>
+<li>The elements in TreeSet stored in ascending order.</li>
+<li>TreeSet class is non synchronized.</li>
+</ul>
+<p><img src="./treeset.png" alt="treeset"></p>
+<h3 id="map-interface">Map Interface</h3>
+<p>A map is a data structure which supports the key-value pair mapping for the data. This interface doesn’t support duplicate keys because the same key cannot have multiple mappings. A map is useful if there is a data and we wish to perform operations on the basis of the key. This map interface is implemented by various classes like <strong>HashMap</strong>, <strong>TreeMap</strong>, etc.<br>
+There are two interfaces for implementing Map in java: <strong>Map</strong> and <strong>SortedMap</strong>, and three classes: <strong>HashMap</strong>, <strong>LinkedHashMap</strong>, and <strong>TreeMap</strong>. The hierarchy of Java Map is given below:</p>
+<p><img src="./java-map-hierarchy.png" alt="java-map-hierarchy"></p>
+<h4 id="hashmap">HashMap</h4>
+<p>HashMap provides the basic implementation of the Map interface of Java. It stores the data in (Key, Value) pairs. To access a value in a HashMap, we must know its key. HashMap uses a technique called Hashing. Hashing is a technique of converting a large String to small String that represents the same String so that the indexing and search operations are faster. HashSet also uses HashMap internally.</p>
+<ul>
+<li>Java HashMap contains values based on the key.</li>
+<li>Java HashMap contains only unique keys.</li>
+<li>Java HashMap may have one null key and multiple null values.</li>
+<li>Java HashMap is non synchronized.</li>
+<li>Java HashMap maintains no order.</li>
+<li>The initial default capacity of Java HashMap class is 16 with a load factor of 0.75.</li>
+</ul>
+<p><strong>HashMap implementation</strong><br>
+
+<a href="https://www.javatpoint.com/working-of-hashmap-in-java" target="_blank" rel="noopener">Working of HashMap in Java</a></p>
+<ul>
+<li>It stores the data in the pair of Key and Value.</li>
+<li>HashMap contains an array of the nodes, and the node is represented as a class.</li>
+<li>It uses an array and LinkedList data structure internally for storing Key and Value.</li>
+</ul>
+<h4 id="linkedhashmap">LinkedHashMap</h4>
+<ul>
+<li>LinkedHashMap contains values based on the key.</li>
+<li>LinkedHashMap contains unique elements.</li>
+<li>LinkedHashMap may have one null key and multiple null values.</li>
+<li>LinkedHashMap is non synchronized.</li>
+<li>LinkedHashMap maintains insertion order.</li>
+<li>The initial default capacity of Java HashMap class is 16 with a load factor of 0.75.</li>
+</ul>
+<h4 id="treemap">TreeMap</h4>
+<p>Java TreeMap class is a <strong>red-black tree</strong> based implementation. It provides an efficient means of storing key-value pairs in sorted order.</p>
+<ul>
+<li>TreeMap contains values based on the key.</li>
+<li>It implements the NavigableMap interface and extends AbstractMap class.</li>
+<li>TreeMap contains only unique elements.</li>
+<li>TreeMap cannot have a null key but can have multiple null values.</li>
+<li>TreeMap is non synchronized.</li>
+<li>TreeMap maintains ascending order.</li>
+</ul>
+<h3 id="hashtable">HashTable</h3>
+<p>Java Hashtable class inherits Dictionary class and implements the Map interface.</p>
+<ul>
+<li>A Hashtable is an array of a list. Each list is known as a bucket. The position of the bucket is identified by calling the hashcode() method. A Hashtable contains values based on the key.</li>
+<li>Hashtable class contains unique elements.</li>
+<li>Hashtable class doesn&rsquo;t allow null key or value.</li>
+<li>Hashtable class is synchronized.</li>
+<li>The initial default capacity of Hashtable class is 11 whereas loadFactor is 0.75.</li>
+</ul>
+<h3 id="enumset">EnumSet</h3>
+<p>EnumSet class is the specialized Set implementation for use with enum types. It inherits AbstractSet class and implements the Set interface.</p>
+<h3 id="enummap">EnumMap</h3>
+<p>EnumMap class is the specialized Map implementation for enum keys. It inherits Enum and AbstractMap classes.</p>
+<h3 id="a-little-deep-in-queues">A Little Deep In Queues</h3>
+<h4 id="the-queue-a-fifo-list">The queue (a FIFO list)</h4>
+<p>Implementation of a queue</p>
+<ul>
+<li>A queue (of bounded size) can be efficiently implemented in an array.</li>
+<li>A queue can be efficiently implemented using any linked list that supports deletion in the front and insertion at the end in constant time. The first (last) element of the queue is at the front (end) of the linked list.</li>
+</ul>
+<h4 id="the-stack-a-lifo-list">The stack (a LIFO list)</h4>
+<p>Implementation of a stack</p>
+<ul>
+<li>A stack (of bounded size) can be efficiently implemented using an array b and an int variable n: The n elements of the stack are in b[0..n-1], with b[0] being the bottom element and b[n-1] being the top element.</li>
+<li>A stack can be efficiently implemented using a linked list. The first element is the top of the stack and the last element is the bottom. It’s easy to push (prepend) an element and pop (remove) the first element in constant time.</li>
+</ul>
+<h4 id="the-deque">The deque</h4>
+<p>The word deque, usually pronounced deck, is short for double-ended queue. A deque is a list that supports insertion and removal at both ends. Thus, a deque can be used as a queue or as a stack.</p>
+<h4 id="stacks-queues-and-deques-in-the-java-collection-framework">Stacks, queues, and deques in the Java Collection framework</h4>
+<ul>
+<li>
+<p>Java has interface Deque<E>. It is implemented by classes ArrayDeque<E> (which implements a list in an expandable array) and LinkedList<E>, so these two classes can be used for a queue and for a stack.</p>
+</li>
+<li>
+<p>Both ArrayDeque and LinkedList also implement interface Queue<E>, so you can use this interface to restrict operations to queue operations. For example, create a LinkedList and assign it to a Queue variable.</p>
+<pre><code>  Queue&lt;E&gt; q= new LinkedList&lt;&gt;();  
+</code></pre>
+</li>
+</ul>
+<p>Thereafter, use only q for the LinkedList and operations are restricted to queue operations.</p>
+<ul>
+<li>Java also has a class Stack<E>, which implements a stack in an expandable array. However, the Java API would rather you use an ArrayDeque. The problem is that there is no suitable way to restrict the operations of an Array-Deque to stack operations, so we prefer to use class Stack<E>.</li>
+</ul>
+<h3 id="some-implementations">Some Implementations</h3>
+<ul>
+<li><strong>LinkedList:</strong> Although mainly known to be a List implementation, this class also implements the Queue interface. This implementation works by linking its elements together and going through that chain when iterating or searching for elements.</li>
+<li><strong>ArrayDeque:</strong> An implementation of both Queue and Deque. Its backed up by an array, which can be increased when the number of elements increase over its current capacity.</li>
+<li><strong>DelayQueue:</strong> Can only contain elements which implement the Delayed interface - elements that become active after a certain time. The DelayQueue will only deliver elements whose delays have expired.</li>
+<li><strong>PriorityQueue:</strong> Orders its elements according to their natural order or a Comparator (if provided). This means it doesn&rsquo;t work using the FIFO principle, but rather returns the element with the highest priority (defined by how they compare to each other).</li>
+</ul>
+<h3 id="non-generic-vs-generic">Non-generic vs Generic</h3>
+<ul>
+<li>
+<p>Java collection framework was non-generic before JDK 1.5. Since 1.5, it is generic.</p>
+</li>
+<li>
+<p>Java new generic collection allows you to have only one type of object in a collection. Now it is type safe so typecasting is not required at runtime.</p>
+</li>
+<li>
+<p>In a generic collection, the type is specified in angular braces.</p>
+</li>
+<li>
+<p>If trying to add another type of object into generic collection, it gives compile time error.</p>
+<pre><code>  ArrayList list=new ArrayList();//creating old non-generic arraylist  
+  ArrayList&lt;String&gt; list=new ArrayList&lt;String&gt;();//creating new generic arraylist  
+</code></pre>
+</li>
+</ul>
+<h3 id="ways-to-iterate-the-elements-of-the-collection-in-java">Ways to iterate the elements of the collection in Java</h3>
+<ul>
+<li>By Iterator interface.</li>
+<li>By for-each loop.</li>
+<li>By ListIterator interface.</li>
+<li>By for loop.</li>
+<li>By forEach() method.</li>
+<li>By forEachRemaining() method.</li>
+</ul>
+<h3 id="comparison">Comparison</h3>
+<h4 id="array-vs-arraylist">Array vs ArrayList</h4>
+<table>
+<thead>
+<tr>
+<th>Basis</th>
+<th>Array</th>
+<th>ArrayList</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Definition</strong></td>
+<td>An array is a dynamically-created object. It serves as a container that holds the constant number of values of the same type. It has a contiguous memory location.</td>
+<td>The ArrayList is a class of Java Collections framework. It contains popular classes like Vector, HashTable, and HashMap.</td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td>Array is static in size.</td>
+<td>ArrayList is dynamic in size.</td>
+</tr>
+<tr>
+<td><strong>Resizable</strong></td>
+<td>An array is a fixed-length data structure.</td>
+<td>ArrayList is a variable-length data structure. It can be resized itself when needed.</td>
+</tr>
+<tr>
+<td><strong>Initialization</strong></td>
+<td>It is mandatory to provide the size of an array while initializing it directly or indirectly.</td>
+<td>We can create an instance of ArrayList without specifying its size. Java creates ArrayList of default size.</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>It performs fast in comparison to ArrayList because of fixed size.</td>
+<td>ArrayList is internally backed by the array in Java. The resize operation in ArrayList slows down the performance.</td>
+</tr>
+<tr>
+<td><strong>Primitive/ Generic type</strong></td>
+<td>An array can store both objects and primitives type.</td>
+<td>We cannot store primitive type in ArrayList. It automatically converts primitive type to object.</td>
+</tr>
+<tr>
+<td><strong>Iterating Values</strong></td>
+<td>We use for loop or for each loop to iterate over an array.</td>
+<td>We use an iterator to iterate over ArrayList.</td>
+</tr>
+<tr>
+<td><strong>Type-Safety</strong></td>
+<td>We cannot use generics along with array because it is not a convertible type of array.</td>
+<td>ArrayList allows us to store only generic/ type, that&rsquo;s why it is type-safe.</td>
+</tr>
+<tr>
+<td><strong>Length</strong></td>
+<td>Array provides a length variable which denotes the length of an array.</td>
+<td>ArrayList provides the size() method to determine the size of ArrayList.</td>
+</tr>
+<tr>
+<td><strong>Adding Elements</strong></td>
+<td>We can add elements in an array by using the assignment operator.</td>
+<td>Java provides the add() method to add elements in the ArrayList.</td>
+</tr>
+<tr>
+<td><strong>Single/ Multi-Dimensional</strong></td>
+<td>Array can be multi-dimensional.</td>
+<td>ArrayList is always single-dimensional.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="arraylist-vs-linkedlist">ArrayList vs LinkedList</h4>
+<table>
+<thead>
+<tr>
+<th>ArrayList</th>
+<th>LinkedList</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArrayList internally uses a dynamic array to store the elements.</td>
+<td>LinkedList internally uses a doubly linked list to store the elements.</td>
+</tr>
+<tr>
+<td>Manipulation with ArrayList is slow because it internally uses an array. If any element is removed from the array, all the bits are shifted in memory.</td>
+<td>Manipulation with LinkedList is faster than ArrayList because it uses a doubly linked list, so no bit shifting is required in memory.</td>
+</tr>
+<tr>
+<td>An ArrayList class can act as a list only because it implements List only.</td>
+<td>LinkedList class can act as a list and queue both because it implements List and Deque interfaces.</td>
+</tr>
+<tr>
+<td>ArrayList is better for storing and accessing data.</td>
+<td>LinkedList is better for manipulating data.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="list-vs-set">List vs Set</h4>
+<p>A list can contain duplicate elements whereas Set contains unique elements only.</p>
+<h4 id="hashmap-vs-linkedhashmap-vs-treemap">HashMap vs LinkedHashMap vs TreeMap</h4>
+<ul>
+<li>A Map doesn&rsquo;t allow duplicate keys, but you can have duplicate values.</li>
+<li>HashMap and LinkedHashMap allow null keys and values, but TreeMap doesn&rsquo;t allow any null key or value.</li>
+<li>A Map can&rsquo;t be traversed, so you need to convert it into Set using keySet() or entrySet() method.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HashMap</td>
+<td>HashMap is the implementation of Map, but it doesn&rsquo;t maintain any order.</td>
+</tr>
+<tr>
+<td>LinkedHashMap</td>
+<td>LinkedHashMap is the implementation of Map. It inherits HashMap class. It maintains insertion order.</td>
+</tr>
+<tr>
+<td>TreeMap</td>
+<td>TreeMap is the implementation of Map and SortedMap. It maintains ascending order.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>HashMap</th>
+<th>TreeMap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HashMap can contain one null key.</td>
+<td>TreeMap cannot contain any null key.</td>
+</tr>
+<tr>
+<td>HashMap maintains no order.</td>
+<td>TreeMap maintains ascending order.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="hashmap-vs-hashtable">HashMap vs Hashtable</h4>
+<table>
+<thead>
+<tr>
+<th>HashMap</th>
+<th>Hashtable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HashMap and Hashtable both are used to store data in key and value form. Both are using hashing technique to store unique keys.</td>
+<td></td>
+</tr>
+<tr>
+<td>1) HashMap is non synchronized. It is not-thread safe and can&rsquo;t be shared between many threads without proper synchronization code.</td>
+<td>Hashtable is synchronized. It is thread-safe and can be shared with many threads.</td>
+</tr>
+<tr>
+<td>2) HashMap allows one null key and multiple null values.</td>
+<td>Hashtable doesn&rsquo;t allow any null key or value.</td>
+</tr>
+<tr>
+<td>3) HashMap is fast.</td>
+<td>Hashtable is slow.</td>
+</tr>
+<tr>
+<td>4) We can make the HashMap as synchronized by calling this code</td>
+<td></td>
+</tr>
+<tr>
+<td>Map m = Collections.synchronizedMap(hashMap);</td>
+<td></td>
+</tr>
+<tr>
+<td>Hashtable is internally synchronized and can&rsquo;t be unsynchronized.</td>
+<td></td>
+</tr>
+<tr>
+<td>5) HashMap is traversed by Iterator.</td>
+<td>Hashtable is traversed by Enumerator and Iterator.</td>
+</tr>
+<tr>
+<td>6) Iterator in HashMap is fail-fast.</td>
+<td>Enumerator in Hashtable is not fail-fast.</td>
+</tr>
+<tr>
+<td>7) HashMap inherits AbstractMap class.</td>
+<td>Hashtable inherits Dictionary class.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="links">Links</h2>
+<p>
+<a href="https://www.geeksforgeeks.org/collections-in-java-2/" target="_blank" rel="noopener">Collections in Java</a><br>
+
+<a href="https://stackabuse.com/java-collections-queue-and-deque-interfaces/" target="_blank" rel="noopener">Java Collections: Queue and Deque Interfaces</a><br>
+
+<a href="https://www.javatpoint.com/java-arraylist" target="_blank" rel="noopener">Java ArrayList</a></p>
+<br>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/java/">Java</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/coding/java/java-collection/&amp;text=Java%20Collections" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/coding/java/java-collection/&amp;t=Java%20Collections" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Java%20Collections&amp;body=/coding/java/java-collection/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/coding/java/java-collection/&amp;title=Java%20Collections" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Java%20Collections%20/coding/java/java-collection/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/coding/java/java-collection/&amp;title=Java%20Collections" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/hongwei-li/avatar_hu33d8f2710ea4928d295bd08cdc05f6eb_17524_270x270_fill_q90_lanczos_center.jpg" alt="Hongwei Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Hongwei Li</a></h5>
+        <h6 class="card-subtitle">Software, Networking</h6>
+        <p class="card-text">Always on the way - Coding, DevOps, Networking.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:flycoolman@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    ©2020 flycoolman.com All Rights Reserved
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

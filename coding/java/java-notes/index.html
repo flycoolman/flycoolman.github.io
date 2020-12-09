@@ -664,6 +664,20 @@
     <div class="article-style">
       <h2 id="java-notes">Java Notes</h2>
 <p>A free style notes of Java.</p>
+<h3 id="basic-knowledge">Basic knowledge</h3>
+<ul>
+<li>Static blocks</li>
+<li>Non static blocks</li>
+<li>Static methods</li>
+<li>Non-Static methods</li>
+<li>Static blank final variables</li>
+<li>Non-Static blank final variables</li>
+<li>Static classes</li>
+<li>Non-Static inner classes</li>
+<li>Static and dynamic polymorphism</li>
+<li>Static binding/Early binding</li>
+<li>Dynamic binding/Late binding</li>
+</ul>
 <h3 id="top-10-mistakes-java-developers-make">Top 10 Mistakes Java Developers Make</h3>
 <p>
 <a href="https://www.programcreek.com/2014/05/top-10-mistakes-java-developers-make/" target="_blank" rel="noopener">Top 10 Mistakes Java Developers Make</a></p>
@@ -676,6 +690,16 @@
 </ul>
 <p>
 <a href="https://javapapers.com/core-java/differentiate-jvm-jre-jdk-jit/" target="_blank" rel="noopener">Differentiate JVM JRE JDK JIT</a></p>
+<h3 id="class-vs-interface">Class vs Interface</h3>
+<ul>
+<li><strong>Class:</strong> A class is a user-defined blueprint or prototype from which objects are created. It represents the set of properties or methods that are common to all objects of one type.</li>
+<li><strong>Interface:</strong> Like a class, an interface can have methods and variables, but the methods declared in an interface are by default abstract (only method signature, no body). Interfaces specify what a class must do and not how. It is the blueprint of the class.</li>
+</ul>
+<p>An interface defines a protocol of behavior and not how we should be implemented. A class that implements an interface adheres to the protocol defined by that interface.</p>
+<ul>
+<li>Interface variables are static because java interfaces cannot be instantiated on their own. The value of the variable must be assigned in a static context in which no instance exists.</li>
+<li>The final modifier ensures the value assigned to the interface variable is a true constant that cannot be re-assigned. In other words, interfaces can declare only constants, not instance variables.</li>
+</ul>
 <h3 id="pass-by-value-and-pass-by-reference-and-pass-reference-by-value">Pass By Value and Pass By Reference and Pass Reference by Value</h3>
 <div class="alert alert-note">
   <div>
@@ -891,8 +915,37 @@ add() in the table refers to add(E e), and remove() refers to remove(int index)<
 </ul>
 <h3 id="java-collection-hierarchy">Java Collection Hierarchy</h3>
 <p><img src="./java-collection-hierarchy.png" alt="java-collection-hierarchy"><br>
-<img src="./java-vollections-hierarchy-1.png" alt="java-collections-hierarchy-1"><br>
-<img src="./java-vollections-hierarchy-2.png" alt="java-collections-hierarchy-2"></p>
+<img src="./java-collections-hierarchy-1.png" alt="java-collections-hierarchy-1"><br>
+<img src="./java-collections-hierarchy-2.jpg" alt="java-collections-hierarchy-2"></p>
+<h4 id="the-queue-a-fifo-list">The queue (a FIFO list)</h4>
+<p>Implementation of a queue</p>
+<ul>
+<li>A queue (of bounded size) can be efficiently implemented in an array. Look at JavaHypertext entry “queue”.</li>
+<li>A queue can be efficiently implemented using any linked list that supports deletion in the front and insertion at the end in constant time. The first (last) element of the queue is at the front (end) of the linked list.</li>
+</ul>
+<h4 id="the-stack-a-lifo-list">The stack (a LIFO list)</h4>
+<p>Implementation of a stack</p>
+<ul>
+<li>A stack (of bounded size) can be efficiently implemented using an array b and an int variable n: The n elements of the stack are in b[0..n-1], with b[0] being the bottom element and b[n-1] being the top element.</li>
+<li>A stack can be efficiently implemented using a linked list. The first element is the top of the stack and the last element is the bottom. It’s easy to push (prepend) an element and pop (remove) the first element in constant time.</li>
+</ul>
+<h4 id="the-deque">The deque</h4>
+<p>The word deque, usually pronounced deck, is short for double-ended queue. A deque is a list that supports insertion and removal at both ends. Thus, a deque can be used as a queue or as a stack.</p>
+<h4 id="stacks-queues-and-deques-in-the-java-collection-framework">Stacks, queues, and deques in the Java Collection framework</h4>
+<ul>
+<li>
+<p>Java has interface Deque<E>. It is implemented by classes ArrayDeque<E> (which implements a list in an expandable array) and LinkedList<E>, so these two classes can be used for a queue and for a stack.</p>
+</li>
+<li>
+<p>Both ArrayDeque and LinkedList also implement interface Queue<E>, so you can use this interface to restrict operations to queue operations. For example, create a LinkedList and assign it to a Queue variable.</p>
+<pre><code>  Queue&lt;E&gt; q= new LinkedList&lt;&gt;();  
+</code></pre>
+</li>
+</ul>
+<p>Thereafter, use only q for the LinkedList and operations are restricted to queue operations.</p>
+<ul>
+<li>Java also has a class Stack<E>, which implements a stack in an expandable array. However, the Java API would rather you use an ArrayDeque. The problem is that there is no suitable way to restrict the operations of an Array-Deque to stack operations, so we prefer to use class Stack<E>.</li>
+</ul>
 <h3 id="arraysaslist-variable-arguments">Arrays.asList() Variable Arguments</h3>
 <p>Since the asList method in Arrays uses variable arguments, and <strong>variable arguments expressions are mapped to arrays</strong>, you could either pass an inline array as in:</p>
 <pre><code>List&lt;String&gt; list = Arrays.asList(new String[]{&quot;a&quot;, &quot;b&quot;, &quot;c&quot;});  
@@ -1059,6 +1112,10 @@ If any class implements Comparable interface in Java then collection of that obj
 <a href="https://www.tutorialspoint.com/java/util/java_util_properties.htm" target="_blank" rel="noopener">Java.util.Properties Class</a><br>
 
 <a href="https://www.geeksforgeeks.org/java-util-properties-class-java/" target="_blank" rel="noopener">Java.util.Properties class in Java</a></p>
+<h3 id="java-8">Java 8</h3>
+<h4 id="stream">Stream</h4>
+<h4 id="foreach">forEach</h4>
+<h4 id="optional">Optional</h4>
 <br>
 <h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
 

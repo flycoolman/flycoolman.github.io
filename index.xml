@@ -356,6 +356,169 @@ Runtime exceptions represent problems that are the result of a programming probl
     </item>
     
     <item>
+      <title>Manacher&#39;s Algorithm</title>
+      <link>/coding/python/manachers-algorithm/</link>
+      <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/python/manachers-algorithm/</guid>
+      <description>&lt;h2 id=&#34;algorithm-description&#34;&gt;Algorithm Description&lt;/h2&gt;
+&lt;p&gt;To find a longest palindrome in a string in linear time, an algorithm may take advantage of the following characteristics or observations about a palindrome and a sub-palindrome:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The left side of a palindrome is a mirror image of its right side.&lt;/li&gt;
+&lt;li&gt;(Case 1) A third palindrome whose center is within the right side of a first palindrome will have exactly the same length as a second palindrome anchored at the mirror center on the left side, if the second palindrome is within the bounds of the first palindrome by at least one character (not meeting the left bound of the first palindrome). Such as &amp;ldquo;dacabacad&amp;rdquo;, the whole string is the first palindrome, &amp;ldquo;aca&amp;rdquo; in the left side as second palindrome, &amp;ldquo;aca&amp;rdquo; in the right side as third palindrome. In this case, the second and third palindrome have exactly the same length.&lt;/li&gt;
+&lt;li&gt;(Case 2) If the second palindrome meets or extends beyond the left bound of the first palindrome, then the distance from the center of the second palindrome to the left bound of the first palindrome is exactly equal to the distance from the center of the third palindrome to the right bound of the first palindrome.&lt;/li&gt;
+&lt;li&gt;To find the length of the third palindrome under Case 2, the next character after the right outermost character of the first palindrome would then be compared with its mirror character about the center of the third palindrome, until there is no match or no more characters to compare.&lt;/li&gt;
+&lt;li&gt;(Case 3) Neither the first nor second palindrome provides information to help determine the palindromic length of a fourth palindrome whose center is outside the right side of the first palindrome.&lt;/li&gt;
+&lt;li&gt;It is therefore desirable to have a palindrome as a reference (i.e., the role of the first palindrome) that possesses characters farthest to the right in a string when determining from left to right the palindromic length of a substring in the string (and consequently, the third palindrome in Case 2 and the fourth palindrome in Case 3 could replace the first palindrome to become the new reference).&lt;/li&gt;
+&lt;li&gt;Regarding the time complexity of palindromic length determination for each character in a string: there is no character comparison for Case 1, while for Cases 2 and 3 only the characters in the string beyond the right outermost character of the reference palindrome are candidates for comparison (and consequently Case 3 always results in a new reference palindrome while Case 2 does so only if the third palindrome is actually longer than its guaranteed minimum length).&lt;/li&gt;
+&lt;li&gt;For even-length palindromes, the center is at the boundary of the two characters in the middle.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;Manacher&amp;rsquo;s algorithm fills in a table P[i] which contains how far the palindrome centered at i extends. If P[5]=3, then three characters on either side of position five are part of the palindrome. The algorithm takes advantage of the fact that if you&amp;rsquo;ve found a long palindrome, you can fill in values of P on the right side of the palindrome quickly by looking at the values of P on the left side, since they should mostly be the same.&lt;/p&gt;
+&lt;p&gt;Simply put:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;makes either odd length or even lenght as odd length only by adding a special character, which is not in the original string, to the both sides of each character in original string.&lt;/li&gt;
+&lt;li&gt;utilize the mirroring charateristic of a palindrome and a sub-palindrome to fill the table p[i].&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To simplify the desciption, define:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;String &lt;strong&gt;S&lt;/strong&gt; is the original string with inserted special characters.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;C&lt;/strong&gt; is the center position of panlindrome &lt;strong&gt;sub(C)&lt;/strong&gt; of string S.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;L&lt;/strong&gt; is the leftmost position of sub(C).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;R&lt;/strong&gt; is the rightmost position of sub(C).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;P[i]&lt;/strong&gt; is the array to store the length of panlindrome, which has center position x.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;i&lt;/strong&gt; is the position that needs to calculate the length of panlindrom, that is to calculate &lt;strong&gt;P[i]&lt;/strong&gt; of &lt;strong&gt;sub(i)&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;j&lt;/strong&gt; is the mirroring position of i about center position C.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;P[j]&lt;/strong&gt; is the calculated/known lenght of panlindrome &lt;strong&gt;sub(j)&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;odd--even-----odd-only&#34;&gt;Odd + Even &amp;mdash;&amp;gt; Odd only&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;aba   ---&amp;gt;  #a#b#a#
+abba  ---&amp;gt;  #a#b#b#a#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;mirroring&#34;&gt;Mirroring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;i and j are mirroring about C&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sub(i) and sub(j) are mirroring about C&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  C - j = i - C  ---&amp;gt; j = 2 * C - i
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./mirroring.png&#34; alt=&#34;mirroring&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3-cases&#34;&gt;3 Cases&lt;/h3&gt;
+&lt;h4 id=&#34;case-1-i--r-and-j-pj--l&#34;&gt;Case 1: i &amp;lt; R and j-P[j] &amp;gt; L&lt;/h4&gt;
+&lt;p&gt;i &amp;lt; R and j-P[j] &amp;gt; L  means  whole sub(j) within left side of sub(C)&lt;br&gt;
+&lt;img src=&#34;./case-1.png&#34; alt=&#34;case-1&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;j - P[j] &amp;gt; L   ---&amp;gt;   R - i &amp;gt; P[j]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Based on mirroring:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;P[i] = P[j] 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;case-2-i--r-and-j-pj--l&#34;&gt;Case 2: i &amp;lt; R and j-P[j] &amp;lt;= L&lt;/h4&gt;
+&lt;p&gt;leftmost side of sub(j) is at or outside of leftmost of sub(C)
+&lt;img src=&#34;./case-2.png&#34; alt=&#34;case-2&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;j - P[j] &amp;lt;= L   ---&amp;gt;   R - i &amp;lt;= P[j]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the picture, we can see P[i] is at least R - i&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;P[i] &amp;gt;= R - i   ---&amp;gt;   P[i] = R - i as initial value of P[i] and do calculation for the part outside R and update P[i] 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Code for case 1 and case 2:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;From programming convenience perspective, here make case 1 and case 2 in 1 situation i &amp;lt; R.&lt;br&gt;
+length is the intermidiate variable of P[i].&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if i &amp;lt; R:
+    j = 2 * C - i
+    length = min(P[j], R - i)
+while i + length &amp;lt; len(s) and i - length &amp;gt;= 0:
+    if s[i + length] != s[i - length]:
+        break
+    length += 1    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;case-3-i--r&#34;&gt;Case 3: i &amp;gt;= R&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;./case-3.png&#34; alt=&#34;case-3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;No shortcuts for this situation other than brute force.&lt;br&gt;
+Calculate from length of 1 at the position i as the center.&lt;br&gt;
+length is the intermidiate variable of P[i].&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Code for case 3:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;length = 1
+while i + length &amp;lt; len(s) and i - length &amp;gt;= 0:
+    if s[i + length] != s[i - length]:
+        break
+    length += 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;full-implementation&#34;&gt;Full Implementation&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;def longestPalindrome(self, s: str) -&amp;gt; str:
+    if not s:
+        return
+    
+    # Using manacher&#39;s algorithm
+    # abba =&amp;gt; #a#b#b#a#
+    # s: original string
+    # t: transformed string
+    t = []
+    for c in s:
+        t.append(&#39;#&#39;)
+        t.append(c)
+    t.append(&#39;#&#39;)
+    
+    n = len(t)
+    # p: P[i] table
+    p = [0] * n
+    p[0] = 1
+    
+    mid, longest = 0, 1
+    for i in range(1, n):
+        length = 1
+        if mid + longest &amp;gt; i:
+            mirror = mid - (i - mid)
+            length = min(p[mirror], mid + longest - i)
+    
+        while i + length &amp;lt; len(t) and i - length &amp;gt;= 0:
+            if t[i + length] != t[i - length]:
+                break;
+            length += 1
+        
+        if length &amp;gt; longest:
+            longest = length
+            mid = i
+        
+        p[i] = length
+    
+    # remove the extra #
+    longest = longest - 1
+    start = (mid - 1) // 2 - (longest - 1) // 2
+    return s[start:start + longest]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;time-complexition&#34;&gt;Time Complexition&lt;/h2&gt;
+&lt;p&gt;O(N)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For case 1: no comparison&lt;/li&gt;
+&lt;li&gt;For case 2: take the example in below picture, i&amp;rsquo; is the following position of i.&lt;br&gt;
+Even there is comparison for range X, but for the following any i&amp;rsquo;, no comparison again for range X&amp;rsquo;. So ther is no repeated comparison for the whole process.&lt;br&gt;
+&lt;img src=&#34;./time-complexity.png&#34; alt=&#34;time-complexity&#34;&gt;&lt;/li&gt;
+&lt;li&gt;For case 3: similar to case 2.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So the time complexity is O(N).&lt;/p&gt;
+&lt;h2 id=&#34;space-complexition&#34;&gt;Space Complexition&lt;/h2&gt;
+&lt;p&gt;O(N)&lt;br&gt;
+Array P to store the lengths of sub-panlindrome strings.&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher%27s_algorithm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manacher&amp;rsquo;s algorithm&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.felix021.com/blog/read.php?2040&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manacher&amp;rsquo;s ALGORITHM&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.jiuzhang.com/solution/longest-palindromic-substring/#tag-lang-python&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Longest Palindromic Substring&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://cp-algorithms.com/string/manacher.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Manacher&amp;rsquo;s Algorithm - Finding all sub-palindromes in O(N)&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Kubernetes Best Practices</title>
       <link>/devops/kubernetes-best-practices/</link>
       <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
@@ -714,49 +877,6 @@ Specialized authorization module that authorizes requests from kubelets&lt;/li&g
     </item>
     
     <item>
-      <title>Python x-ables</title>
-      <link>/coding/python/python-x-ables/</link>
-      <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>/coding/python/python-x-ables/</guid>
-      <description>&lt;h2 id=&#34;python-x-ables&#34;&gt;Python x-ables&lt;/h2&gt;
-&lt;p&gt;iterable, hashable, subscriptable, callable, serializable&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;for i in range(5)[::-1]:
-&amp;hellip;     print(i)
-&amp;hellip;
-4
-3
-2
-1
-0
-range(5)
-range(0, 5)
-print(range(5))
-range(0, 5)
-list(range(5))
-[0, 1, 2, 3, 4]&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://www.programiz.com/python-programming/methods/built-in/sorted&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Python sorted()&lt;/a&gt;&lt;br&gt;
-iterable - A sequence (string, tuple, list) or collection (set, dictionary, frozen set) or any other iterator.&lt;/p&gt;
-&lt;p&gt;&amp;lsquo;builtin_function_or_method&amp;rsquo; object is not subscriptable
-
-&lt;a href=&#34;https://stackoverflow.com/questions/19989606/builtin-function-or-method-object-is-not-subscriptable&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;lsquo;builtin_function_or_method&amp;rsquo; object is not subscriptable&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    TBD
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;br&gt;
-&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
-</description>
-    </item>
-    
-    <item>
       <title>-- Latest and Updated Posts -- </title>
       <link>/post/latest-and-updates/</link>
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
@@ -934,6 +1054,469 @@ This may not look like it would be an issues but the devil in the details will t
 &lt;a href=&#34;https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;The Difference between COPY and ADD in a Dockerfile&lt;/a&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Java Collections</title>
+      <link>/coding/java/java-collection/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/coding/java/java-collection/</guid>
+      <description>&lt;h1 id=&#34;java-collections&#34;&gt;Java Collections&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Any group of individual objects which are represented as a single unit is known as the collection of the objects.&lt;/li&gt;
+&lt;li&gt;The **Collection in Java is a framework that provides an architecture to store and manipulate the group of objects.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;Collection&lt;/strong&gt; interface (&lt;strong&gt;java.util.Collection&lt;/strong&gt;) and Map interface (&lt;strong&gt;java.util.Map&lt;/strong&gt;) are the two main “root” interfaces of Java collection classes.&lt;/li&gt;
+&lt;li&gt;Java Collections can achieve all the operations that you perform on a data such as &lt;strong&gt;searching&lt;/strong&gt;, &lt;strong&gt;sorting&lt;/strong&gt;, &lt;strong&gt;insertion&lt;/strong&gt;, &lt;strong&gt;manipulation&lt;/strong&gt;, and &lt;strong&gt;deletion&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;java-collection-hierarchy&#34;&gt;Java Collection Hierarchy&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;./java-collection-hierarchy.png&#34; alt=&#34;java-collection-hierarchy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./java-collections-hierarchy-1.png&#34; alt=&#34;java-collections-hierarchy-1&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./java-collections-hierarchy-2.jpg&#34; alt=&#34;java-collections-hierarchy-2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The utility package, (java.util) contains all the classes and interfaces that are required by the collection framework. The collection framework contains an interface named as an iterable interface which provides the iterator to iterate through all the collections. This interface is extended by the main collection interface which acts as a root for the collection framework. All the collections extend this collection interface thereby extending the properties of the iterator and the methods of this interface.&lt;/p&gt;
+&lt;h3 id=&#34;iterable-interface&#34;&gt;Iterable Interface&lt;/h3&gt;
+&lt;p&gt;This is the root interface for the entire collection framework. The collection interface extends the iterable interface. Therefore, inherently, all the interfaces and classes implement this interface. The main functionality of this interface is to provide an iterator for the collections. Therefore, this interface contains only one abstract method which is the iterator. It returns the&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Iterator iterator();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;list-interface&#34;&gt;List Interface&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;This interface is dedicated to the data of the list type in which we can store all the ordered collection of the objects.&lt;/li&gt;
+&lt;li&gt;This also allows duplicate data to be present in it.&lt;/li&gt;
+&lt;li&gt;It is implemented by various classes like &lt;strong&gt;ArrayList&lt;/strong&gt;, &lt;strong&gt;Vector&lt;/strong&gt;, &lt;strong&gt;Stack&lt;/strong&gt;, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;arraylist&#34;&gt;ArrayList&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;ArrayList provides us with &lt;strong&gt;dynamic arrays&lt;/strong&gt; in Java. Though, it may be slower than standard arrays but can be helpful in programs where lots of manipulation in the array is needed. The size of an ArrayList is increased automatically if the collection grows or shrinks if the objects are removed from the collection.&lt;/li&gt;
+&lt;li&gt;It is like an array, but there is no size limit.&lt;/li&gt;
+&lt;li&gt;Java ArrayList allows us to randomly access the list. ArrayList can not be used for primitive types, like int, char, etc. We will need a wrapper class for such cases.&lt;/li&gt;
+&lt;li&gt;The ArrayList class maintains the insertion order and is non-synchronized.&lt;/li&gt;
+&lt;li&gt;The elements stored in the ArrayList class can be randomly accessed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;linkedlist&#34;&gt;LinkedList&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;LinkedList is a linear data structure where the elements are not stored in contiguous locations and every element is a separate object with a data part and address part.&lt;/li&gt;
+&lt;li&gt;The elements are linked using pointers and addresses. Each element is known as a node.&lt;/li&gt;
+&lt;li&gt;It uses a doubly linked list internally to store the elements.&lt;/li&gt;
+&lt;li&gt;It can store the duplicate elements.&lt;/li&gt;
+&lt;li&gt;It maintains the insertion order and is not synchronized.&lt;/li&gt;
+&lt;li&gt;In LinkedList, the manipulation is fast because no shifting is required.&lt;/li&gt;
+&lt;li&gt;It can be used as a list, stack or queue.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;vector&#34;&gt;Vector&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Vector uses a dynamic array to store the data elements.&lt;/li&gt;
+&lt;li&gt;It may be slower than standard arrays but can be helpful in programs where lots of manipulation in the array is needed.&lt;/li&gt;
+&lt;li&gt;The primary difference between a vector and an ArrayList is that a Vector is synchronized and an ArrayList is non-synchronized.&lt;/li&gt;
+&lt;li&gt;It is synchronized and contains many methods that are not the part of Collection framework.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;stack&#34;&gt;Stack&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;It implements the last-in-first-out data structure.&lt;/li&gt;
+&lt;li&gt;The stack is the subclass of Vector. The stack contains all of the methods of Vector class and also provides its methods like boolean push(), boolean peek(), boolean push(object o), which defines its properties.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Stack is a subclass of Vector and a legacy class. It is thread safe which might be an overhead in an environment where thread safety is not needed.&lt;br&gt;
+An alternate to Stack is to use ArrayDequeue which is not thread safe and faster array implementation.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;queue-interface&#34;&gt;Queue Interface&lt;/h3&gt;
+&lt;p&gt;A queue interface maintains the FIFO(First In First Out) order similar to a real-world queue line. This interface is dedicated to storing all the elements where the order of the elements matter. There are various classes like &lt;strong&gt;PriorityQueue&lt;/strong&gt;, &lt;strong&gt;Deque&lt;/strong&gt;, &lt;strong&gt;ArrayDeque&lt;/strong&gt;, etc.&lt;/p&gt;
+&lt;h4 id=&#34;priority-queue&#34;&gt;Priority Queue&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;A PriorityQueue is used when the objects are supposed to be processed based on the priority.&lt;/li&gt;
+&lt;li&gt;It is known that a queue follows the First-In-First-Out algorithm, but sometimes the elements of the queue are needed to be processed according to the priority and this class is used in these cases.&lt;/li&gt;
+&lt;li&gt;The PriorityQueue is based on the priority heap.&lt;/li&gt;
+&lt;li&gt;The elements of the priority queue are ordered according to the natural ordering, or by a Comparator provided at queue construction time, depending on which constructor is used.&lt;/li&gt;
+&lt;li&gt;PriorityQueue doesn&amp;rsquo;t allow null values to be stored in the queue.&lt;/li&gt;
+&lt;li&gt;The elements in PriorityQueue must be of Comparable type. String and Wrapper classes are Comparable by default.&lt;/li&gt;
+&lt;li&gt;To add user-defined objects in PriorityQueue, you need to implement Comparable interface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;deque-interface&#34;&gt;Deque Interface&lt;/h3&gt;
+&lt;p&gt;Deque, also known as a double-ended queue, is a data structure where we can add and remove the elements from both the ends of the queue.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This interface extends the queue interface.&lt;/li&gt;
+&lt;li&gt;The class which implements this interface is &lt;strong&gt;ArrayDeque&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;arraydeque&#34;&gt;ArrayDeque&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The ArrayDeque class provides the facility of using deque and resizable-array. This is a special kind of array that grows and allows users to add or remove an element from both sides of the queue.&lt;/li&gt;
+&lt;li&gt;Array deques have no capacity restrictions and they grow as necessary to support usage.&lt;/li&gt;
+&lt;li&gt;ArrayDeque is faster than ArrayList and Stack.&lt;/li&gt;
+&lt;li&gt;Unlike Queue, we can add or remove elements from both sides.&lt;/li&gt;
+&lt;li&gt;Null elements are not allowed in the ArrayDeque.&lt;/li&gt;
+&lt;li&gt;ArrayDeque is not thread safe, in the absence of external synchronization.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;set-interface&#34;&gt;Set Interface&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A set is an unordered collection of objects in which duplicate values cannot be stored.&lt;/li&gt;
+&lt;li&gt;This collection is used when we wish to avoid the duplication of the objects and wish to store only the unique objects.&lt;/li&gt;
+&lt;li&gt;This set interface is implemented by various classes like &lt;strong&gt;HashSet&lt;/strong&gt;, &lt;strong&gt;TreeSet&lt;/strong&gt;, &lt;strong&gt;LinkedHashSet&lt;/strong&gt;, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hashset&#34;&gt;HashSet&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The HashSet class is an inherent implementation of the hash table data structure.&lt;/li&gt;
+&lt;li&gt;HashSet stores the elements by using a mechanism called hashing.&lt;/li&gt;
+&lt;li&gt;HashSet contains unique elements only.&lt;/li&gt;
+&lt;li&gt;HashSet allows null value.&lt;/li&gt;
+&lt;li&gt;HashSet class is non synchronized.&lt;/li&gt;
+&lt;li&gt;HashSet doesn&amp;rsquo;t maintain the insertion order. Here, elements are inserted on the basis of their hashcode.&lt;/li&gt;
+&lt;li&gt;HashSet is the best approach for search operations.&lt;/li&gt;
+&lt;li&gt;The initial default capacity of HashSet is 16, and the load factor is 0.75.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./hashset.png&#34; alt=&#34;hashset&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;linkedhashset&#34;&gt;LinkedHashSet&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;LinkedHashSet uses a doubly linked list to store the data and retains the ordering of the elements.&lt;/li&gt;
+&lt;li&gt;Like HashSet, It also contains unique elements only.&lt;/li&gt;
+&lt;li&gt;It maintains the insertion order.&lt;/li&gt;
+&lt;li&gt;It permits null elements.&lt;/li&gt;
+&lt;li&gt;LinkedHashSet class is non synchronized.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./linkedhashset.png&#34; alt=&#34;linkedhashset&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sortedset-interface&#34;&gt;SortedSet Interface&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;This interface is very similar to the set interface. The only difference is that this interface has extra methods that maintain the ordering of the elements.&lt;/li&gt;
+&lt;li&gt;The sorted set interface extends the set interface and is used to handle the data which needs to be sorted.&lt;/li&gt;
+&lt;li&gt;The class which implements this interface is &lt;strong&gt;TreeSet&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;treeset&#34;&gt;TreeSet&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;TreeSet class contains unique elements only like HashSet.&lt;/li&gt;
+&lt;li&gt;TreeSet class &lt;strong&gt;doesn&amp;rsquo;t&lt;/strong&gt; allow null element.&lt;/li&gt;
+&lt;li&gt;The TreeSet class uses a Tree for storage.&lt;/li&gt;
+&lt;li&gt;The ordering of the elements is maintained by a set using their natural ordering whether or not an explicit comparator is provided.&lt;/li&gt;
+&lt;li&gt;It can also be ordered by a Comparator provided at set creation time, depending on which constructor is used.&lt;/li&gt;
+&lt;li&gt;the access and retrieval time of TreeSet is quite fast.&lt;/li&gt;
+&lt;li&gt;The elements in TreeSet stored in ascending order.&lt;/li&gt;
+&lt;li&gt;TreeSet class is non synchronized.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;./treeset.png&#34; alt=&#34;treeset&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;map-interface&#34;&gt;Map Interface&lt;/h3&gt;
+&lt;p&gt;A map is a data structure which supports the key-value pair mapping for the data. This interface doesn’t support duplicate keys because the same key cannot have multiple mappings. A map is useful if there is a data and we wish to perform operations on the basis of the key. This map interface is implemented by various classes like &lt;strong&gt;HashMap&lt;/strong&gt;, &lt;strong&gt;TreeMap&lt;/strong&gt;, etc.&lt;br&gt;
+There are two interfaces for implementing Map in java: &lt;strong&gt;Map&lt;/strong&gt; and &lt;strong&gt;SortedMap&lt;/strong&gt;, and three classes: &lt;strong&gt;HashMap&lt;/strong&gt;, &lt;strong&gt;LinkedHashMap&lt;/strong&gt;, and &lt;strong&gt;TreeMap&lt;/strong&gt;. The hierarchy of Java Map is given below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./java-map-hierarchy.png&#34; alt=&#34;java-map-hierarchy&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;hashmap&#34;&gt;HashMap&lt;/h4&gt;
+&lt;p&gt;HashMap provides the basic implementation of the Map interface of Java. It stores the data in (Key, Value) pairs. To access a value in a HashMap, we must know its key. HashMap uses a technique called Hashing. Hashing is a technique of converting a large String to small String that represents the same String so that the indexing and search operations are faster. HashSet also uses HashMap internally.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Java HashMap contains values based on the key.&lt;/li&gt;
+&lt;li&gt;Java HashMap contains only unique keys.&lt;/li&gt;
+&lt;li&gt;Java HashMap may have one null key and multiple null values.&lt;/li&gt;
+&lt;li&gt;Java HashMap is non synchronized.&lt;/li&gt;
+&lt;li&gt;Java HashMap maintains no order.&lt;/li&gt;
+&lt;li&gt;The initial default capacity of Java HashMap class is 16 with a load factor of 0.75.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;HashMap implementation&lt;/strong&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.javatpoint.com/working-of-hashmap-in-java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Working of HashMap in Java&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It stores the data in the pair of Key and Value.&lt;/li&gt;
+&lt;li&gt;HashMap contains an array of the nodes, and the node is represented as a class.&lt;/li&gt;
+&lt;li&gt;It uses an array and LinkedList data structure internally for storing Key and Value.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;linkedhashmap&#34;&gt;LinkedHashMap&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;LinkedHashMap contains values based on the key.&lt;/li&gt;
+&lt;li&gt;LinkedHashMap contains unique elements.&lt;/li&gt;
+&lt;li&gt;LinkedHashMap may have one null key and multiple null values.&lt;/li&gt;
+&lt;li&gt;LinkedHashMap is non synchronized.&lt;/li&gt;
+&lt;li&gt;LinkedHashMap maintains insertion order.&lt;/li&gt;
+&lt;li&gt;The initial default capacity of Java HashMap class is 16 with a load factor of 0.75.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;treemap&#34;&gt;TreeMap&lt;/h4&gt;
+&lt;p&gt;Java TreeMap class is a &lt;strong&gt;red-black tree&lt;/strong&gt; based implementation. It provides an efficient means of storing key-value pairs in sorted order.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TreeMap contains values based on the key.&lt;/li&gt;
+&lt;li&gt;It implements the NavigableMap interface and extends AbstractMap class.&lt;/li&gt;
+&lt;li&gt;TreeMap contains only unique elements.&lt;/li&gt;
+&lt;li&gt;TreeMap cannot have a null key but can have multiple null values.&lt;/li&gt;
+&lt;li&gt;TreeMap is non synchronized.&lt;/li&gt;
+&lt;li&gt;TreeMap maintains ascending order.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;hashtable&#34;&gt;HashTable&lt;/h3&gt;
+&lt;p&gt;Java Hashtable class inherits Dictionary class and implements the Map interface.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A Hashtable is an array of a list. Each list is known as a bucket. The position of the bucket is identified by calling the hashcode() method. A Hashtable contains values based on the key.&lt;/li&gt;
+&lt;li&gt;Hashtable class contains unique elements.&lt;/li&gt;
+&lt;li&gt;Hashtable class doesn&amp;rsquo;t allow null key or value.&lt;/li&gt;
+&lt;li&gt;Hashtable class is synchronized.&lt;/li&gt;
+&lt;li&gt;The initial default capacity of Hashtable class is 11 whereas loadFactor is 0.75.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;enumset&#34;&gt;EnumSet&lt;/h3&gt;
+&lt;p&gt;EnumSet class is the specialized Set implementation for use with enum types. It inherits AbstractSet class and implements the Set interface.&lt;/p&gt;
+&lt;h3 id=&#34;enummap&#34;&gt;EnumMap&lt;/h3&gt;
+&lt;p&gt;EnumMap class is the specialized Map implementation for enum keys. It inherits Enum and AbstractMap classes.&lt;/p&gt;
+&lt;h3 id=&#34;a-little-deep-in-queues&#34;&gt;A Little Deep In Queues&lt;/h3&gt;
+&lt;h4 id=&#34;the-queue-a-fifo-list&#34;&gt;The queue (a FIFO list)&lt;/h4&gt;
+&lt;p&gt;Implementation of a queue&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A queue (of bounded size) can be efficiently implemented in an array.&lt;/li&gt;
+&lt;li&gt;A queue can be efficiently implemented using any linked list that supports deletion in the front and insertion at the end in constant time. The first (last) element of the queue is at the front (end) of the linked list.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;the-stack-a-lifo-list&#34;&gt;The stack (a LIFO list)&lt;/h4&gt;
+&lt;p&gt;Implementation of a stack&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A stack (of bounded size) can be efficiently implemented using an array b and an int variable n: The n elements of the stack are in b[0..n-1], with b[0] being the bottom element and b[n-1] being the top element.&lt;/li&gt;
+&lt;li&gt;A stack can be efficiently implemented using a linked list. The first element is the top of the stack and the last element is the bottom. It’s easy to push (prepend) an element and pop (remove) the first element in constant time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;the-deque&#34;&gt;The deque&lt;/h4&gt;
+&lt;p&gt;The word deque, usually pronounced deck, is short for double-ended queue. A deque is a list that supports insertion and removal at both ends. Thus, a deque can be used as a queue or as a stack.&lt;/p&gt;
+&lt;h4 id=&#34;stacks-queues-and-deques-in-the-java-collection-framework&#34;&gt;Stacks, queues, and deques in the Java Collection framework&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Java has interface Deque&lt;E&gt;. It is implemented by classes ArrayDeque&lt;E&gt; (which implements a list in an expandable array) and LinkedList&lt;E&gt;, so these two classes can be used for a queue and for a stack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Both ArrayDeque and LinkedList also implement interface Queue&lt;E&gt;, so you can use this interface to restrict operations to queue operations. For example, create a LinkedList and assign it to a Queue variable.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  Queue&amp;lt;E&amp;gt; q= new LinkedList&amp;lt;&amp;gt;();  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thereafter, use only q for the LinkedList and operations are restricted to queue operations.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Java also has a class Stack&lt;E&gt;, which implements a stack in an expandable array. However, the Java API would rather you use an ArrayDeque. The problem is that there is no suitable way to restrict the operations of an Array-Deque to stack operations, so we prefer to use class Stack&lt;E&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;some-implementations&#34;&gt;Some Implementations&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;LinkedList:&lt;/strong&gt; Although mainly known to be a List implementation, this class also implements the Queue interface. This implementation works by linking its elements together and going through that chain when iterating or searching for elements.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ArrayDeque:&lt;/strong&gt; An implementation of both Queue and Deque. Its backed up by an array, which can be increased when the number of elements increase over its current capacity.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DelayQueue:&lt;/strong&gt; Can only contain elements which implement the Delayed interface - elements that become active after a certain time. The DelayQueue will only deliver elements whose delays have expired.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PriorityQueue:&lt;/strong&gt; Orders its elements according to their natural order or a Comparator (if provided). This means it doesn&amp;rsquo;t work using the FIFO principle, but rather returns the element with the highest priority (defined by how they compare to each other).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;non-generic-vs-generic&#34;&gt;Non-generic vs Generic&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Java collection framework was non-generic before JDK 1.5. Since 1.5, it is generic.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java new generic collection allows you to have only one type of object in a collection. Now it is type safe so typecasting is not required at runtime.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In a generic collection, the type is specified in angular braces.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If trying to add another type of object into generic collection, it gives compile time error.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ArrayList list=new ArrayList();//creating old non-generic arraylist  
+  ArrayList&amp;lt;String&amp;gt; list=new ArrayList&amp;lt;String&amp;gt;();//creating new generic arraylist  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ways-to-iterate-the-elements-of-the-collection-in-java&#34;&gt;Ways to iterate the elements of the collection in Java&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;By Iterator interface.&lt;/li&gt;
+&lt;li&gt;By for-each loop.&lt;/li&gt;
+&lt;li&gt;By ListIterator interface.&lt;/li&gt;
+&lt;li&gt;By for loop.&lt;/li&gt;
+&lt;li&gt;By forEach() method.&lt;/li&gt;
+&lt;li&gt;By forEachRemaining() method.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;comparison&#34;&gt;Comparison&lt;/h3&gt;
+&lt;h4 id=&#34;array-vs-arraylist&#34;&gt;Array vs ArrayList&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Basis&lt;/th&gt;
+&lt;th&gt;Array&lt;/th&gt;
+&lt;th&gt;ArrayList&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Definition&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;An array is a dynamically-created object. It serves as a container that holds the constant number of values of the same type. It has a contiguous memory location.&lt;/td&gt;
+&lt;td&gt;The ArrayList is a class of Java Collections framework. It contains popular classes like Vector, HashTable, and HashMap.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Size&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Array is static in size.&lt;/td&gt;
+&lt;td&gt;ArrayList is dynamic in size.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Resizable&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;An array is a fixed-length data structure.&lt;/td&gt;
+&lt;td&gt;ArrayList is a variable-length data structure. It can be resized itself when needed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Initialization&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;It is mandatory to provide the size of an array while initializing it directly or indirectly.&lt;/td&gt;
+&lt;td&gt;We can create an instance of ArrayList without specifying its size. Java creates ArrayList of default size.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Performance&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;It performs fast in comparison to ArrayList because of fixed size.&lt;/td&gt;
+&lt;td&gt;ArrayList is internally backed by the array in Java. The resize operation in ArrayList slows down the performance.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Primitive/ Generic type&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;An array can store both objects and primitives type.&lt;/td&gt;
+&lt;td&gt;We cannot store primitive type in ArrayList. It automatically converts primitive type to object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Iterating Values&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;We use for loop or for each loop to iterate over an array.&lt;/td&gt;
+&lt;td&gt;We use an iterator to iterate over ArrayList.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Type-Safety&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;We cannot use generics along with array because it is not a convertible type of array.&lt;/td&gt;
+&lt;td&gt;ArrayList allows us to store only generic/ type, that&amp;rsquo;s why it is type-safe.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Length&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Array provides a length variable which denotes the length of an array.&lt;/td&gt;
+&lt;td&gt;ArrayList provides the size() method to determine the size of ArrayList.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Adding Elements&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;We can add elements in an array by using the assignment operator.&lt;/td&gt;
+&lt;td&gt;Java provides the add() method to add elements in the ArrayList.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Single/ Multi-Dimensional&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Array can be multi-dimensional.&lt;/td&gt;
+&lt;td&gt;ArrayList is always single-dimensional.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;arraylist-vs-linkedlist&#34;&gt;ArrayList vs LinkedList&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ArrayList&lt;/th&gt;
+&lt;th&gt;LinkedList&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ArrayList internally uses a dynamic array to store the elements.&lt;/td&gt;
+&lt;td&gt;LinkedList internally uses a doubly linked list to store the elements.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Manipulation with ArrayList is slow because it internally uses an array. If any element is removed from the array, all the bits are shifted in memory.&lt;/td&gt;
+&lt;td&gt;Manipulation with LinkedList is faster than ArrayList because it uses a doubly linked list, so no bit shifting is required in memory.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;An ArrayList class can act as a list only because it implements List only.&lt;/td&gt;
+&lt;td&gt;LinkedList class can act as a list and queue both because it implements List and Deque interfaces.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ArrayList is better for storing and accessing data.&lt;/td&gt;
+&lt;td&gt;LinkedList is better for manipulating data.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;list-vs-set&#34;&gt;List vs Set&lt;/h4&gt;
+&lt;p&gt;A list can contain duplicate elements whereas Set contains unique elements only.&lt;/p&gt;
+&lt;h4 id=&#34;hashmap-vs-linkedhashmap-vs-treemap&#34;&gt;HashMap vs LinkedHashMap vs TreeMap&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;A Map doesn&amp;rsquo;t allow duplicate keys, but you can have duplicate values.&lt;/li&gt;
+&lt;li&gt;HashMap and LinkedHashMap allow null keys and values, but TreeMap doesn&amp;rsquo;t allow any null key or value.&lt;/li&gt;
+&lt;li&gt;A Map can&amp;rsquo;t be traversed, so you need to convert it into Set using keySet() or entrySet() method.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Class&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;HashMap&lt;/td&gt;
+&lt;td&gt;HashMap is the implementation of Map, but it doesn&amp;rsquo;t maintain any order.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LinkedHashMap&lt;/td&gt;
+&lt;td&gt;LinkedHashMap is the implementation of Map. It inherits HashMap class. It maintains insertion order.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TreeMap&lt;/td&gt;
+&lt;td&gt;TreeMap is the implementation of Map and SortedMap. It maintains ascending order.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;HashMap&lt;/th&gt;
+&lt;th&gt;TreeMap&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;HashMap can contain one null key.&lt;/td&gt;
+&lt;td&gt;TreeMap cannot contain any null key.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;HashMap maintains no order.&lt;/td&gt;
+&lt;td&gt;TreeMap maintains ascending order.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;hashmap-vs-hashtable&#34;&gt;HashMap vs Hashtable&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;HashMap&lt;/th&gt;
+&lt;th&gt;Hashtable&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;HashMap and Hashtable both are used to store data in key and value form. Both are using hashing technique to store unique keys.&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1) HashMap is non synchronized. It is not-thread safe and can&amp;rsquo;t be shared between many threads without proper synchronization code.&lt;/td&gt;
+&lt;td&gt;Hashtable is synchronized. It is thread-safe and can be shared with many threads.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2) HashMap allows one null key and multiple null values.&lt;/td&gt;
+&lt;td&gt;Hashtable doesn&amp;rsquo;t allow any null key or value.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3) HashMap is fast.&lt;/td&gt;
+&lt;td&gt;Hashtable is slow.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4) We can make the HashMap as synchronized by calling this code&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Map m = Collections.synchronizedMap(hashMap);&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Hashtable is internally synchronized and can&amp;rsquo;t be unsynchronized.&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5) HashMap is traversed by Iterator.&lt;/td&gt;
+&lt;td&gt;Hashtable is traversed by Enumerator and Iterator.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6) Iterator in HashMap is fail-fast.&lt;/td&gt;
+&lt;td&gt;Enumerator in Hashtable is not fail-fast.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7) HashMap inherits AbstractMap class.&lt;/td&gt;
+&lt;td&gt;Hashtable inherits Dictionary class.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.geeksforgeeks.org/collections-in-java-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Collections in Java&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://stackabuse.com/java-collections-queue-and-deque-interfaces/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java Collections: Queue and Deque Interfaces&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://www.javatpoint.com/java-arraylist&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java ArrayList&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
 </description>
     </item>
     
@@ -3264,6 +3847,20 @@ kubectl get pods -A&lt;/p&gt;
       <guid>/coding/java/java-notes/</guid>
       <description>&lt;h2 id=&#34;java-notes&#34;&gt;Java Notes&lt;/h2&gt;
 &lt;p&gt;A free style notes of Java.&lt;/p&gt;
+&lt;h3 id=&#34;basic-knowledge&#34;&gt;Basic knowledge&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Static blocks&lt;/li&gt;
+&lt;li&gt;Non static blocks&lt;/li&gt;
+&lt;li&gt;Static methods&lt;/li&gt;
+&lt;li&gt;Non-Static methods&lt;/li&gt;
+&lt;li&gt;Static blank final variables&lt;/li&gt;
+&lt;li&gt;Non-Static blank final variables&lt;/li&gt;
+&lt;li&gt;Static classes&lt;/li&gt;
+&lt;li&gt;Non-Static inner classes&lt;/li&gt;
+&lt;li&gt;Static and dynamic polymorphism&lt;/li&gt;
+&lt;li&gt;Static binding/Early binding&lt;/li&gt;
+&lt;li&gt;Dynamic binding/Late binding&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;top-10-mistakes-java-developers-make&#34;&gt;Top 10 Mistakes Java Developers Make&lt;/h3&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://www.programcreek.com/2014/05/top-10-mistakes-java-developers-make/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Top 10 Mistakes Java Developers Make&lt;/a&gt;&lt;/p&gt;
@@ -3276,6 +3873,16 @@ kubectl get pods -A&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://javapapers.com/core-java/differentiate-jvm-jre-jdk-jit/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Differentiate JVM JRE JDK JIT&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;class-vs-interface&#34;&gt;Class vs Interface&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Class:&lt;/strong&gt; A class is a user-defined blueprint or prototype from which objects are created. It represents the set of properties or methods that are common to all objects of one type.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Interface:&lt;/strong&gt; Like a class, an interface can have methods and variables, but the methods declared in an interface are by default abstract (only method signature, no body). Interfaces specify what a class must do and not how. It is the blueprint of the class.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An interface defines a protocol of behavior and not how we should be implemented. A class that implements an interface adheres to the protocol defined by that interface.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Interface variables are static because java interfaces cannot be instantiated on their own. The value of the variable must be assigned in a static context in which no instance exists.&lt;/li&gt;
+&lt;li&gt;The final modifier ensures the value assigned to the interface variable is a true constant that cannot be re-assigned. In other words, interfaces can declare only constants, not instance variables.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;pass-by-value-and-pass-by-reference-and-pass-reference-by-value&#34;&gt;Pass By Value and Pass By Reference and Pass Reference by Value&lt;/h3&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
@@ -3491,8 +4098,37 @@ add() in the table refers to add(E e), and remove() refers to remove(int index)&
 &lt;/ul&gt;
 &lt;h3 id=&#34;java-collection-hierarchy&#34;&gt;Java Collection Hierarchy&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;./java-collection-hierarchy.png&#34; alt=&#34;java-collection-hierarchy&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;./java-vollections-hierarchy-1.png&#34; alt=&#34;java-collections-hierarchy-1&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;./java-vollections-hierarchy-2.png&#34; alt=&#34;java-collections-hierarchy-2&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;./java-collections-hierarchy-1.png&#34; alt=&#34;java-collections-hierarchy-1&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;./java-collections-hierarchy-2.jpg&#34; alt=&#34;java-collections-hierarchy-2&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;the-queue-a-fifo-list&#34;&gt;The queue (a FIFO list)&lt;/h4&gt;
+&lt;p&gt;Implementation of a queue&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A queue (of bounded size) can be efficiently implemented in an array. Look at JavaHypertext entry “queue”.&lt;/li&gt;
+&lt;li&gt;A queue can be efficiently implemented using any linked list that supports deletion in the front and insertion at the end in constant time. The first (last) element of the queue is at the front (end) of the linked list.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;the-stack-a-lifo-list&#34;&gt;The stack (a LIFO list)&lt;/h4&gt;
+&lt;p&gt;Implementation of a stack&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A stack (of bounded size) can be efficiently implemented using an array b and an int variable n: The n elements of the stack are in b[0..n-1], with b[0] being the bottom element and b[n-1] being the top element.&lt;/li&gt;
+&lt;li&gt;A stack can be efficiently implemented using a linked list. The first element is the top of the stack and the last element is the bottom. It’s easy to push (prepend) an element and pop (remove) the first element in constant time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;the-deque&#34;&gt;The deque&lt;/h4&gt;
+&lt;p&gt;The word deque, usually pronounced deck, is short for double-ended queue. A deque is a list that supports insertion and removal at both ends. Thus, a deque can be used as a queue or as a stack.&lt;/p&gt;
+&lt;h4 id=&#34;stacks-queues-and-deques-in-the-java-collection-framework&#34;&gt;Stacks, queues, and deques in the Java Collection framework&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Java has interface Deque&lt;E&gt;. It is implemented by classes ArrayDeque&lt;E&gt; (which implements a list in an expandable array) and LinkedList&lt;E&gt;, so these two classes can be used for a queue and for a stack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Both ArrayDeque and LinkedList also implement interface Queue&lt;E&gt;, so you can use this interface to restrict operations to queue operations. For example, create a LinkedList and assign it to a Queue variable.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  Queue&amp;lt;E&amp;gt; q= new LinkedList&amp;lt;&amp;gt;();  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thereafter, use only q for the LinkedList and operations are restricted to queue operations.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Java also has a class Stack&lt;E&gt;, which implements a stack in an expandable array. However, the Java API would rather you use an ArrayDeque. The problem is that there is no suitable way to restrict the operations of an Array-Deque to stack operations, so we prefer to use class Stack&lt;E&gt;.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;arraysaslist-variable-arguments&#34;&gt;Arrays.asList() Variable Arguments&lt;/h3&gt;
 &lt;p&gt;Since the asList method in Arrays uses variable arguments, and &lt;strong&gt;variable arguments expressions are mapped to arrays&lt;/strong&gt;, you could either pass an inline array as in:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;List&amp;lt;String&amp;gt; list = Arrays.asList(new String[]{&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;});  
@@ -3659,6 +4295,10 @@ If any class implements Comparable interface in Java then collection of that obj
 &lt;a href=&#34;https://www.tutorialspoint.com/java/util/java_util_properties.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java.util.Properties Class&lt;/a&gt;&lt;br&gt;
 
 &lt;a href=&#34;https://www.geeksforgeeks.org/java-util-properties-class-java/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Java.util.Properties class in Java&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;java-8&#34;&gt;Java 8&lt;/h3&gt;
+&lt;h4 id=&#34;stream&#34;&gt;Stream&lt;/h4&gt;
+&lt;h4 id=&#34;foreach&#34;&gt;forEach&lt;/h4&gt;
+&lt;h4 id=&#34;optional&#34;&gt;Optional&lt;/h4&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
@@ -4024,6 +4664,18 @@ Whereas the .update(key1=val1, key2=val2) is nicer if you want to set multiple v
     dict.update can also take another dictionary, but I personally prefer not to explicitly create a new dictionary in order to update another one.
   &lt;/div&gt;
 &lt;/div&gt;
+&lt;h3 id=&#34;collections&#34;&gt;collections&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://docs.python.org/3/library/collections.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;collections — Container datatypes&lt;/a&gt;&lt;br&gt;
+This module implements specialized container datatypes providing alternatives to Python’s general purpose built-in containers, dict, list, set, and tuple.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./python-collections.png&#34; alt=&#34;python-collections&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Deprecated since version 3.3, will be removed in version 3.10: Moved Collections Abstract Base Classes to the collections.abc module. For backwards compatibility, they continue to be visible in this module through Python 3.9.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;collectionsabc&#34;&gt;collections.abc&lt;/h3&gt;
+&lt;p&gt;collections.abc — Abstract Base Classes for Containers&lt;/p&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     TBD
@@ -4163,6 +4815,20 @@ like sys.maxint in Python2.&lt;/p&gt;
     To Be Continued
   &lt;/div&gt;
 &lt;/div&gt;
+&lt;h3 id=&#34;mapdict-composite-key&#34;&gt;Map/Dict Composite key&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Python&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  map = {(1, 0) : 2, (1, 1) : 3, (2, 0) : 4, (2, 1) : 5}
+  map[(1,0)]
+  map.get((1,0))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java&lt;br&gt;
+Not so easy to do&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>
