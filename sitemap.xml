@@ -153,6 +153,16 @@
   </url>
   
   <url>
+    <loc>/tag/collection/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/collections/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/category/courses/</loc>
     <lastmod>9999-12-31T00:00:00+00:00</lastmod>
   </url>

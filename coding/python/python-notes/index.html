@@ -719,6 +719,47 @@ This module implements specialized container datatypes providing alternatives to
 </div>
 <h3 id="collectionsabc">collections.abc</h3>
 <p>collections.abc — Abstract Base Classes for Containers</p>
+<h3 id="forwhile-else">for/while else</h3>
+<p>
+<a href="https://stackoverflow.com/questions/9979970/why-does-python-use-else-after-for-and-while-loops" target="_blank" rel="noopener">Why does python use &lsquo;else&rsquo; after for and while loops?</a><br>
+A common construct is to run a loop until something is found and then to break out of the loop. The problem is that if I break out of the loop or the loop ends I need to determine which case happened. One method is to create a flag or store variable that will let me do a second test to see how the loop was exited.</p>
+<p>For example assume that I need to search through a list and process each item until a flag item is found and then stop processing. If the flag item is missing then an exception needs to be raised.</p>
+<p>Using the Python for&hellip;else construct you have</p>
+<pre><code>for i in mylist:
+    if i == theflag:
+        break
+    process(i)
+else:
+    raise ValueError(&quot;List argument missing terminal flag.&quot;)
+</code></pre>
+<p>Compare this to a method that does not use this syntactic sugar:</p>
+<pre><code>flagfound = False
+for i in mylist:
+    if i == theflag:
+        flagfound = True
+        break
+    process(i)
+if not flagfound:
+    raise ValueError(&quot;List argument missing terminal flag.&quot;)
+</code></pre>
+<p>In the first case the raise is bound tightly to the for loop it works with. In the second the binding is not as strong and errors may be introduced during maintenance.</p>
+<h3 id="strsplit">str.split()</h3>
+<p>Return a list of the words in the string, using sep as the delimiter string.<br>
+for example, &lsquo;1&lt;&gt;2&lt;&gt;3&rsquo;.split(&lsquo;&lt;&gt;&rsquo;) returns [&lsquo;1&rsquo;, &lsquo;2&rsquo;, &lsquo;3&rsquo;]</p>
+<ul>
+<li>The separator can be string, not only single character</li>
+<li>The return value of split
+<ul>
+<li>if not found, the return value is the original full string, like &lsquo;1&lt;&gt;2&lt;&gt;3&rsquo;.split(&lsquo;not&rsquo;) returns [&lsquo;1&lt;&gt;2&lt;&gt;3&rsquo;]</li>
+<li>if found, the strings are separated by the separator, like &lsquo;1&lt;&gt;2&lt;&gt;3&rsquo;.split(&lsquo;&lt;&gt;&rsquo;, 1) returns [&lsquo;1&rsquo;, &lsquo;2&lt;&gt;3&rsquo;]</li>
+<li>&lsquo;'.split(&lsquo;&lt;&gt;&rsquo;) returns ['']</li>
+<li>&lsquo;'.split('') raises exception</li>
+<li>'  1  2   3  &lsquo;.split() returns [&lsquo;1&rsquo;, &lsquo;2&rsquo;, &lsquo;3&rsquo;],<br>
+'  1  2   3  &lsquo;.split(None, 1) returns [&lsquo;1&rsquo;, &lsquo;2   3  &lsquo;],<br>
+'  1  2   3  &lsquo;.split(None) returns [&lsquo;1&rsquo;, &lsquo;2&rsquo;, &lsquo;3&rsquo;]</li>
+</ul>
+</li>
+</ul>
 <div class="alert alert-note">
   <div>
     TBD

@@ -179,6 +179,59 @@ like sys.maxint in Python2.&lt;/p&gt;
 Not so easy to do&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;string-equals-vs-&#34;&gt;String equals vs ==&lt;/h3&gt;
+&lt;p&gt;Check if the characters in two strings are identical&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Python ==&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  s1 = &amp;quot;Hello&amp;quot;
+  s2 = &amp;quot;Hello&amp;quot;
+  s3 = &amp;quot;Hello3&amp;quot;
+  s4 = &amp;quot;Hell&amp;quot; + &amp;quot;o&amp;quot;
+  s5 = &amp;quot;Hell&amp;quot;
+  s5 += &amp;quot;o&amp;quot;
+  id(s1)                 #  140701928086752
+  id(s2)                 #  140701928086752
+  id(s3)                 #  140701928160032
+  id(s4)                 #  140701928086752
+  id(s5)                 #  140701884560640
+  s1 == s2               #  True
+  s1 == s3               #  False
+  s1 == s4               #  True
+  s1 == s5               #  True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java equals() vs ==&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;==&lt;/strong&gt; to compare memory address or say identity in system
+&lt;strong&gt;equals()&lt;/strong&gt; to compare the content of strings&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    String s1 = &amp;quot;Hello&amp;quot;;
+    String s2 = &amp;quot;Hello&amp;quot;;
+    String s3 = &amp;quot;Hello3&amp;quot;;
+    String s4 = &amp;quot;Hell&amp;quot; + &amp;quot;o&amp;quot;;
+    String s5 = &amp;quot;Hell&amp;quot;;
+    s5 = s5 + &amp;quot;o&amp;quot;;
+    System.out.println(Integer.toHexString(s1.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s2.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s3.hashCode()));                //  809eedc1
+    System.out.println(Integer.toHexString(s4.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s5.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(System.identityHashCode(s1)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s2)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s3)));  //  3c0f93f1
+    System.out.println(Integer.toHexString(System.identityHashCode(s4)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s5)));  //  31dc339b
+    System.out.println(s1 == s2);                                          //  true
+    System.out.println(s1 == s3);                                          //  false
+    System.out.println(s1 == s4);                                          //  true
+    System.out.println(s1 == s5);                                          //  false, not same identity
+    System.out.println(s1.equals(s2));                                     //  true
+    System.out.println(s1.equals(s3));                                     //  false
+    System.out.println(s1.equals(s4));                                     //  true
+    System.out.println(s1.equals(s5));                                     //  true, contents are equal
+&lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>

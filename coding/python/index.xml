@@ -535,6 +535,47 @@ This module implements specialized container datatypes providing alternatives to
 &lt;/div&gt;
 &lt;h3 id=&#34;collectionsabc&#34;&gt;collections.abc&lt;/h3&gt;
 &lt;p&gt;collections.abc — Abstract Base Classes for Containers&lt;/p&gt;
+&lt;h3 id=&#34;forwhile-else&#34;&gt;for/while else&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/9979970/why-does-python-use-else-after-for-and-while-loops&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Why does python use &amp;lsquo;else&amp;rsquo; after for and while loops?&lt;/a&gt;&lt;br&gt;
+A common construct is to run a loop until something is found and then to break out of the loop. The problem is that if I break out of the loop or the loop ends I need to determine which case happened. One method is to create a flag or store variable that will let me do a second test to see how the loop was exited.&lt;/p&gt;
+&lt;p&gt;For example assume that I need to search through a list and process each item until a flag item is found and then stop processing. If the flag item is missing then an exception needs to be raised.&lt;/p&gt;
+&lt;p&gt;Using the Python for&amp;hellip;else construct you have&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;for i in mylist:
+    if i == theflag:
+        break
+    process(i)
+else:
+    raise ValueError(&amp;quot;List argument missing terminal flag.&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Compare this to a method that does not use this syntactic sugar:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;flagfound = False
+for i in mylist:
+    if i == theflag:
+        flagfound = True
+        break
+    process(i)
+if not flagfound:
+    raise ValueError(&amp;quot;List argument missing terminal flag.&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the first case the raise is bound tightly to the for loop it works with. In the second the binding is not as strong and errors may be introduced during maintenance.&lt;/p&gt;
+&lt;h3 id=&#34;strsplit&#34;&gt;str.split()&lt;/h3&gt;
+&lt;p&gt;Return a list of the words in the string, using sep as the delimiter string.&lt;br&gt;
+for example, &amp;lsquo;1&amp;lt;&amp;gt;2&amp;lt;&amp;gt;3&amp;rsquo;.split(&amp;lsquo;&amp;lt;&amp;gt;&amp;rsquo;) returns [&amp;lsquo;1&amp;rsquo;, &amp;lsquo;2&amp;rsquo;, &amp;lsquo;3&amp;rsquo;]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The separator can be string, not only single character&lt;/li&gt;
+&lt;li&gt;The return value of split
+&lt;ul&gt;
+&lt;li&gt;if not found, the return value is the original full string, like &amp;lsquo;1&amp;lt;&amp;gt;2&amp;lt;&amp;gt;3&amp;rsquo;.split(&amp;lsquo;not&amp;rsquo;) returns [&amp;lsquo;1&amp;lt;&amp;gt;2&amp;lt;&amp;gt;3&amp;rsquo;]&lt;/li&gt;
+&lt;li&gt;if found, the strings are separated by the separator, like &amp;lsquo;1&amp;lt;&amp;gt;2&amp;lt;&amp;gt;3&amp;rsquo;.split(&amp;lsquo;&amp;lt;&amp;gt;&amp;rsquo;, 1) returns [&amp;lsquo;1&amp;rsquo;, &amp;lsquo;2&amp;lt;&amp;gt;3&amp;rsquo;]&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;&#39;.split(&amp;lsquo;&amp;lt;&amp;gt;&amp;rsquo;) returns [&#39;&#39;]&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;&#39;.split(&#39;&#39;) raises exception&lt;/li&gt;
+&lt;li&gt;&#39;  1  2   3  &amp;lsquo;.split() returns [&amp;lsquo;1&amp;rsquo;, &amp;lsquo;2&amp;rsquo;, &amp;lsquo;3&amp;rsquo;],&lt;br&gt;
+&#39;  1  2   3  &amp;lsquo;.split(None, 1) returns [&amp;lsquo;1&amp;rsquo;, &amp;lsquo;2   3  &amp;lsquo;],&lt;br&gt;
+&#39;  1  2   3  &amp;lsquo;.split(None) returns [&amp;lsquo;1&amp;rsquo;, &amp;lsquo;2&amp;rsquo;, &amp;lsquo;3&amp;rsquo;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     TBD
@@ -688,6 +729,59 @@ like sys.maxint in Python2.&lt;/p&gt;
 Not so easy to do&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;string-equals-vs-&#34;&gt;String equals vs ==&lt;/h3&gt;
+&lt;p&gt;Check if the characters in two strings are identical&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Python ==&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  s1 = &amp;quot;Hello&amp;quot;
+  s2 = &amp;quot;Hello&amp;quot;
+  s3 = &amp;quot;Hello3&amp;quot;
+  s4 = &amp;quot;Hell&amp;quot; + &amp;quot;o&amp;quot;
+  s5 = &amp;quot;Hell&amp;quot;
+  s5 += &amp;quot;o&amp;quot;
+  id(s1)                 #  140701928086752
+  id(s2)                 #  140701928086752
+  id(s3)                 #  140701928160032
+  id(s4)                 #  140701928086752
+  id(s5)                 #  140701884560640
+  s1 == s2               #  True
+  s1 == s3               #  False
+  s1 == s4               #  True
+  s1 == s5               #  True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java equals() vs ==&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;==&lt;/strong&gt; to compare memory address or say identity in system
+&lt;strong&gt;equals()&lt;/strong&gt; to compare the content of strings&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    String s1 = &amp;quot;Hello&amp;quot;;
+    String s2 = &amp;quot;Hello&amp;quot;;
+    String s3 = &amp;quot;Hello3&amp;quot;;
+    String s4 = &amp;quot;Hell&amp;quot; + &amp;quot;o&amp;quot;;
+    String s5 = &amp;quot;Hell&amp;quot;;
+    s5 = s5 + &amp;quot;o&amp;quot;;
+    System.out.println(Integer.toHexString(s1.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s2.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s3.hashCode()));                //  809eedc1
+    System.out.println(Integer.toHexString(s4.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s5.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(System.identityHashCode(s1)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s2)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s3)));  //  3c0f93f1
+    System.out.println(Integer.toHexString(System.identityHashCode(s4)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s5)));  //  31dc339b
+    System.out.println(s1 == s2);                                          //  true
+    System.out.println(s1 == s3);                                          //  false
+    System.out.println(s1 == s4);                                          //  true
+    System.out.println(s1 == s5);                                          //  false, not same identity
+    System.out.println(s1.equals(s2));                                     //  true
+    System.out.println(s1.equals(s3));                                     //  false
+    System.out.println(s1.equals(s4));                                     //  true
+    System.out.println(s1.equals(s5));                                     //  true, contents are equal
+&lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
 </description>

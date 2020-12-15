@@ -798,6 +798,59 @@ like sys.maxint in Python2.</p>
 Not so easy to do</p>
 </li>
 </ul>
+<h3 id="string-equals-vs-">String equals vs ==</h3>
+<p>Check if the characters in two strings are identical</p>
+<ul>
+<li>
+<p>Python ==</p>
+<pre><code>  s1 = &quot;Hello&quot;
+  s2 = &quot;Hello&quot;
+  s3 = &quot;Hello3&quot;
+  s4 = &quot;Hell&quot; + &quot;o&quot;
+  s5 = &quot;Hell&quot;
+  s5 += &quot;o&quot;
+  id(s1)                 #  140701928086752
+  id(s2)                 #  140701928086752
+  id(s3)                 #  140701928160032
+  id(s4)                 #  140701928086752
+  id(s5)                 #  140701884560640
+  s1 == s2               #  True
+  s1 == s3               #  False
+  s1 == s4               #  True
+  s1 == s5               #  True
+</code></pre>
+</li>
+<li>
+<p>Java equals() vs ==</p>
+</li>
+</ul>
+<p><strong>==</strong> to compare memory address or say identity in system
+<strong>equals()</strong> to compare the content of strings</p>
+<pre><code>    String s1 = &quot;Hello&quot;;
+    String s2 = &quot;Hello&quot;;
+    String s3 = &quot;Hello3&quot;;
+    String s4 = &quot;Hell&quot; + &quot;o&quot;;
+    String s5 = &quot;Hell&quot;;
+    s5 = s5 + &quot;o&quot;;
+    System.out.println(Integer.toHexString(s1.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s2.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s3.hashCode()));                //  809eedc1
+    System.out.println(Integer.toHexString(s4.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(s5.hashCode()));                //  42628b2
+    System.out.println(Integer.toHexString(System.identityHashCode(s1)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s2)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s3)));  //  3c0f93f1
+    System.out.println(Integer.toHexString(System.identityHashCode(s4)));  //  2038ae61
+    System.out.println(Integer.toHexString(System.identityHashCode(s5)));  //  31dc339b
+    System.out.println(s1 == s2);                                          //  true
+    System.out.println(s1 == s3);                                          //  false
+    System.out.println(s1 == s4);                                          //  true
+    System.out.println(s1 == s5);                                          //  false, not same identity
+    System.out.println(s1.equals(s2));                                     //  true
+    System.out.println(s1.equals(s3));                                     //  false
+    System.out.println(s1.equals(s4));                                     //  true
+    System.out.println(s1.equals(s5));                                     //  true, contents are equal
+</code></pre>
 <br>
 <h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
 
