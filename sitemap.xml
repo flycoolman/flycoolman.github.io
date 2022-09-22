@@ -28,23 +28,48 @@
   </url>
   
   <url>
-    <loc>/coding/java/checked-vs-unchecked-exceptions-in-java/</loc>
-    <lastmod>2020-11-01T00:00:00+00:00</lastmod>
+    <loc>/coding/</loc>
+    <lastmod>2022-09-22T09:09:09+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/coding/</loc>
+    <loc>/author/hongwei-li/</loc>
+    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/html/</loc>
+    <lastmod>2022-09-22T09:09:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/html/</loc>
+    <lastmod>2022-09-22T09:09:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/html/spring-beans/</loc>
+    <lastmod>2022-09-22T09:09:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/html/</loc>
+    <lastmod>2022-09-22T09:09:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/coding/java/checked-vs-unchecked-exceptions-in-java/</loc>
     <lastmod>2020-11-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tag/exception/</loc>
     <lastmod>2020-11-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/hongwei-li/</loc>
-    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -60,11 +85,6 @@
   <url>
     <loc>/coding/java/</loc>
     <lastmod>2020-11-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTML | flycoolman</title>
+    <link>/tag/html/</link>
+      <atom:link href="/tag/html/index.xml" rel="self" type="application/rss+xml" />
+    <description>HTML</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2022 flycoolman.com All Rights Reserved</copyright><lastBuildDate>Thu, 22 Sep 2022 09:09:09 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png</url>
+      <title>HTML</title>
+      <link>/tag/html/</link>
+    </image>
+    
+    <item>
+      <title>HTML</title>
+      <link>/coding/html/spring-beans/</link>
+      <pubDate>Thu, 22 Sep 2022 09:09:09 +0000</pubDate>
+      <guid>/coding/html/spring-beans/</guid>
+      <description>&lt;h3 id=&#34;blank-line&#34;&gt;Blank line&lt;/h3&gt;
+&lt;!-- &lt;br&gt;
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;The objects that are managed by Spring IoC container&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;br&gt; --&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Line-height&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; &amp;lt;p style=&amp;quot;line-height:10px;&amp;quot;&amp;gt; 
+ This is a paragraph. 
+ &amp;lt;/p&amp;gt; 
+ &amp;lt;p&amp;gt; 
+ Another paragraph! 
+ &amp;lt;/p&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Padding-top&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; &amp;lt;p style=&amp;quot;padding-top:10px&amp;quot;&amp;gt; 
+ This is a paragraph. 
+ &amp;lt;/p&amp;gt; 
+ &amp;lt;p&amp;gt; 
+ Another paragraph! 
+ &amp;lt;/p&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Padding-bottom&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; &amp;lt;p style=&amp;quot;padding-bottom:10px&amp;quot;&amp;gt; 
+ This is a paragraph. 
+ &amp;lt;/p&amp;gt; 
+ &amp;lt;p&amp;gt; 
+ Another paragraph! 
+ &amp;lt;/p&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Break (BR)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; &amp;lt;p&amp;gt; 
+ This is a paragraph. 
+ &amp;lt;/p&amp;gt; 
+ &amp;lt;br&amp;gt; &amp;lt;!-- New line --&amp;gt; 
+ &amp;lt;br&amp;gt; &amp;lt;!-- New line --&amp;gt; 
+ &amp;lt;br&amp;gt; &amp;lt;!-- New line --&amp;gt; 
+ &amp;lt;p&amp;gt; 
+ Another paragraph! 
+ &amp;lt;/p&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.quora.com/How-do-you-insert-a-blank-line-in-HTML&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;How do you insert a blank line in HTML?&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
