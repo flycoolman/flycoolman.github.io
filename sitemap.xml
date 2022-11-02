@@ -63,6 +63,26 @@
   </url>
   
   <url>
+    <loc>/tag/networking/</loc>
+    <lastmod>2021-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/networking/</loc>
+    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/networking/</loc>
+    <lastmod>2021-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/networking/networking-notes/</loc>
+    <lastmod>2021-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/coding/java/checked-vs-unchecked-exceptions-in-java/</loc>
     <lastmod>2020-11-01T00:00:00+00:00</lastmod>
   </url>
@@ -220,11 +240,6 @@
   <url>
     <loc>/coding/python/list-tuple-dict-vs-list-tuple-dict/</loc>
     <lastmod>2020-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/networking/</loc>
-    <lastmod>9999-12-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -537,10 +552,6 @@
   
   <url>
     <loc>/coding/javascript/</loc>
-  </url>
-  
-  <url>
-    <loc>/networking/</loc>
   </url>
   
 </urlset>
