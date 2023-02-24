@@ -170,6 +170,141 @@
     </item>
     
     <item>
+      <title>Terminator Cheatsheet</title>
+      <link>/post/terminator-cheatsheet/</link>
+      <pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate>
+      <guid>/post/terminator-cheatsheet/</guid>
+      <description>&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install terminator
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;shortcuts&#34;&gt;Shortcuts&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Function&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Shortcuts&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Split Horizontally&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+O&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Split Vertically&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+E&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Move to Next Terminal&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+N or Ctrl+Tab&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Move Parent Dragbar&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Arrow_key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Hide/Show Scrollbar&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+S&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Search for a Keyword&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+F&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Move to other Terminal&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Alt+Arrow_key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Copy text to clipboard&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+C&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Paste text from Clipboard&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+V&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Close the Current Terminal&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+W&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Quit the Terminator&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Q&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Toggle full screen the tab&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+X&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Open New Tab&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+T&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Increase Font size&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+(+)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Decrease Font Size&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+(-)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Reset Font Size to Original&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+(0)(zero)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Toggle Full-Screen Mode&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;F11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Reset Terminal and Clear Window&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+G&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Group all Terminal into one&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Super+G&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ungroup all Terminal&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;Super+shift+G&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Toggle Full-Screen Mode&lt;/td&gt;
+&lt;td&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;
+&lt;td&gt;F11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.tecmint.com/terminator-a-linux-terminal-emulator-to-manage-multiple-terminal-windows/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Terminator – A Terminal Emulator to Manage Multiple Terminal Windows on Linux&lt;/a&gt;&lt;br&gt;
+
+&lt;a href=&#34;https://terminator-gtk3.readthedocs.io/en/latest/gettingstarted.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Terminator - readthedocs&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h4&gt;
+</description>
+    </item>
+    
+    <item>
       <title>HTML</title>
       <link>/coding/html/spring-beans/</link>
       <pubDate>Thu, 22 Sep 2022 09:09:09 +0000</pubDate>
@@ -1898,32 +2033,6 @@ Specialized authorization module that authorizes requests from kubelets&lt;/li&g
     </item>
     
     <item>
-      <title>-- Latest and Updated Posts -- </title>
-      <link>/post/latest-and-updates/</link>
-      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>/post/latest-and-updates/</guid>
-      <description>&lt;h2 id=&#34;the-latest-and-updated-posts&#34;&gt;The Latest and Updated Posts&lt;/h2&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://flycoolman.com/coding/python&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Python&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/coding/java&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Java&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/coding/go&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Go&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/coding/javascript&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coding-Javascript&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/linux&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Linux&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/devops&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;DevOps | SRE&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/networking&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Networking&lt;/a&gt;&lt;br&gt;
-
-&lt;a href=&#34;https://flycoolman.com/courses&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Courses&lt;/a&gt;&lt;/p&gt;
-&lt;br&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Docker</title>
       <link>/devops/docker/</link>
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
@@ -3035,9 +3144,9 @@ mysql -u root -p -t &amp;lt; employees.sql
     
     <item>
       <title>Build A Free Website In Minutes - Part 5</title>
-      <link>/post/build-a-free-website-in-minutes-part-5/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-5/</link>
       <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-5/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-5/</guid>
       <description>&lt;p&gt;The website has been up and running for a while. Today I want to update a document on another machine. The steps below describe how to set up the environment on the machine.&lt;/p&gt;
 &lt;h2 id=&#34;steps&#34;&gt;Steps&lt;/h2&gt;
 &lt;ul&gt;
@@ -4507,9 +4616,9 @@ Examples:&lt;/p&gt;
     
     <item>
       <title>Build A Free Website In Minutes - Part 4</title>
-      <link>/post/build-a-free-website-in-minutes-part-4/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-4/</link>
       <pubDate>Thu, 16 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-4/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-4/</guid>
       <description>&lt;p&gt;We have the website up and running in 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-3/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-3&lt;/a&gt;. If you have not completed that part, please do so before continuing this part.&lt;/p&gt;
 &lt;h2 id=&#34;personalize-academic-website&#34;&gt;Personalize Academic website&lt;/h2&gt;
@@ -4597,9 +4706,9 @@ The pictures below show how to add dropdown menu in file &amp;lsquo;site_root/co
     
     <item>
       <title>Build A Free Website In Minutes - Part 3</title>
-      <link>/post/build-a-free-website-in-minutes-part-3/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-3/</link>
       <pubDate>Wed, 15 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-3/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-3/</guid>
       <description>&lt;p&gt;In 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; and 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-2&lt;/a&gt;
@@ -4707,9 +4816,9 @@ git push
     
     <item>
       <title>Build A Free Website In Minutes - Part 2</title>
-      <link>/post/build-a-free-website-in-minutes-part-2/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-2/</link>
       <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-2/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-2/</guid>
       <description>&lt;p&gt;To learn more about prerequisites and tools, please check out the 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
 &lt;h2 id=&#34;hugo-theme&#34;&gt;Hugo Theme&lt;/h2&gt;
@@ -4806,9 +4915,9 @@ hugo server
     
     <item>
       <title>Build A Free Website In Minutes - Part 1</title>
-      <link>/post/build-a-free-website-in-minutes-part-1/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-1/</link>
       <pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-1/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-1/</guid>
       <description>&lt;p&gt;When I create this website, I find that there are no documents to walk me through each step from &amp;lsquo;Hello World&amp;rsquo; to deployment till customization. This makes me have the idea to create one and help others to understand the whole process. In this tutorial, we will use the tools &lt;strong&gt;GitHub Pages&lt;/strong&gt;, &lt;strong&gt;Hugo&lt;/strong&gt; and &lt;strong&gt;Academic&lt;/strong&gt;.&lt;br&gt;
 This is the 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;

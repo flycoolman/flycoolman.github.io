@@ -14,9 +14,9 @@
     
     <item>
       <title>Build A Free Website In Minutes - Part 5</title>
-      <link>/post/build-a-free-website-in-minutes-part-5/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-5/</link>
       <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-5/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-5/</guid>
       <description>&lt;p&gt;The website has been up and running for a while. Today I want to update a document on another machine. The steps below describe how to set up the environment on the machine.&lt;/p&gt;
 &lt;h2 id=&#34;steps&#34;&gt;Steps&lt;/h2&gt;
 &lt;ul&gt;
@@ -148,9 +148,9 @@ git branch -d temp
     
     <item>
       <title>Build A Free Website In Minutes - Part 4</title>
-      <link>/post/build-a-free-website-in-minutes-part-4/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-4/</link>
       <pubDate>Thu, 16 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-4/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-4/</guid>
       <description>&lt;p&gt;We have the website up and running in 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-3/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-3&lt;/a&gt;. If you have not completed that part, please do so before continuing this part.&lt;/p&gt;
 &lt;h2 id=&#34;personalize-academic-website&#34;&gt;Personalize Academic website&lt;/h2&gt;
@@ -238,9 +238,9 @@ The pictures below show how to add dropdown menu in file &amp;lsquo;site_root/co
     
     <item>
       <title>Build A Free Website In Minutes - Part 3</title>
-      <link>/post/build-a-free-website-in-minutes-part-3/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-3/</link>
       <pubDate>Wed, 15 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-3/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-3/</guid>
       <description>&lt;p&gt;In 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; and 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-2&lt;/a&gt;
@@ -348,9 +348,9 @@ git push
     
     <item>
       <title>Build A Free Website In Minutes - Part 2</title>
-      <link>/post/build-a-free-website-in-minutes-part-2/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-2/</link>
       <pubDate>Tue, 14 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-2/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-2/</guid>
       <description>&lt;p&gt;To learn more about prerequisites and tools, please check out the 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
 &lt;h2 id=&#34;hugo-theme&#34;&gt;Hugo Theme&lt;/h2&gt;
@@ -447,9 +447,9 @@ hugo server
     
     <item>
       <title>Build A Free Website In Minutes - Part 1</title>
-      <link>/post/build-a-free-website-in-minutes-part-1/</link>
+      <link>/linux/build-a-free-website-in-minutes-part-1/</link>
       <pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/build-a-free-website-in-minutes-part-1/</guid>
+      <guid>/linux/build-a-free-website-in-minutes-part-1/</guid>
       <description>&lt;p&gt;When I create this website, I find that there are no documents to walk me through each step from &amp;lsquo;Hello World&amp;rsquo; to deployment till customization. This makes me have the idea to create one and help others to understand the whole process. In this tutorial, we will use the tools &lt;strong&gt;GitHub Pages&lt;/strong&gt;, &lt;strong&gt;Hugo&lt;/strong&gt; and &lt;strong&gt;Academic&lt;/strong&gt;.&lt;br&gt;
 This is the 
 &lt;a href=&#34;https://flycoolman.com/post/build-a-free-website-in-minutes-part-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part-1&lt;/a&gt; of this series.&lt;/p&gt;
