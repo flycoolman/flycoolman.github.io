@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="Software, Networking">
+  <meta name="description" content="It describes how to create bonding on Ubuntu.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/tags/">
+  <link rel="alternate" hreflang="en-us" href="/post/linux-bonding/">
 
   
 
@@ -250,14 +250,12 @@
   
 
   
-  <link rel="alternate" href="/tags/index.xml" type="application/rss+xml" title="flycoolman">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/tags/">
+  <link rel="canonical" href="/post/linux-bonding/">
 
   
   
@@ -267,38 +265,89 @@
   
   
     
-    
   
   
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
   
   <meta property="twitter:site" content="@flycoolman">
   <meta property="twitter:creator" content="@flycoolman">
   
   <meta property="og:site_name" content="flycoolman">
-  <meta property="og:url" content="/tags/">
-  <meta property="og:title" content="Tags | flycoolman">
-  <meta property="og:description" content="Software, Networking"><meta property="og:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png">
-  <meta property="twitter:image" content="/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/post/linux-bonding/">
+  <meta property="og:title" content="Linux Bonding | flycoolman">
+  <meta property="og:description" content="It describes how to create bonding on Ubuntu."><meta property="og:image" content="/post/linux-bonding/featured.png">
+  <meta property="twitter:image" content="/post/linux-bonding/featured.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2023-08-04T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2023-08-04T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2023-10-24T00:00:00&#43;00:00">
   
-
-  
-
-
-
 
   
 
 
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/linux-bonding/"
+  },
+  "headline": "Linux Bonding",
+  
+  "image": [
+    "/post/linux-bonding/featured.png"
+  ],
+  
+  "datePublished": "2023-08-04T00:00:00Z",
+  "dateModified": "2023-10-24T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Hongwei Li"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "flycoolman",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu42a5118afc49636e6fda7ce5d4b48056_3366_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "It describes how to create bonding on Ubuntu."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
   
 
 
 
 
 
-  <title>Tags | flycoolman</title>
+  <title>Linux Bonding | flycoolman</title>
 
 </head>
 
@@ -553,154 +602,635 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Linux Bonding</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
   
   
   
+  
+  <div>
     
+
   
-<div class="universal-wrapper pt-3">
-  <h1>Tags</h1>
+  <span ><a href="/author/hongwei-li/">Hongwei Li</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Oct 24, 2023
+  </span>
+  
 
   
 
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/linux-bonding/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/linux/">Linux</a>, <a href="/category/system/">System</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 319px; max-height: 270px;">
+  <div style="position: relative">
+    <img src="/post/linux-bonding/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="install-modules">Install modules</h2>
+<pre><code>sudo modprobe bonding
+lsmod | grep bond
+sudo apt-get install ifenslave
+</code></pre>
+<h2 id="temporary-testing">Temporary testing</h2>
+<p>To create a bond interface composed of the first two physical NCs in your system, issue the below command. However this method of creating bond interface is ephemeral and <strong>DOES NOT</strong> survive system reboot.</p>
+<pre><code>sudo ip link add bond0 type bond mode 802.3ad
+sudo ip link set eth0 master bond0
+sudo ip link set eth1 master bond0
+</code></pre>
+<h2 id="permanant-configuration">Permanant configuration</h2>
+<p>To create a permanent bond interface, use the method to manually edit interfaces configuration file. Details about the bond interface can be obtained by displaying the content of the below kernel file using cat command as shown.</p>
+<pre><code>nano /etc/netplan/01-netcfg.yaml
+
+cat /etc/netplan/01-netcfg.yaml
+</code></pre>
+<h3 id="access-port">Access port</h3>
+<pre><code>root@R107-U04:/home/ba# cat /etc/netplan/01-netcfg.yaml
+# This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+  bonds:
+    bond0:
+      dhcp4: yes
+      interfaces:
+      - eno2
+      - eno3
+      parameters:
+        lacp-rate: fast
+        mii-monitor-interval: 100
+        min-links: 1
+        mode: 802.3ad
+        transmit-hash-policy: layer3+4
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: yes
+      dhcp-identifier: mac
+    eno2:
+      dhcp4: false
+    eno3:
+      dhcp4: false
+</code></pre>
+<h3 id="access-port-with-route">Access port with route</h3>
+<pre><code>root@R107-U04:/home/ba# cat /etc/netplan/01-netcfg.yaml 
+# This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+  bonds:
+    bond0:
+      dhcp4: false
+      interfaces:
+      - eno2
+      - eno3
+      addresses: [10.30.15.168/26]
+      routes:
+      - to: 10.50.101.0/24
+        via: 10.30.15.129
+      parameters:
+        lacp-rate: fast
+        mii-monitor-interval: 100
+        min-links: 1
+        mode: 802.3ad
+        transmit-hash-policy: layer3+4    
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: yes
+      dhcp-identifier: mac
+    eno2:
+      dhcp4: false
+    eno3:
+      dhcp4: false
+</code></pre>
+<h3 id="trunk-port">Trunk port</h3>
+<pre><code>network:
+  bonds:
+    bond0:
+      dhcp4: false
+      interfaces:
+      - eno2
+      - eno3
+      parameters:
+        lacp-rate: fast
+        mii-monitor-interval: 100
+        min-links: 1
+        mode: 802.3ad
+        transmit-hash-policy: layer3+4
+    
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: yes
+      dhcp-identifier: mac
+    eno2:
+      dhcp4: false
+    eno3:
+      dhcp4: false
+    
+  vlans:
+    bond0.1021:
+      addresses: [192.168.100.168/24]
+      dhcp4: false
+      id: 1021
+      link: bond0
+      routes:
+      - scope: link
+        table: 11
+        to: 10.30.15.128/26
+      - table: 11
+        to: 10.50.101.0/24
+        via: 10.30.15.129
+      routing-policy:
+      - from: 10.30.15.168
+        priority: 1
+        table: 11
+    bond0.1022:
+      critical: false
+      dhcp-identifier: mac
+      dhcp4: true
+      dhcp4-overrides:
+        send-hostname: false
+        use-hostname: false
+      dhcp6: false
+      id: 1022
+      link: bond0
+</code></pre>
+<h2 id="change-transmit-hash">Change Transmit Hash</h2>
+<p>If the Transmit Hash Policy is changed, to reboot the Ubuntu for the new policy taking effect.</p>
+<h3 id="before-rebooting">Before rebooting</h3>
+<pre><code>root@R107-U04:/home/ba# cat /proc/net/bonding/bond0
+Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)
+    
+Bonding Mode: IEEE 802.3ad Dynamic link aggregation
+Transmit Hash Policy: layer2 (0)
+MII Status: up
+MII Polling Interval (ms): 100
+Up Delay (ms): 200
+Down Delay (ms): 200
+Peer Notification Delay (ms): 0
+    
+802.3ad info
+LACP rate: slow
+Min links: 0
+Aggregator selection policy (ad_select): stable
+System priority: 65535
+System MAC address: 78:ac:44:9e:52:f2
+Active Aggregator Info:
+        Aggregator ID: 1
+        Number of ports: 2
+        Actor Key: 15
+        Partner Key: 3
+        Partner Mac Address: 00:01:02:03:04:05
+    
+Slave Interface: eno3
+MII Status: up
+Speed: 10000 Mbps
+Duplex: full
+Link Failure Count: 9
+Permanent HW addr: 78:ac:44:9e:52:f2
+Slave queue ID: 0
+Aggregator ID: 1
+Actor Churn State: none
+Partner Churn State: none
+Actor Churned Count: 0
+Partner Churned Count: 0
+details actor lacp pdu:
+    system priority: 65535
+    system mac address: 78:ac:44:9e:52:f2
+    port key: 15
+    port priority: 255
+    port number: 1
+    port state: 61
+details partner lacp pdu:
+    system priority: 127
+    system mac address: 00:01:02:03:04:05
+    oper key: 3
+    port priority: 127
+    port number: 3
+    port state: 63
+    
+Slave Interface: eno2
+MII Status: up
+Speed: 10000 Mbps
+Duplex: full
+Link Failure Count: 12
+Permanent HW addr: 78:ac:44:9e:52:f1
+Slave queue ID: 0
+Aggregator ID: 1
+Actor Churn State: churned
+Partner Churn State: churned
+Actor Churned Count: 1
+Partner Churned Count: 1
+details actor lacp pdu:
+    system priority: 65535
+    system mac address: 78:ac:44:9e:52:f2
+    port key: 15
+    port priority: 255
+    port number: 2
+    port state: 61
+details partner lacp pdu:
+    system priority: 127
+    system mac address: 00:01:02:03:04:05
+    oper key: 3
+    port priority: 127
+    port number: 32769
+    port state: 63
+</code></pre>
+<h3 id="rebooting">Rebooting</h3>
+<pre><code>root@R107-U04:/# shutdown -r now
+</code></pre>
+<h3 id="after-rebooting">After rebooting</h3>
+<pre><code>ba@R107-U04:~$ cat /proc/net/bonding/bond0
+Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)
+  
+Bonding Mode: IEEE 802.3ad Dynamic link aggregation
+Transmit Hash Policy: layer3+4 (1)
+MII Status: up
+MII Polling Interval (ms): 100
+Up Delay (ms): 0
+Down Delay (ms): 0
+Peer Notification Delay (ms): 0
+  
+802.3ad info
+LACP rate: fast
+Min links: 1
+Aggregator selection policy (ad_select): stable
+  
+Slave Interface: eno3
+MII Status: up
+Speed: 10000 Mbps
+Duplex: full
+Link Failure Count: 0
+Permanent HW addr: 78:ac:44:9e:52:f2
+Slave queue ID: 0
+Aggregator ID: 1
+Actor Churn State: none
+Partner Churn State: none
+Actor Churned Count: 0
+Partner Churned Count: 0
+  
+Slave Interface: eno2
+MII Status: up
+Speed: 10000 Mbps
+Duplex: full
+Link Failure Count: 0
+Permanent HW addr: 78:ac:44:9e:52:f1
+Slave queue ID: 0
+Aggregator ID: 1
+Actor Churn State: none
+Partner Churn State: none
+Actor Churned Count: 0
+Partner Churned Count: 0
+</code></pre>
+<h2 id="to-check-the-packets">To check the packets</h2>
+<pre><code>root@R107-U04:/# tcpdump -i eno2 icmp
+root@R107-U04:/# tcpdump -i eno3 icmp 
+</code></pre>
+<h2 id="links">Links</h2>
+<p>
+<a href="https://www.tecmint.com/configure-network-bonding-teaming-in-ubuntu/" target="_blank" rel="noopener">How to Configure Network Bonding or Teaming in Ubuntu</a></p>
+<br>
+<h4 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h4>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">Linux</a>
+  
+  <a class="badge badge-light" href="/tag/system/">System</a>
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
-
-  
-  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
     
-    
-    
-    <div>
-      <h2><a href="/tag/linux/" >Linux</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/linux-bonding/&amp;text=Linux%20Bonding" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/system/" >System</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/linux-bonding/&amp;t=Linux%20Bonding" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/html/" >HTML</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Linux%20Bonding&amp;body=/post/linux-bonding/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/networking/" >Networking</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/linux-bonding/&amp;title=Linux%20Bonding" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/exception/" >Exception</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Linux%20Bonding%20/post/linux-bonding/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
     
-    
-    
-    <div>
-      <h2><a href="/tag/java/" >Java</a></h2>
-      <div class="article-style">
+      
+      
+      
         
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/algorithm/" >Algorithm</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/manachers-algorithm/" >Manacher&#39;s Algorithm</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/python/" >Python</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/tag/k8s/" >K8S</a></h2>
-      <div class="article-style">
-        
-      </div>
-    </div>
-  
-
-  
-<nav>
-  <ul class="pagination justify-content-center">
-    
-    
-    <li class="page-item"><a class="page-link" href="/tags/page/2/">&raquo;</a></li>
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/linux-bonding/&amp;title=Linux%20Bonding" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
     
   </ul>
-</nav>
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/hongwei-li/avatar_hu33d8f2710ea4928d295bd08cdc05f6eb_17524_270x270_fill_q90_lanczos_center.jpg" alt="Hongwei Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Hongwei Li</a></h5>
+        <h6 class="card-subtitle">Software, Networking</h6>
+        <p class="card-text">Always on the way - Coding, DevOps, Networking.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:flycoolman@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/flycoolman" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+<section id="comments">
+  
+    
+
+  
+</section>
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/linux/linux-bonding/">Linux Bonding</a></li>
+      
+      <li><a href="/post/terminator-cheatsheet/">Terminator Cheatsheet</a></li>
+      
+      <li><a href="/linux/terminator-cheatsheet/">Terminator Cheatsheet</a></li>
+      
+      <li><a href="/devops/docker/">Docker</a></li>
+      
+      <li><a href="/linux/whatis-locate-which-whereis/">Whatis Locate Which Whereis</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
 
       
 
